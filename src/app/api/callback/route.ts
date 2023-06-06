@@ -1,5 +1,6 @@
 import { APIUser, UserFlags } from "discord-api-types/v10";
 import { NextResponse } from "next/server";
+import crypto from "node:crypto";
 import {
   DISCORD_API_HOST,
   DISCORD_CLIENT_ID,
@@ -55,11 +56,7 @@ export async function POST(request: Request) {
   }
 
   const user = (await userResponse.json()) as APIUser;
-  if (
-    user.discriminator !== "0" ||
-    user.premium_type == null ||
-    user.public_flags == null
-  ) {
+  if (user.discriminator !== "0") {
     return NextResponse.json(
       { status: CallbackCode.NotEligible },
       { status: 400 }
@@ -90,8 +87,8 @@ export async function POST(request: Request) {
     hash: hashHex,
     date: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
     nitro:
-      user.premium_type > 0 ||
-      (user.public_flags & UserFlags.PremiumEarlySupporter) > 0,
+      user.premium_type! > 0 ||
+      (user.public_flags! & UserFlags.PremiumEarlySupporter) > 0,
   });
 
   return NextResponse.json({ status: CallbackCode.Success });

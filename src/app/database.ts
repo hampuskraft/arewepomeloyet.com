@@ -3,7 +3,7 @@ import Redis from "ioredis";
 import { REDIS_URL } from "./config";
 import prisma from "./prisma";
 
-const redis = new Redis(REDIS_URL, { lazyConnect: true });
+const redis = new Redis(REDIS_URL, { family: 6, lazyConnect: true });
 
 export type PomeloSerialized = Omit<Pomelo, "date"> & { date: string };
 export type PomelosResponse = {
@@ -49,7 +49,7 @@ export async function createPomelo({
   date: Date;
   nitro: boolean;
 }): Promise<Pomelo> {
-  const pomelo = prisma.pomelo.create({ data: { hash, date, nitro } });
+  const pomelo = await prisma.pomelo.create({ data: { hash, date, nitro } });
   await redis.del("pomelos");
   return pomelo;
 }

@@ -39,8 +39,8 @@ export default function Callback() {
   const [status, setStatus] = useState<CallbackCode>(CallbackCode.UnknownError);
 
   useEffect(() => {
-    const code = searchParams.get("code");
-    const state = searchParams.get("state");
+    const code = searchParams?.get("code");
+    const state = searchParams?.get("state");
     if (typeof code !== "string" || typeof state !== "string") {
       setStatus(CallbackCode.UnknownError);
       return;
