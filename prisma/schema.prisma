@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pomelo {
+  hash  String   @id
+  date  DateTime
+  nitro Boolean
+
+  @@index([date])
+  @@index([nitro])
+  @@map("pomelos")
+}

@@ -1,0 +1,36 @@
+{
+  "name": "arewepomeloyet.com",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "prisma generate && BUILD=1 next build",
+    "dev": "next dev",
+    "format": "prettier --write .",
+    "lint": "next lint",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@fontsource-variable/source-sans-3": "5.0.3",
+    "@fontsource-variable/space-grotesk": "5.0.2",
+    "@prisma/client": "4.15.0",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.8",
+    "@types/react-dom": "18.2.4",
+    "autoprefixer": "10.4.14",
+    "discord-api-types": "0.37.43",
+    "eslint": "8.42.0",
+    "eslint-config-next": "13.4.4",
+    "ioredis": "5.3.2",
+    "next": "13.4.4",
+    "next-themes": "0.2.1",
+    "postcss": "8.4.24",
+    "prettier": "2.8.8",
+    "prettier-plugin-organize-imports": "3.2.2",
+    "prettier-plugin-tailwindcss": "0.3.0",
+    "prisma": "4.15.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.1.3"
+  }
+}
