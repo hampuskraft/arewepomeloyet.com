@@ -9,13 +9,6 @@ export type PomelosResponse = {
 };
 
 export async function getPomelos(): Promise<PomelosResponse> {
-  if (process.env.BUILD === "1") {
-    return {
-      pomelos: [],
-      timestamp: Date.now(),
-    };
-  }
-
   const pomelos = await prisma.pomelo.findMany({ orderBy: { date: "asc" } });
   const pomelosResponse: PomelosResponse = {
     pomelos: pomelos.map((pomelo) => ({

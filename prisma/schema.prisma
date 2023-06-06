@@ -8,9 +8,10 @@ datasource db {
 }
 
 model Pomelo {
-  hash  String   @id
-  date  DateTime
-  nitro Boolean
+  hash      String   @id
+  date      DateTime
+  nitro     Boolean
+  timestamp DateTime @default(now())
 
   @@index([date])
   @@index([nitro])

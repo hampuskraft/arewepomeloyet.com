@@ -17,7 +17,9 @@ RUN apt-get update && \
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN --mount=type=secret,id=DATABASE_URL \
+  echo DATABASE_URL="$(cat /run/secrets/DATABASE_URL)" > .env
+RUN npm run migrate && npm run generate && npm run build
 
 # Runner
 FROM base AS runner

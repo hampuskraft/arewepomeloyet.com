@@ -1,14 +1,14 @@
-import { APIUser, UserFlags } from "discord-api-types/v10";
-import { NextResponse } from "next/server";
-import crypto from "node:crypto";
 import {
   DISCORD_API_HOST,
   DISCORD_CLIENT_ID,
   DISCORD_CLIENT_SECRET,
   DISCORD_REDIRECT_URI,
-} from "../../config";
-import { CallbackCode } from "../../constants";
-import { createPomelo, getPomeloByHash } from "../../database";
+} from "@/app/config";
+import { CallbackCode } from "@/app/constants";
+import { createPomelo, getPomeloByHash } from "@/app/database";
+import { APIUser, UserFlags } from "discord-api-types/v10";
+import { NextResponse } from "next/server";
+import crypto from "node:crypto";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -59,6 +59,13 @@ export async function POST(request: Request) {
   if (user.discriminator !== "0") {
     return NextResponse.json(
       { status: CallbackCode.NotEligible },
+      { status: 400 }
+    );
+  }
+
+  if (user.public_flags! & UserFlags.Staff) {
+    return NextResponse.json(
+      { status: CallbackCode.NotEligibleStaff },
       { status: 400 }
     );
   }

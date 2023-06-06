@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "prisma generate && BUILD=1 next build",
+    "build": "next build",
     "dev": "next dev",
     "format": "prettier --write .",
+    "generate": "prisma generate",
     "lint": "next lint",
+    "migrate": "prisma migrate deploy",
     "start": "next start"
   },
   "dependencies": {

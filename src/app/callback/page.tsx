@@ -1,8 +1,8 @@
 "use client";
 
+import { CallbackCode, CallbackCodeToMessage } from "@/app/constants";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CallbackCode, CallbackCodeToMessage } from "../constants";
 
 async function handleOAuthRequest({
   code,
