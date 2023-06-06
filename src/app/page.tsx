@@ -4,6 +4,8 @@ import ThemeSwitch from "./theme-switch";
 
 const numberFormatter = new Intl.NumberFormat("en-US");
 
+export const revalidate = 60;
+
 export default async function Home() {
   const { pomelos, timestamp } = await getPomelos();
 

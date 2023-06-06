@@ -1,6 +1,5 @@
 export const DATABASE_URL = process.env.DATABASE_URL ?? "";
 export const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET ?? "";
-export const REDIS_URL = process.env.REDIS_URL ?? "";
 
 // TODO: These should ideally be environment variables, but Next.js is broken
 export const DISCORD_CLIENT_ID = "1115606938441502732";

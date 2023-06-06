@@ -1,9 +1,6 @@
 import { Pomelo } from "@prisma/client";
-import Redis from "ioredis";
-import { REDIS_URL } from "./config";
+import { revalidatePath } from "next/cache";
 import prisma from "./prisma";
-
-const redis = new Redis(REDIS_URL, { family: 6, lazyConnect: true });
 
 export type PomeloSerialized = Omit<Pomelo, "date"> & { date: string };
 export type PomelosResponse = {
@@ -19,11 +16,6 @@ export async function getPomelos(): Promise<PomelosResponse> {
     };
   }
 
-  const cachedPomelos = await redis.get("pomelos");
-  if (cachedPomelos) {
-    return JSON.parse(cachedPomelos);
-  }
-
   const pomelos = await prisma.pomelo.findMany({ orderBy: { date: "asc" } });
   const pomelosResponse: PomelosResponse = {
     pomelos: pomelos.map((pomelo) => ({
@@ -32,7 +24,6 @@ export async function getPomelos(): Promise<PomelosResponse> {
     })),
     timestamp: Date.now(),
   };
-  await redis.set("pomelos", JSON.stringify(pomelosResponse), "EX", 5 * 60);
   return pomelosResponse;
 }
 
@@ -50,6 +41,6 @@ export async function createPomelo({
   nitro: boolean;
 }): Promise<Pomelo> {
   const pomelo = await prisma.pomelo.create({ data: { hash, date, nitro } });
-  await redis.del("pomelos");
+  revalidatePath("/");
   return pomelo;
 }
