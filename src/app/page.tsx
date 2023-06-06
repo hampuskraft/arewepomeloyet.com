@@ -138,6 +138,45 @@ export default async function Home() {
         </div>
       </div>
 
+      <div className="flex flex-col gap-4 lg:gap-6">
+        <h2 className="font-display text-2xl font-semibold lg:text-4xl">
+          Frequently Asked Questions
+        </h2>
+
+        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+          <p>
+            <strong>Q: Who got early access?</strong>
+          </p>
+          <p>
+            A: Staff members (and their personal accounts),{" "}
+            <Link href="https://discord.com/partners">
+              Partnered Server Owners
+            </Link>
+            , and owners of servers with{" "}
+            <Link href="https://creator-support.discord.com/hc/en-us/articles/10423011974551">
+              Server Subscriptions (US only)
+            </Link>
+            . Moderator Programs Alumni, HypeSquad Events, and Discord Admins{" "}
+            <strong>did NOT get early access</strong>.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+          <p>
+            <strong>Q: When did the general rollout start?</strong>
+          </p>
+          <p>
+            A: Discord announced in their{" "}
+            <Link href="https://discord.com/channels/169256939211980800/889949624218042420/1115339637959970998">
+              Discord Town Hall
+            </Link>{" "}
+            server on June 5, 2023 (GMT) that &quot;Starting today, users will
+            become eligible to update their usernames over the coming weeks on a
+            rolling basis.&quot;
+          </p>
+        </div>
+      </div>
+
       <Footer timestamp={timestamp} pomelos={pomelos} />
     </main>
   );

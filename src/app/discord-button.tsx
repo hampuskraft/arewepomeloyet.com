@@ -22,8 +22,8 @@ export default function DiscordButton() {
           can&apos;t see who you are.
         </p>
         <p>
-          We only store your user ID hash, your registration date (month and
-          year), and your Nitro status (Early Supporter included).
+          We only store your user ID hash, registration date (month and year),
+          and Nitro status (Early Supporter included).
         </p>
       </div>
     </div>

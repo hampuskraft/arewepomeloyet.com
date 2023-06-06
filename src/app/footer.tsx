@@ -17,12 +17,12 @@ export default function Footer({
   return (
     <div className="flex flex-col gap-2 text-md font-display font-light text-gray-700 dark:text-gray-400">
       <p>
-        Last updated at <strong>{new Date(timestamp).toLocaleString()}</strong>.
+        Last updated on <strong>{new Date(timestamp).toLocaleString()}</strong>.
       </p>
 
       {latestPomelo && (
         <p>
-          Last pomelo registered at{" "}
+          Last pomelo registered on{" "}
           <strong>{new Date(latestPomelo.timestamp).toLocaleString()}</strong>.
         </p>
       )}
