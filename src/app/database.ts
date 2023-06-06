@@ -49,5 +49,7 @@ export async function createPomelo({
   date: Date;
   nitro: boolean;
 }): Promise<Pomelo> {
-  return prisma.pomelo.create({ data: { hash, date, nitro } });
+  const pomelo = prisma.pomelo.create({ data: { hash, date, nitro } });
+  await redis.del("pomelos");
+  return pomelo;
 }
