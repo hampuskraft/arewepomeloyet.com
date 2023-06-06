@@ -10,19 +10,20 @@ export default function Footer({
   pomelos: PomeloSerialized[];
   timestamp: number;
 }) {
+  const [latestPomelo] = pomelos.sort((a, b) => {
+    return b.timestamp.getTime() - a.timestamp.getTime();
+  });
+
   return (
     <div className="flex flex-col gap-2 text-md font-display font-light text-gray-700 dark:text-gray-400">
       <p>
         Last updated at <strong>{new Date(timestamp).toLocaleString()}</strong>.
       </p>
 
-      {pomelos.at(-1) && (
+      {latestPomelo && (
         <p>
           Last pomelo registered at{" "}
-          <strong>
-            {new Date(pomelos.at(-1)!.timestamp).toLocaleString()}
-          </strong>
-          .
+          <strong>{new Date(latestPomelo.timestamp).toLocaleString()}</strong>.
         </p>
       )}
 
