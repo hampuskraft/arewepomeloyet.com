@@ -175,6 +175,22 @@ export default async function Home() {
             rolling basis.&quot;
           </p>
         </div>
+
+        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+          <p>
+            <strong>Q: Do Nitro users get priority in the rollout?</strong>
+          </p>
+          <p>
+            A: Yes, according to Discord&apos;s{" "}
+            <Link href="https://discord.com/blog/usernames">
+              official blog post
+            </Link>
+            : &quot;<strong>Current</strong> Nitro subscribers [...] that
+            registered for Nitro <strong>on or before March 1, 2023</strong>{" "}
+            will also be given early access.&quot; Early Supporters also appear
+            to get early access.
+          </p>
+        </div>
       </div>
 
       <Footer timestamp={timestamp} pomelos={pomelos} />
