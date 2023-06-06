@@ -138,11 +138,18 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <p className="text-md font-display font-light text-gray-700 dark:text-gray-400">
+      <div className="flex flex-col gap-2 text-md font-display font-light text-gray-700 dark:text-gray-400">
+        <p>
           Last updated at{" "}
           <strong>{new Date(timestamp).toLocaleString()}</strong>.
         </p>
+
+        {pomelos[0] && (
+          <p>
+            Last pomelo registered at{" "}
+            <strong>{new Date(pomelos[0].timestamp).toLocaleString()}</strong>.
+          </p>
+        )}
 
         <ThemeSwitch />
       </div>

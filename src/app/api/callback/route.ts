@@ -70,6 +70,13 @@ export async function POST(request: Request) {
     );
   }
 
+  if (user.public_flags! & UserFlags.Partner) {
+    return NextResponse.json(
+      { status: CallbackCode.NotEligiblePartner },
+      { status: 400 }
+    );
+  }
+
   const hash = await crypto.subtle.digest(
     "SHA-256",
     new TextEncoder().encode(user.id)
