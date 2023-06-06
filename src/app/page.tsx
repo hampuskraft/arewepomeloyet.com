@@ -1,6 +1,6 @@
 import { PomeloSerialized, getPomelos } from "./database";
 import DiscordButton from "./discord-button";
-import ThemeSwitch from "./theme-switch";
+import Footer from "./footer";
 
 const numberFormatter = new Intl.NumberFormat("en-US");
 
@@ -138,21 +138,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 text-md font-display font-light text-gray-700 dark:text-gray-400">
-        <p>
-          Last updated at{" "}
-          <strong>{new Date(timestamp).toLocaleString()}</strong>.
-        </p>
-
-        {pomelos[0] && (
-          <p>
-            Last pomelo registered at{" "}
-            <strong>{new Date(pomelos[0].timestamp).toLocaleString()}</strong>.
-          </p>
-        )}
-
-        <ThemeSwitch />
-      </div>
+      <Footer timestamp={timestamp} pomelos={pomelos} />
     </main>
   );
 }
