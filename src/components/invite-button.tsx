@@ -12,14 +12,14 @@ export default function InviteButton() {
         Invite Discord Bot
       </a>
 
-      <div className="flex flex-col gap-2 font-body text-sm font-light text-gray-700 dark:text-gray-400">
+      <div className="flex flex-col gap-2 font-body text-md font-light text-gray-700 dark:text-gray-400">
         <p>
           By inviting the bot, you agree to the anonymous collection of the same data as the &quot;I got
           Pomelo&apos;d!&quot; button above.
         </p>
         <p>
-          We&apos;ll make an educated guess (displayed separately from the Nitro percentage) if someone has Nitro since
-          the Discord API doesn&apos;t provide this to bots. Server boosting? Possibly Nitro.
+          We&apos;ll make an educated guess if someone has Nitro since the Discord API doesn&apos;t provide this to
+          bots.
         </p>
       </div>
     </div>

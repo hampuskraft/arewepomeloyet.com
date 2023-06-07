@@ -16,7 +16,7 @@ export default function PomeloButton() {
         I got Pomelo&apos;d!
       </button>
 
-      <div className="flex flex-col gap-2 font-body text-sm font-light text-gray-700 dark:text-gray-400">
+      <div className="flex flex-col gap-2 font-body text-md font-light text-gray-700 dark:text-gray-400">
         <p>Your user ID is anonymized with a hash function (SHA-256), so we can&apos;t see who you are.</p>
         <p>
           We only store your user ID hash, registration date (month and year), and Nitro status (Early Supporter

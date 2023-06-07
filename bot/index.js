@@ -11,6 +11,9 @@ const client = new Client({
 
 const prisma = new PrismaClient();
 
+/**
+ * @param {import('discord.js').Guild} guild
+ */
 async function handleGuildCreate(guild) {
   await guild.members.fetch();
   const pomelos = [];
@@ -18,6 +21,17 @@ async function handleGuildCreate(guild) {
     if (!isValidMember(member)) continue;
     const pomelo = await handleMember(member);
     pomelos.push(pomelo);
+  }
+  // repair existing pomelos
+  const existingPomelos = await prisma.pomelo.findMany({where: {hash: {in: pomelos.map((p) => p.hash)}}});
+  for (const pomelo of existingPomelos) {
+    if (!pomelo.oauth2 && !pomelo.nitro) {
+      const incomingPomelo = pomelos.find((p) => p.hash === pomelo.hash);
+      if (incomingPomelo?.nitro) {
+        console.log(`Updating Nitro for ${pomelo.hash} in the database.`);
+        await prisma.pomelo.update({where: {hash: pomelo.hash}, data: {nitro: true}});
+      }
+    }
   }
   if (pomelos.length > 0) {
     console.log(`Adding ${pomelos.length} pomelos to the database.`);
@@ -41,6 +55,9 @@ async function hashId(id) {
   return hashHex;
 }
 
+/**
+ * @param {import('discord.js').GuildMember} member
+ */
 function isValidMember(member) {
   return (
     member.user.discriminator === '0' &&
@@ -49,19 +66,38 @@ function isValidMember(member) {
   );
 }
 
+/**
+ * @param {import('discord.js').GuildMember} member
+ */
 async function handleMember(member) {
   const date = new Date(member.user.createdTimestamp);
+  const possiblyNitro =
+    member.avatar != null ||
+    member.premiumSinceTimestamp != null ||
+    member.user.accentColor != null ||
+    member.user.avatar?.startsWith('a_') ||
+    member.user.avatarDecoration != null ||
+    member.user.banner != null;
   return {
     hash: await hashId(member.id),
     date: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-    nitro: false,
-    // We have no idea what the user's premium type is, so we just assume they have Nitro if they're server boosting, which obviously is not always true.
-    possiblyNitro: member.premiumSinceTimestamp !== null,
+    nitro: possiblyNitro,
     earlySupporter: member.user.flags.has(UserFlags.PremiumEarlySupporter),
   };
 }
 
 client.on(Events.GuildCreate, handleGuildCreate);
+client.on(Events.UserUpdate, async (_, user) => {
+  const date = new Date(user.createdTimestamp);
+  const possiblyNitro =
+    user.accentColor != null || user.avatar?.startsWith('a_') || user.avatarDecoration != null || user.banner != null;
+  return {
+    hash: await hashId(user.id),
+    date: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+    nitro: possiblyNitro,
+    earlySupporter: user.flags.has(UserFlags.PremiumEarlySupporter),
+  };
+});
 
 client.on(Events.GuildMemberAdd, async (member) => {
   if (!isValidMember(member)) return;

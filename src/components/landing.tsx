@@ -39,9 +39,14 @@ export default function Landing({
             </NextLink>
           </div>
 
-          <p className="font-body text-sm font-light text-gray-700 dark:text-gray-400">
-            The featured Nitro (non-Basic) percentages are deliberately best effort (premium_since is not accounted for)
-            and include users with the Early Supporter badge.
+          <p className="font-body text-md font-light text-gray-700 dark:text-gray-400">
+            Nitro counts are inaccurate. Discord doesn&apos;t provide Nitro status to bots. We also don&apos;t know how
+            long a user has had Nitro.
+          </p>
+
+          <p className="font-body text-md font-light text-gray-700 dark:text-gray-400">
+            Switch to the OAuth2-only view if you want guaranteed Nitro status (but we can&apos;t ensure they are
+            eligible).
           </p>
         </div>
 
@@ -63,23 +68,18 @@ export default function Landing({
                   </h3>
                   <div className="flex flex-col gap-1">
                     {stats.nitroCount > 0 && (
-                      <p className="font-body text-sm font-light">
+                      <p className="font-body text-md font-light">
                         {stats.nitroCount} Nitro user{stats.nitroCount > 1 ? 's' : ''}
                         {isOAuth2 ? '' : ' (inaccurate)'}
                       </p>
                     )}
                     {stats.earlySupporterCount > 0 && (
-                      <p className="font-body text-sm font-light">
+                      <p className="font-body text-md font-light">
                         {stats.earlySupporterCount} Early Supporter{stats.earlySupporterCount > 1 ? 's' : ''}
                       </p>
                     )}
-                    {stats.possiblyNitroCount > 0 && (
-                      <p className="font-body text-sm font-light">
-                        {stats.possiblyNitroCount} possibly Nitro user{stats.possiblyNitroCount > 1 ? 's' : ''}
-                      </p>
-                    )}
                     {stats.nonNitroCount > 0 && (
-                      <p className="font-body text-sm font-light">
+                      <p className="font-body text-md font-light">
                         {stats.nonNitroCount} non-Nitro user{stats.nonNitroCount > 1 ? 's' : ''}
                         {isOAuth2 ? '' : ' (inaccurate)'}
                       </p>

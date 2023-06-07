@@ -24,7 +24,6 @@ export type PomeloStats = {
   date: string;
   totalCount: number;
   nitroCount: number;
-  possiblyNitroCount: number;
   earlySupporterCount: number;
   nonNitroCount: number;
 };
@@ -47,13 +46,11 @@ export async function getPomeloStats({oauth2}: {oauth2?: boolean} = {}): Promise
   const stats = Object.entries(pomeloGroups).map(([date, pomelos]) => {
     const nitro = pomelos.filter((pomelo) => pomelo.nitro);
     const earlySupporter = pomelos.filter((pomelo) => pomelo.earlySupporter);
-    const possiblyNitro = pomelos.filter((pomelo) => pomelo.possiblyNitro);
-    const nonNitroCount = pomelos.length - nitro.length - possiblyNitro.length;
+    const nonNitroCount = pomelos.length - nitro.length;
     return {
       date,
       totalCount: pomelos.length,
       nitroCount: nitro.length,
-      possiblyNitroCount: possiblyNitro.length,
       earlySupporterCount: earlySupporter.length,
       nonNitroCount,
     };

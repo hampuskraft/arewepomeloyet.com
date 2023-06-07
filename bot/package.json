@@ -11,5 +11,10 @@
     "@prisma/client": "4.15.0",
     "discord.js": "14.11.0",
     "prisma": "4.15.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "discord.js@14.11.0": "patches/discord.js@14.11.0.patch"
+    }
   }
 }

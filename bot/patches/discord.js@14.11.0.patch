@@ -1,0 +1,29 @@
+diff --git a/src/structures/User.js b/src/structures/User.js
+index c784e4e95eb41649843d2e92d7ac164e548fe711..25ac19fa5776981d2d93b5764dec9a684c3d405e 100644
+--- a/src/structures/User.js
++++ b/src/structures/User.js
+@@ -71,6 +71,12 @@ class User extends Base {
+       this.avatar ??= null;
+     }
+ 
++    if ('avatar_decoration' in data) {
++      this.avatarDecoration = data.avatar_decoration;
++    } else {
++      this.avatarDecoration ??= null;
++    }
++
+     if ('banner' in data) {
+       /**
+        * The user banner's hash
+diff --git a/typings/index.d.ts b/typings/index.d.ts
+index 78432a371ea86b9a907bc2fa25ec63d3c9077154..def248758014f10ac4e02f762f991e62e76f14d9 100644
+--- a/typings/index.d.ts
++++ b/typings/index.d.ts
+@@ -3054,6 +3054,7 @@ export class User extends PartialTextBasedChannel(Base) {
+ 
+   public accentColor: number | null | undefined;
+   public avatar: string | null;
++  public avatarDecoration: string | null;
+   public banner: string | null | undefined;
+   public bot: boolean;
+   public get createdAt(): Date;
