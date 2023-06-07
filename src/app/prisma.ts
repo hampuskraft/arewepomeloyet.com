@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import {PrismaClient} from '@prisma/client';
 
 declare module globalThis {
   let prisma: PrismaClient;

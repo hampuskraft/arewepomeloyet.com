@@ -1,5 +1,5 @@
-import { getPomelos } from "@/app/database";
-import { NextResponse } from "next/server";
+import {getPomelos} from '@/app/database';
+import {NextResponse} from 'next/server';
 
 export const revalidate = 60;
 

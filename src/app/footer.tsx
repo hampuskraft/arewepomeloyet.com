@@ -1,15 +1,9 @@
-"use client";
+'use client';
 
-import { PomeloSerialized } from "./database";
-import ThemeSwitch from "./theme-switch";
+import {PomeloSerialized} from './database';
+import ThemeSwitch from './theme-switch';
 
-export default function Footer({
-  pomelos,
-  timestamp,
-}: {
-  pomelos: PomeloSerialized[];
-  timestamp: number;
-}) {
+export default function Footer({pomelos, timestamp}: {pomelos: PomeloSerialized[]; timestamp: number}) {
   const [latestPomelo] = pomelos.sort((a, b) => {
     return b.timestamp.getTime() - a.timestamp.getTime();
   });
@@ -22,15 +16,11 @@ export default function Footer({
 
       {latestPomelo && (
         <p>
-          Last pomelo registered on{" "}
-          <strong>{new Date(latestPomelo.timestamp).toLocaleString()}</strong>.
+          Last pomelo registered on <strong>{new Date(latestPomelo.timestamp).toLocaleString()}</strong>.
         </p>
       )}
 
-      <p>
-        Protip: There&apos;s a GET /api/pomelos endpoint that returns the raw
-        JSON data.
-      </p>
+      <p>Protip: There&apos;s a GET /api/pomelos endpoint that returns the raw JSON data.</p>
 
       <ThemeSwitch />
     </div>

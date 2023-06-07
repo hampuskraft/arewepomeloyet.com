@@ -1,35 +1,29 @@
-"use client";
+'use client';
 
-import { CallbackCode, CallbackCodeToMessage } from "@/app/constants";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import {CallbackCode, CallbackCodeToMessage} from '@/app/constants';
+import {useSearchParams} from 'next/navigation';
+import {useEffect, useState} from 'react';
 
-async function handleOAuthRequest({
-  code,
-  state,
-}: {
-  code: string;
-  state: string;
-}) {
-  const storedState = window.sessionStorage.getItem("state");
+async function handleOAuthRequest({code, state}: {code: string; state: string}) {
+  const storedState = window.sessionStorage.getItem('state');
   if (storedState !== state) {
     return CallbackCode.StateMismatch;
   }
 
   try {
-    const response = await fetch("/api/callback", {
-      method: "POST",
+    const response = await fetch('/api/callback', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }),
+      body: JSON.stringify({code}),
     });
     const json = await response.json();
     return json.status ?? CallbackCode.UnknownError;
   } catch (error) {
     return CallbackCode.UnknownError;
   } finally {
-    window.sessionStorage.removeItem("state");
+    window.sessionStorage.removeItem('state');
   }
 }
 
@@ -39,14 +33,14 @@ export default function Callback() {
   const [status, setStatus] = useState<CallbackCode>(CallbackCode.UnknownError);
 
   useEffect(() => {
-    const code = searchParams?.get("code");
-    const state = searchParams?.get("state");
-    if (typeof code !== "string" || typeof state !== "string") {
+    const code = searchParams?.get('code');
+    const state = searchParams?.get('state');
+    if (typeof code !== 'string' || typeof state !== 'string') {
       setStatus(CallbackCode.UnknownError);
       return;
     }
 
-    handleOAuthRequest({ code, state }).then((status) => {
+    handleOAuthRequest({code, state}).then((status) => {
       setStatus(status);
       setIsLoading(false);
     });
@@ -63,13 +57,9 @@ export default function Callback() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 text-center">
       <h1 className="font-display text-4xl font-semibold text-black dark:text-white">
-        {status === CallbackCode.Success
-          ? "Great success!"
-          : "Something's wrong, I can feel it"}
+        {status === CallbackCode.Success ? 'Great success!' : "Something's wrong, I can feel it"}
       </h1>
-      <p className="font-body text-xl text-gray-700 dark:text-gray-400">
-        {CallbackCodeToMessage[status]}
-      </p>
+      <p className="font-body text-xl text-gray-700 dark:text-gray-400">{CallbackCodeToMessage[status]}</p>
       <a
         className="max-w-max rounded-xl bg-blue-500 px-4 py-2 font-display font-bold text-white transition-colors duration-200 ease-in-out hover:bg-blue-600"
         href="/"
@@ -89,14 +79,7 @@ function LoadingSpinner() {
       fill="none"
       viewBox="0 0 24 24"
     >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        stroke-width="4"
-      />
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
       <path
         className="opacity-75"
         fill="currentColor"

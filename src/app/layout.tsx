@@ -1,19 +1,15 @@
-import "@fontsource-variable/source-sans-3";
-import "@fontsource-variable/space-grotesk";
-import { Metadata } from "next";
-import "./globals.css";
-import { Providers } from "./providers";
+import '@fontsource-variable/source-sans-3';
+import '@fontsource-variable/space-grotesk';
+import {Metadata} from 'next';
+import './globals.css';
+import {Providers} from './providers';
 
 export const metadata: Metadata = {
-  title: "Are We Pomelo Yet?",
-  description: "Yes, but actually no.",
+  title: 'Are We Pomelo Yet?',
+  description: 'Yes, but actually no.',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
