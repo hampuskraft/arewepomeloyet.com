@@ -35,7 +35,11 @@ export async function createPomelo({
   nitro: boolean;
   earlySupporter: boolean;
 }): Promise<Pomelo> {
-  const pomelo = await prisma.pomelo.create({data: {hash, date, nitro, earlySupporter}});
+  const pomelo = await prisma.pomelo.upsert({
+    where: {hash},
+    create: {hash, date, nitro, earlySupporter, oauth2: true},
+    update: {date, nitro, earlySupporter, oauth2: true},
+  });
   revalidatePath('/');
   return pomelo;
 }

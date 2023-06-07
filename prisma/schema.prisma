@@ -13,12 +13,14 @@ model Pomelo {
   nitro          Boolean
   possiblyNitro  Boolean  @default(false) @map("possibly_nitro")
   earlySupporter Boolean  @default(false) @map("early_supporter")
+  oauth2         Boolean  @default(false)
   timestamp      DateTime @default(now())
 
   @@index([date])
   @@index([nitro])
   @@index([possiblyNitro])
   @@index([earlySupporter])
+  @@index([oauth2])
   @@index([timestamp])
   @@map("pomelos")
 }

@@ -1,6 +1,6 @@
 import {DISCORD_API_HOST, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URI} from '@/common/config';
 import {CallbackCode} from '@/common/constants';
-import {createPomelo, getPomeloByHash} from '@/common/database';
+import {createPomelo} from '@/common/database';
 import {APIUser, UserFlags, UserPremiumType} from 'discord-api-types/v10';
 import {NextResponse} from 'next/server';
 import crypto from 'node:crypto';
@@ -58,11 +58,6 @@ export async function POST(request: Request) {
   const hashHex = Array.from(new Uint8Array(hash))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
-
-  const pomelo = await getPomeloByHash(hashHex);
-  if (pomelo) {
-    return NextResponse.json({status: CallbackCode.AlreadyRegistered}, {status: 400});
-  }
 
   const date = new Date(Number((BigInt(user.id) >> BigInt(22)) + BigInt(1420070400000)));
 
