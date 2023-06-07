@@ -22,17 +22,6 @@ async function handleGuildCreate(guild) {
     const pomelo = await handleMember(member);
     pomelos.push(pomelo);
   }
-  // repair existing pomelos
-  const existingPomelos = await prisma.pomelo.findMany({where: {hash: {in: pomelos.map((p) => p.hash)}}});
-  for (const pomelo of existingPomelos) {
-    if (!pomelo.oauth2 && !pomelo.nitro) {
-      const incomingPomelo = pomelos.find((p) => p.hash === pomelo.hash);
-      if (incomingPomelo?.nitro) {
-        console.log(`Updating Nitro for ${pomelo.hash} in the database.`);
-        await prisma.pomelo.update({where: {hash: pomelo.hash}, data: {nitro: true}});
-      }
-    }
-  }
   if (pomelos.length > 0) {
     console.log(`Adding ${pomelos.length} pomelos to the database.`);
     await prisma.pomelo.createMany({data: pomelos, skipDuplicates: true});
