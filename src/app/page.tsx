@@ -144,173 +144,178 @@ export default async function Home() {
           Frequently Asked Questions
         </h2>
 
-        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-          <p>
-            <strong>Q: Who got early access?</strong>
-          </p>
+        <div className="flex flex-col gap-8 lg:gap-10">
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>Q: Who got early access?</strong>
+            </p>
 
-          <p>
-            A: Staff members (and their personal accounts),{" "}
-            <Link href="https://discord.com/partners">
-              Partnered Server Owners
-            </Link>
-            ,{" "}
-            <Link href="https://discord.com/verification">
-              Verified Server Owners
-            </Link>
-            , and owners of servers with{" "}
-            <Link href="https://creator-support.discord.com/hc/en-us/articles/10423011974551">
-              Server Subscriptions (US only)
-            </Link>
-            . Moderator Programs Alumni, HypeSquad Events, and Discord Admins{" "}
-            <strong>did NOT get early access</strong>—that was simply false
-            information.
-          </p>
-        </div>
+            <p>
+              A: Staff members (and their personal accounts),{" "}
+              <Link href="https://discord.com/partners">
+                Partnered Server Owners
+              </Link>
+              ,{" "}
+              <Link href="https://discord.com/verification">
+                Verified Server Owners
+              </Link>
+              , and owners of servers with{" "}
+              <Link href="https://creator-support.discord.com/hc/en-us/articles/10423011974551">
+                Server Subscriptions (US only)
+              </Link>
+              . Moderator Programs Alumni, HypeSquad Events, and Discord Admins{" "}
+              <strong>did NOT get early access</strong>—that was simply false
+              information.
+            </p>
+          </div>
 
-        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-          <p>
-            <strong>Q: When did the general rollout start?</strong>
-          </p>
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>Q: When did the general rollout start?</strong>
+            </p>
 
-          <p>
-            A: Discord announced in their{" "}
-            <Link href="https://discord.com/channels/169256939211980800/889949624218042420/1115339637959970998">
-              Discord Town Hall
-            </Link>{" "}
-            server on June 5, 2023 (GMT) that &quot;Starting today, users will
-            become eligible to update their usernames over the coming weeks on a
-            rolling basis.&quot;
-          </p>
-        </div>
+            <p>
+              A: Discord announced in their{" "}
+              <Link href="https://discord.com/channels/169256939211980800/889949624218042420/1115339637959970998">
+                Discord Town Hall
+              </Link>{" "}
+              server on June 5, 2023 (GMT) that &quot;Starting today, users will
+              become eligible to update their usernames over the coming weeks on
+              a rolling basis.&quot;
+            </p>
+          </div>
 
-        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-          <p>
-            <strong>Q: Do Nitro users get priority in the rollout?</strong>
-          </p>
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>Q: Do Nitro users get priority in the rollout?</strong>
+            </p>
 
-          <p>
-            A: According to Discord&apos;s{" "}
-            <Link href="https://discord.com/blog/usernames">
-              official blog post
-            </Link>
-            : &quot;<strong>Current</strong> Nitro subscribers [...] that
-            registered for Nitro <strong>on or before March 1, 2023</strong>{" "}
-            will also be given early access.&quot; Early Supporters also appear
-            to get early access.
-          </p>
-        </div>
+            <p>
+              A: According to Discord&apos;s{" "}
+              <Link href="https://discord.com/blog/usernames">
+                official blog post
+              </Link>
+              : &quot;<strong>Current</strong> Nitro subscribers [...] that
+              registered for Nitro <strong>on or before March 1, 2023</strong>{" "}
+              will also be given early access.&quot; Early Supporters also
+              appear to get early access.
+            </p>
+          </div>
 
-        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-          <p>
-            <strong>
-              Q: I&apos;m a Nitro user before March 1, 2023. Why is my username
-              not available?
-            </strong>
-          </p>
-          <p>
-            A: Discord has reserved usernames for the first registered active
-            user on the platform with that name, regardless of their Nitro
-            status or discriminator. This ensures that getting early access to
-            Pomelo most of the time only means that you get to pick a bad name
-            before everyone else picks even worse names.
-          </p>
-        </div>
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>
+                Q: I&apos;m a Nitro user before March 1, 2023. Why is my
+                username not available?
+              </strong>
+            </p>
+            <p>
+              A: Discord has reserved usernames for the first registered active
+              user on the platform with that name, regardless of their Nitro
+              status or discriminator. This ensures that getting early access to
+              Pomelo most of the time only means that you get to pick a bad name
+              before everyone else picks even worse names.
+            </p>
+          </div>
 
-        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-          <p>
-            <strong>Q: What are discriminators? Why are they changing?</strong>
-          </p>
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>
+                Q: What are discriminators? Why are they changing?
+              </strong>
+            </p>
 
-          <p>
-            A: Discriminators are the four digits following a username, such as
-            &quot;The Real Jason#0001.&quot; The term &quot;discriminator&quot;
-            was not used in the app but was rather known as a &quot;tag.&quot;
-            Discord claims in their{" "}
-            <Link href="https://discord.com/blog/usernames">blog post</Link>{" "}
-            that &quot;nobody knows what a discriminator is&quot; and referenced
-            a Reddit post as a source.
-          </p>
+            <p>
+              A: Discriminators are the four digits following a username, such
+              as &quot;The Real Jason#0001.&quot; The term
+              &quot;discriminator&quot; was not used in the app but was rather
+              known as a &quot;tag.&quot; Discord claims in their{" "}
+              <Link href="https://discord.com/blog/usernames">blog post</Link>{" "}
+              that &quot;nobody knows what a discriminator is&quot; and
+              referenced a Reddit post as a source.
+            </p>
 
-          <p>
-            Discord mentions problems with the old system (that could&apos;ve
-            been fixed without Pomelo), such as:
-          </p>
+            <p>
+              Discord mentions problems with the old system (that could&apos;ve
+              been fixed without Pomelo), such as:
+            </p>
 
-          <ul className="list-disc list-inside space-y-2">
-            <li className="ml-4 font-semibold">
-              Usernames are case-sensitive.
-            </li>
-            <li className="ml-4 font-semibold">
-              Usernames sometimes contain special characters.
-            </li>
-            <li className="ml-4">
-              <span className="font-semibold">
-                &quot;Only&quot; 10,000 users are allowed per name.
-              </span>{" "}
-              (Now it&apos;s only 1 per name instead.)
-            </li>
-          </ul>
+            <ul className="list-disc list-inside space-y-2">
+              <li className="ml-4 font-semibold">
+                Usernames are case-sensitive.
+              </li>
+              <li className="ml-4 font-semibold">
+                Usernames sometimes contain special characters.
+              </li>
+              <li className="ml-4">
+                <span className="font-semibold">
+                  &quot;Only&quot; 10,000 users are allowed per name.
+                </span>{" "}
+                (Now it&apos;s only 1 per name instead.)
+              </li>
+            </ul>
 
-          <p>
-            Friend invites would make sense, right? Discord doesn&apos;t think
-            so. They had those for about a month, only on iOS, without
-            marketing, claiming nobody used them. Instead, they decided to
-            become &quot;one of the boys&quot; in the social media landscape and
-            adopt unique @usernames and all the problems that come with them.
-          </p>
+            <p>
+              Friend invites would make sense, right? Discord doesn&apos;t think
+              so. They had those for about a month, only on iOS, without
+              marketing, claiming nobody used them. Instead, they decided to
+              become &quot;one of the boys&quot; in the social media landscape
+              and adopt unique @usernames and all the problems that come with
+              them.
+            </p>
 
-          <p>
-            Either way, this is definitely happening, and criticism{" "}
-            <Link href="https://redd.it/13mceaw">is often silenced</Link>.
-          </p>
-        </div>
+            <p>
+              Either way, this is definitely happening, and criticism{" "}
+              <Link href="https://redd.it/13mceaw">is often silenced</Link>.
+            </p>
+          </div>
 
-        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-          <p>
-            <strong>
-              Q: What happened to the @ symbol in front of usernames?
-            </strong>
-          </p>
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>
+                Q: What happened to the @ symbol in front of usernames?
+              </strong>
+            </p>
 
-          <p>
-            A: Discord initially had @ symbols in front of usernames. However,
-            after{" "}
-            <Link href="https://www.youtube.com/watch?v=ynmnvT_h8BE">
-              Linus Tech Tips
-            </Link>{" "}
-            made a video criticizing the @ symbol, Discord promptly removed it.
-            Meanwhile, a community feedback post{" "}
-            <Link href="https://support.discord.com/hc/en-us/community/posts/14337329256983">
-              with 50,000 upvotes criticizing the change as a whole
-            </Link>{" "}
-            was ignored.
-          </p>
-        </div>
+            <p>
+              A: Discord initially had @ symbols in front of usernames. However,
+              after{" "}
+              <Link href="https://www.youtube.com/watch?v=ynmnvT_h8BE">
+                Linus Tech Tips
+              </Link>{" "}
+              made a video criticizing the @ symbol, Discord promptly removed
+              it. Meanwhile, a community feedback post{" "}
+              <Link href="https://support.discord.com/hc/en-us/community/posts/14337329256983">
+                with 50,000 upvotes criticizing the change as a whole
+              </Link>{" "}
+              was ignored.
+            </p>
+          </div>
 
-        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-          <p>
-            <strong>Q: What should I do if my username is taken?</strong>
-          </p>
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>Q: What should I do if my username is taken?</strong>
+            </p>
 
-          <p>
-            A: As helpfully suggested by a{" "}
-            <Link href="https://www.reddit.com/r/discordapp/comments/136urpb/comment/jiqdm9d/?context=1000">
-              staff member at Discord
-            </Link>
-            , you &quot;could always add 4 numbers at the end of your
-            username.&quot; Of course, we had a system for this already:
-            discriminators.
-          </p>
+            <p>
+              A: As helpfully suggested by a{" "}
+              <Link href="https://www.reddit.com/r/discordapp/comments/136urpb/comment/jiqdm9d/?context=1000">
+                staff member at Discord
+              </Link>
+              , you &quot;could always add 4 numbers at the end of your
+              username.&quot; Of course, we had a system for this already:
+              discriminators.
+            </p>
+          </div>
+
+          <Image
+            src="/jessie.png"
+            width={512}
+            height={512}
+            alt="We've chosen the name Jessie. Sorry, that name is taken. Jessie95836 is available."
+          />
         </div>
       </div>
-
-      <Image
-        src="/jessie.png"
-        width={512}
-        height={512}
-        alt="We've chosen the name Jessie. Sorry, that name is taken. Jessie95836 is available."
-      />
 
       <Footer timestamp={timestamp} pomelos={pomelos} />
     </main>
