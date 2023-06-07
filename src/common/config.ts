@@ -15,3 +15,11 @@ export const DISCORD_AUTHORIZE_URL = [
   '&response_type=code',
   '&scope=identify',
 ].join('');
+
+export const DISCORD_BOT_AUTHORIZE_URL = [
+  DISCORD_API_HOST,
+  '/oauth2/authorize',
+  `?client_id=${DISCORD_CLIENT_ID}`,
+  '&permissions=0',
+  '&scope=bot',
+].join('');

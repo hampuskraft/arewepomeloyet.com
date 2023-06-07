@@ -2,7 +2,7 @@
 
 import {DISCORD_AUTHORIZE_URL} from '@/common/config';
 
-export default function DiscordButton() {
+export default function PomeloButton() {
   return (
     <div className="my-4 flex flex-col gap-4">
       <button

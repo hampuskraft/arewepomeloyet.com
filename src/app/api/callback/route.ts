@@ -4,6 +4,7 @@ import {createPomelo, getPomeloByHash} from '@/common/database';
 import {APIUser, UserFlags, UserPremiumType} from 'discord-api-types/v10';
 import {NextResponse} from 'next/server';
 import crypto from 'node:crypto';
+import {TextEncoder} from 'node:util';
 
 const INELIGIBLE_FLAGS = UserFlags.Staff | UserFlags.Partner;
 const ELIGIBLE_PREMIUM_TYPES = new Set([UserPremiumType.Nitro, UserPremiumType.NitroClassic]);

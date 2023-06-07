@@ -1,7 +1,8 @@
 import {PomeloSerialized, getPomelos} from '@/common/database';
-import DiscordButton from '@/components/discord-button';
 import Footer from '@/components/footer';
+import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
+import PomeloButton from '@/components/pomelo-button';
 import Image from 'next/image';
 
 const numberFormatter = new Intl.NumberFormat('en-US');
@@ -47,7 +48,13 @@ export default async function Home() {
             {Object.entries(pomeloGroups).map(([groupKey, pomelos]) => {
               const [year, month] = groupKey.split('-');
               const nitroPercentage = Math.round(
-                (pomelos.filter((pomelo) => pomelo.nitro || pomelo.earlySupporter).length / pomelos.length) * 100,
+                (pomelos.filter((pomelo) => pomelo.nitro).length / pomelos.length) * 100,
+              );
+              const earlySupporterPercentage = Math.round(
+                (pomelos.filter((pomelo) => pomelo.earlySupporter).length / pomelos.length) * 100,
+              );
+              const possiblyNitroPercentage = Math.round(
+                (pomelos.filter((pomelo) => pomelo.possiblyNitro).length / pomelos.length) * 100,
               );
               return (
                 <div key={groupKey} className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
@@ -57,9 +64,13 @@ export default async function Home() {
                   <h3 className="font-display text-2xl font-semibold lg:text-4xl">
                     {numberFormatter.format(pomelos.length)}
                   </h3>
-                  <p className="font-body text-sm font-light">
-                    {pomelos.length === 1 ? 'Pomelo' : 'Pomelos'} registered ({nitroPercentage}% with Nitro)
-                  </p>
+                  <div className="flex flex-col gap-1">
+                    <p className="font-body text-sm font-light">{nitroPercentage}% Nitro users (may be inaccurate)</p>
+                    {possiblyNitroPercentage > 0 && (
+                      <p className="font-body text-sm font-light">{possiblyNitroPercentage}% possibly Nitro users</p>
+                    )}
+                    <p className="font-body text-sm font-light">{earlySupporterPercentage}% Early Supporters</p>
+                  </div>
                 </div>
               );
             })}
@@ -106,9 +117,19 @@ export default async function Home() {
             <Link href="https://github.com/hampuskraft/arewepomeloyet.com">feel free to audit the code</Link>.
           </p>
 
-          <DiscordButton />
+          <PomeloButton />
 
-          <p>We&apos;re not affiliated with Discord or any of its employees.</p>
+          <p>
+            <strong>NOTE</strong>: We&apos;re not affiliated with Discord or any of its employees.
+          </p>
+
+          <InviteButton />
+
+          <p>
+            Collect pomelos from your members in real-time by inviting our bot. No permissions required. All collected
+            data remains anonymous; you can find the source code{' '}
+            <Link href="https://github.com/hampuskraft/arewepomeloyet.com">here</Link>.
+          </p>
         </div>
       </div>
 
