@@ -70,7 +70,7 @@ export async function getPomeloStats({onlyOAuth2 = false} = {}): Promise<PomeloS
 
   return {
     stats,
-    lastPomeloAt: pomelos.at(-1)?.date.getTime() ?? 0,
+    lastPomeloAt: pomelos.at(-1)?.timestamp.getTime() ?? 0,
     lastUpdatedAt: Date.now(),
   };
 }
