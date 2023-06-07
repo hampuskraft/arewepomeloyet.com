@@ -2,6 +2,7 @@
 FROM node:18-bullseye-slim AS base
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
+COPY patches ./patches
 
 # Dependencies
 FROM base AS deps
