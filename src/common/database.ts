@@ -21,8 +21,7 @@ export async function getPomelos(): Promise<PomelosResponse> {
 }
 
 export type PomeloStats = {
-  year: string;
-  month: string;
+  date: string;
   totalCount: number;
   nitroCount: number;
   possiblyNitroCount: number;
@@ -36,35 +35,27 @@ export type PomeloStatsResponse = {
   lastUpdatedAt: number;
 };
 
-export async function getPomeloStats({onlyOAuth2 = false} = {}): Promise<PomeloStatsResponse> {
-  const pomelos = await prisma.pomelo.findMany({
-    orderBy: {date: 'asc'},
-    where: onlyOAuth2 ? {oauth2: true} : undefined,
-  });
-
+export async function getPomeloStats({oauth2}: {oauth2?: boolean} = {}): Promise<PomeloStatsResponse> {
+  const pomelos = await prisma.pomelo.findMany({orderBy: {date: 'asc'}, where: {oauth2}});
   const pomeloGroups = pomelos.reduce((groups, pomelo) => {
-    const date = new Date(pomelo.date);
-    const month = date.toLocaleString('default', {month: 'long'});
-    const year = date.getFullYear();
-    const groupKey = `${year}-${month}`;
-    groups[groupKey] ??= [];
-    groups[groupKey].push(pomelo);
+    const date = pomelo.date.toISOString().slice(0, 7);
+    groups[date] ??= [];
+    groups[date].push(pomelo);
     return groups;
   }, {} as Record<string, Pomelo[]>);
 
-  const stats = Object.entries(pomeloGroups).map(([groupKey, pomelos]) => {
-    const [year, month] = groupKey.split('-');
+  const stats = Object.entries(pomeloGroups).map(([date, pomelos]) => {
     const nitro = pomelos.filter((pomelo) => pomelo.nitro);
     const earlySupporter = pomelos.filter((pomelo) => pomelo.earlySupporter);
     const possiblyNitro = pomelos.filter((pomelo) => pomelo.possiblyNitro);
+    const nonNitroCount = pomelos.length - nitro.length - possiblyNitro.length;
     return {
-      year,
-      month,
+      date,
       totalCount: pomelos.length,
       nitroCount: nitro.length,
       possiblyNitroCount: possiblyNitro.length,
       earlySupporterCount: earlySupporter.length,
-      nonNitroCount: pomelos.length - nitro.length - possiblyNitro.length,
+      nonNitroCount,
     };
   });
 

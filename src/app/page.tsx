@@ -35,27 +35,29 @@ export default async function Home() {
           <p className="font-body text-xl lg:text-2xl">No Pomelos registered yet. Be the first!</p>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((stats) => (
-              <div
-                key={`${stats.year}-${stats.month}`}
-                className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2"
-              >
-                <time className="font-body text-xl font-light">
-                  {stats.month} {stats.year}
-                </time>
-                <h3 className="font-display text-2xl font-semibold lg:text-4xl">
-                  {numberFormatter.format(stats.totalCount)}
-                </h3>
-                <div className="flex flex-col gap-1">
-                  <p className="font-body text-sm font-light">{stats.nitroCount} Nitro users (inaccurate)</p>
-                  <p className="font-body text-sm font-light">{stats.earlySupporterCount} Early Supporters</p>
-                  {stats.possiblyNitroCount > 0 && (
-                    <p className="font-body text-sm font-light">{stats.possiblyNitroCount} possibly Nitro users</p>
-                  )}
-                  <p className="font-body text-sm font-light">{stats.nonNitroCount} non-Nitro users (inaccurate)</p>
+            {stats.map((stats) => {
+              const date = new Date(stats.date);
+              const month = date.toLocaleString('default', {month: 'long'});
+              const year = date.getFullYear();
+              return (
+                <div key={stats.date} className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
+                  <time className="font-body text-xl font-light">
+                    {month} {year}
+                  </time>
+                  <h3 className="font-display text-2xl font-semibold lg:text-4xl">
+                    {numberFormatter.format(stats.totalCount)}
+                  </h3>
+                  <div className="flex flex-col gap-1">
+                    <p className="font-body text-sm font-light">{stats.nitroCount} Nitro users (inaccurate)</p>
+                    <p className="font-body text-sm font-light">{stats.earlySupporterCount} Early Supporters</p>
+                    {stats.possiblyNitroCount > 0 && (
+                      <p className="font-body text-sm font-light">{stats.possiblyNitroCount} possibly Nitro users</p>
+                    )}
+                    <p className="font-body text-sm font-light">{stats.nonNitroCount} non-Nitro users (inaccurate)</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
