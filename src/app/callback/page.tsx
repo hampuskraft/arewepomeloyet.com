@@ -1,6 +1,6 @@
 'use client';
 
-import {CallbackCode, CallbackCodeToMessage} from '@/app/constants';
+import {CallbackCode, CallbackCodeToMessage} from '@/common/constants';
 import {useSearchParams} from 'next/navigation';
 import {useEffect, useState} from 'react';
 

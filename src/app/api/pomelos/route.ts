@@ -1,4 +1,4 @@
-import {getPomelos} from '@/app/database';
+import {getPomelos} from '@/common/database';
 import {NextResponse} from 'next/server';
 
 export const revalidate = 60;

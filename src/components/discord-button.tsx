@@ -1,6 +1,6 @@
 'use client';
 
-import {DISCORD_AUTHORIZE_URL} from './config';
+import {DISCORD_AUTHORIZE_URL} from '@/common/config';
 
 export default function DiscordButton() {
   return (

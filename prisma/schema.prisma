@@ -8,12 +8,15 @@ datasource db {
 }
 
 model Pomelo {
-  hash      String   @id
-  date      DateTime
-  nitro     Boolean
-  timestamp DateTime @default(now())
+  hash           String   @id
+  date           DateTime
+  nitro          Boolean
+  earlySupporter Boolean  @default(false) @map("early_supporter")
+  timestamp      DateTime @default(now())
 
   @@index([date])
   @@index([nitro])
+  @@index([earlySupporter])
+  @@index([timestamp])
   @@map("pomelos")
 }

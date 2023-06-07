@@ -1,8 +1,8 @@
+import {Providers} from '@/components/providers';
 import '@fontsource-variable/source-sans-3';
 import '@fontsource-variable/space-grotesk';
 import {Metadata} from 'next';
 import './globals.css';
-import {Providers} from './providers';
 
 export const metadata: Metadata = {
   title: 'Are We Pomelo Yet?',

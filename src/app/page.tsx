@@ -1,7 +1,8 @@
+import {PomeloSerialized, getPomelos} from '@/common/database';
+import DiscordButton from '@/components/discord-button';
+import Footer from '@/components/footer';
+import Link from '@/components/link';
 import Image from 'next/image';
-import {PomeloSerialized, getPomelos} from './database';
-import DiscordButton from './discord-button';
-import Footer from './footer';
 
 const numberFormatter = new Intl.NumberFormat('en-US');
 
@@ -46,7 +47,7 @@ export default async function Home() {
             {Object.entries(pomeloGroups).map(([groupKey, pomelos]) => {
               const [year, month] = groupKey.split('-');
               const nitroPercentage = Math.round(
-                (pomelos.filter((pomelo) => pomelo.nitro).length / pomelos.length) * 100,
+                (pomelos.filter((pomelo) => pomelo.nitro || pomelo.earlySupporter).length / pomelos.length) * 100,
               );
               return (
                 <div key={groupKey} className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
@@ -251,13 +252,5 @@ export default async function Home() {
 
       <Footer timestamp={timestamp} pomelos={pomelos} />
     </main>
-  );
-}
-
-function Link({href, children}: {href: string; children: React.ReactNode}) {
-  return (
-    <a className="text-blue-500 hover:underline" href={href} target="_blank" rel="noopener noreferrer">
-      {children}
-    </a>
   );
 }

@@ -1,9 +1,12 @@
-import {DISCORD_API_HOST, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URI} from '@/app/config';
-import {CallbackCode} from '@/app/constants';
-import {createPomelo, getPomeloByHash} from '@/app/database';
-import {APIUser, UserFlags} from 'discord-api-types/v10';
+import {DISCORD_API_HOST, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URI} from '@/common/config';
+import {CallbackCode} from '@/common/constants';
+import {createPomelo, getPomeloByHash} from '@/common/database';
+import {APIUser, UserFlags, UserPremiumType} from 'discord-api-types/v10';
 import {NextResponse} from 'next/server';
 import crypto from 'node:crypto';
+
+const INELIGIBLE_FLAGS = UserFlags.Staff | UserFlags.Partner;
+const ELIGIBLE_PREMIUM_TYPES = new Set([UserPremiumType.Nitro, UserPremiumType.NitroClassic]);
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -46,12 +49,8 @@ export async function POST(request: Request) {
     return NextResponse.json({status: CallbackCode.NotEligible}, {status: 400});
   }
 
-  if (user.public_flags! & UserFlags.Staff) {
-    return NextResponse.json({status: CallbackCode.NotEligibleStaff}, {status: 400});
-  }
-
-  if (user.public_flags! & UserFlags.Partner) {
-    return NextResponse.json({status: CallbackCode.NotEligiblePartner}, {status: 400});
+  if (user.public_flags! & INELIGIBLE_FLAGS) {
+    return NextResponse.json({status: CallbackCode.NotEligibleFlags}, {status: 400});
   }
 
   const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(user.id));
@@ -69,7 +68,8 @@ export async function POST(request: Request) {
   await createPomelo({
     hash: hashHex,
     date: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-    nitro: user.premium_type! > 0 || (user.public_flags! & UserFlags.PremiumEarlySupporter) > 0,
+    nitro: ELIGIBLE_PREMIUM_TYPES.has(user.premium_type!),
+    earlySupporter: Boolean(user.public_flags! & UserFlags.PremiumEarlySupporter),
   });
 
   return NextResponse.json({status: CallbackCode.Success});
