@@ -35,8 +35,8 @@ export default async function Home() {
           <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
 
           <p className="font-body text-sm font-light text-gray-700 dark:text-gray-400">
-            The featured Nitro percentages are deliberately best effort (premium_since is not accounted for) and include
-            users with the Early Supporter badge.
+            The featured Nitro (non-Basic) percentages are deliberately best effort (premium_since is not accounted for)
+            and include users with the Early Supporter badge.
           </p>
         </div>
 
@@ -155,7 +155,7 @@ export default async function Home() {
 
             <p>
               A: According to Discord&apos;s <Link href="https://discord.com/blog/usernames">official blog post</Link>:
-              &quot;<strong>Current</strong> Nitro subscribers [...] that registered for Nitro{' '}
+              &quot;<strong>Current</strong> Nitro [non-Basic] subscribers [...] that registered for Nitro{' '}
               <strong>on or before March 1, 2023</strong> will also be given early access.&quot; Early Supporters also
               appear to get early access.
             </p>
@@ -163,7 +163,7 @@ export default async function Home() {
 
           <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
             <p>
-              <strong>Q: I&apos;m a Nitro user before March 1, 2023. Why is my username not available?</strong>
+              <strong>Q: I&apos;m an eligible Nitro user. Why is my username not available?</strong>
             </p>
             <p>
               A: Discord has reserved usernames for the first registered active user on the platform with that name,
