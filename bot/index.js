@@ -77,7 +77,7 @@ client.on(Events.GuildMemberUpdate, async (_oldMember, newMember) => {
   await prisma.pomelo.upsert({
     where: {hash: pomelo.hash},
     create: pomelo,
-    update: pomelo,
+    update: {},
   });
 });
 
