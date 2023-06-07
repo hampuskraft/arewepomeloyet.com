@@ -152,6 +152,10 @@ export default async function Home() {
             <Link href="https://discord.com/partners">
               Partnered Server Owners
             </Link>
+            ,{" "}
+            <Link href="https://discord.com/verification">
+              Verified Server Owners
+            </Link>
             , and owners of servers with{" "}
             <Link href="https://creator-support.discord.com/hc/en-us/articles/10423011974551">
               Server Subscriptions (US only)
