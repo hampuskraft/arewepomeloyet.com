@@ -87,5 +87,8 @@ export async function createPomelo({
     update: {date, nitro, earlySupporter, oauth2: true},
   });
   revalidatePath('/');
+  revalidatePath('/api/pomelos');
+  revalidatePath('/api/v1/pomelos');
+  revalidatePath('/oauth2');
   return pomelo;
 }
