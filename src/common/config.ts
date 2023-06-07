@@ -8,7 +8,7 @@ export const DISCORD_REDIRECT_URI =
 
 export const DISCORD_API_HOST = 'https://discord.com/api/v10';
 export const DISCORD_AUTHORIZE_URL = [
-  DISCORD_API_HOST,
+  'https://discord.com',
   '/oauth2/authorize',
   `?client_id=${DISCORD_CLIENT_ID}`,
   `&redirect_uri=${encodeURIComponent(DISCORD_REDIRECT_URI)}`,
