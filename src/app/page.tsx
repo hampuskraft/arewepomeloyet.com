@@ -250,7 +250,7 @@ export default async function Home() {
             </p>
 
             <p>
-              A: Discord does not have a public Q&A. However,{' '}
+              A: Discord has little public information. However,{' '}
               <Link href="https://redd.it/142rsjw">this Reddit post by u/JedNotJedi</Link> is informative.{' '}
               <Link href="https://support.discord.com/hc/user_images/Lni1dqqqpbt6_0JZ0bNytA.png">
                 u/Ephenia made a speculative diagram
