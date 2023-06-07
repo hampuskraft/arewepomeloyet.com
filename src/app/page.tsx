@@ -195,6 +195,22 @@ export default async function Home() {
             to get early access.
           </p>
         </div>
+
+        <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+          <p>
+            <strong>
+              Q: I&apos;m a Nitro user before March 1, 2023. Why is my username
+              not available?
+            </strong>
+          </p>
+          <p>
+            A: Discord has reserved usernames for the first registered active
+            user on the platform with that name, regardless of their Nitro
+            status or discriminator. This ensures that getting early access to
+            Pomelo most of the time only means that you get to pick a bad name
+            before everyone else picks even worse names.
+          </p>
+        </div>
       </div>
 
       <Footer timestamp={timestamp} pomelos={pomelos} />
