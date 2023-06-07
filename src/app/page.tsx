@@ -47,6 +47,11 @@ export default async function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Object.entries(pomeloGroups).map(([groupKey, pomelos]) => {
               const [year, month] = groupKey.split('-');
+              const nonNitroPercentage = Math.round(
+                (pomelos.filter((pomelo) => !pomelo.nitro && !pomelo.possiblyNitro && !pomelo.earlySupporter).length /
+                  pomelos.length) *
+                  100,
+              );
               const nitroPercentage = Math.round(
                 (pomelos.filter((pomelo) => pomelo.nitro).length / pomelos.length) * 100,
               );
@@ -65,7 +70,8 @@ export default async function Home() {
                     {numberFormatter.format(pomelos.length)}
                   </h3>
                   <div className="flex flex-col gap-1">
-                    <p className="font-body text-sm font-light">{nitroPercentage}% Nitro users (may be inaccurate)</p>
+                    <p className="font-body text-sm font-light">{nonNitroPercentage}% non-Nitro users (inaccurate)</p>
+                    <p className="font-body text-sm font-light">{nitroPercentage}% Nitro users (inaccurate)</p>
                     {possiblyNitroPercentage > 0 && (
                       <p className="font-body text-sm font-light">{possiblyNitroPercentage}% possibly Nitro users</p>
                     )}
