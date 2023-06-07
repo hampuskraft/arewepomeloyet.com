@@ -2,14 +2,14 @@ import {DISCORD_API_HOST, DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDI
 import {CallbackCode} from '@/common/constants';
 import {createPomelo} from '@/common/database';
 import {APIUser, UserFlags, UserPremiumType} from 'discord-api-types/v10';
-import {NextResponse} from 'next/server';
+import {NextRequest, NextResponse} from 'next/server';
 import crypto from 'node:crypto';
 import {TextEncoder} from 'node:util';
 
 const INELIGIBLE_FLAGS = UserFlags.Staff | UserFlags.Partner;
 const ELIGIBLE_PREMIUM_TYPES = new Set([UserPremiumType.Nitro, UserPremiumType.NitroClassic]);
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const body = await request.json();
   const code = body.code;
   if (typeof code !== 'string') {

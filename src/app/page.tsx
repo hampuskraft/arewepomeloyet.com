@@ -1,4 +1,4 @@
-import {PomeloSerialized, getPomelos} from '@/common/database';
+import {getPomeloStats} from '@/common/database';
 import Footer from '@/components/footer';
 import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
@@ -10,17 +10,7 @@ const numberFormatter = new Intl.NumberFormat('en-US');
 export const revalidate = 60;
 
 export default async function Home() {
-  const {pomelos, timestamp} = await getPomelos();
-
-  const pomeloGroups = pomelos.reduce((groups, pomelo) => {
-    const date = new Date(pomelo.date);
-    const month = date.toLocaleString('default', {month: 'long'});
-    const year = date.getFullYear();
-    const groupKey = `${year}-${month}`;
-    groups[groupKey] ??= [];
-    groups[groupKey].push(pomelo);
-    return groups;
-  }, {} as Record<string, PomeloSerialized[]>);
+  const {stats, lastPomeloAt, lastUpdatedAt} = await getPomeloStats();
 
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-32 md:gap-16">
@@ -41,45 +31,31 @@ export default async function Home() {
           </p>
         </div>
 
-        {pomelos.length === 0 ? (
+        {stats.length === 0 ? (
           <p className="font-body text-xl lg:text-2xl">No Pomelos registered yet. Be the first!</p>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Object.entries(pomeloGroups).map(([groupKey, pomelos]) => {
-              const [year, month] = groupKey.split('-');
-              const nonNitroPercentage = Math.round(
-                (pomelos.filter((pomelo) => !pomelo.nitro && !pomelo.possiblyNitro && !pomelo.earlySupporter).length /
-                  pomelos.length) *
-                  100,
-              );
-              const nitroPercentage = Math.round(
-                (pomelos.filter((pomelo) => pomelo.nitro).length / pomelos.length) * 100,
-              );
-              const earlySupporterPercentage = Math.round(
-                (pomelos.filter((pomelo) => pomelo.earlySupporter).length / pomelos.length) * 100,
-              );
-              const possiblyNitroPercentage = Math.round(
-                (pomelos.filter((pomelo) => pomelo.possiblyNitro).length / pomelos.length) * 100,
-              );
-              return (
-                <div key={groupKey} className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
-                  <time className="font-body text-xl font-light">
-                    {month} {year}
-                  </time>
-                  <h3 className="font-display text-2xl font-semibold lg:text-4xl">
-                    {numberFormatter.format(pomelos.length)}
-                  </h3>
-                  <div className="flex flex-col gap-1">
-                    <p className="font-body text-sm font-light">{nonNitroPercentage}% non-Nitro users (inaccurate)</p>
-                    <p className="font-body text-sm font-light">{nitroPercentage}% Nitro users (inaccurate)</p>
-                    {possiblyNitroPercentage > 0 && (
-                      <p className="font-body text-sm font-light">{possiblyNitroPercentage}% possibly Nitro users</p>
-                    )}
-                    <p className="font-body text-sm font-light">{earlySupporterPercentage}% Early Supporters</p>
-                  </div>
+            {stats.map((stats) => (
+              <div
+                key={`${stats.year}-${stats.month}`}
+                className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2"
+              >
+                <time className="font-body text-xl font-light">
+                  {stats.month} {stats.year}
+                </time>
+                <h3 className="font-display text-2xl font-semibold lg:text-4xl">
+                  {numberFormatter.format(stats.totalCount)}
+                </h3>
+                <div className="flex flex-col gap-1">
+                  <p className="font-body text-sm font-light">{stats.nitroCount} Nitro users (inaccurate)</p>
+                  <p className="font-body text-sm font-light">{stats.earlySupporterCount} Early Supporters</p>
+                  {stats.possiblyNitroCount > 0 && (
+                    <p className="font-body text-sm font-light">{stats.possiblyNitroCount} possibly Nitro users</p>
+                  )}
+                  <p className="font-body text-sm font-light">{stats.nonNitroCount} non-Nitro users (inaccurate)</p>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         )}
       </div>
@@ -299,7 +275,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <Footer timestamp={timestamp} pomelos={pomelos} />
+      <Footer lastUpdatedAt={lastUpdatedAt} lastPomeloAt={lastPomeloAt} />
     </main>
   );
 }
