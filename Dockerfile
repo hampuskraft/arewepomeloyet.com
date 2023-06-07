@@ -25,6 +25,7 @@ RUN npm run migrate && npm run generate && npm run build
 FROM base AS runner
 RUN addgroup --system nextjs && adduser --system --ingroup nextjs nextjs
 
+COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { PomeloSerialized, getPomelos } from "./database";
 import DiscordButton from "./discord-button";
 import Footer from "./footer";
@@ -303,6 +304,13 @@ export default async function Home() {
           </p>
         </div>
       </div>
+
+      <Image
+        src="/jessie.png"
+        width={512}
+        height={512}
+        alt="We've chosen the name Jessie. Sorry, that name is taken. Jessie95836 is available."
+      />
 
       <Footer timestamp={timestamp} pomelos={pomelos} />
     </main>
