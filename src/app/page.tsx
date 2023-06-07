@@ -156,8 +156,11 @@ export default async function Home() {
             <p>
               A: According to Discord&apos;s <Link href="https://discord.com/blog/usernames">official blog post</Link>:
               &quot;<strong>Current</strong> Nitro [non-Basic] subscribers [...] that registered for Nitro{' '}
-              <strong>on or before March 1, 2023</strong> will also be given early access.&quot; Early Supporters also
-              appear to get early access.
+              <strong>on or before March 1, 2023</strong> will also be given early access.&quot; Early Supporters also{' '}
+              <Link href="https://twitter.com/DiscordPreviews/status/1665788875594186754">
+                appear to get early access
+              </Link>
+              .
             </p>
           </div>
 
@@ -238,6 +241,25 @@ export default async function Home() {
               </Link>
               , you &quot;could always add 4 numbers at the end of your username.&quot; Of course, we had a system for
               this already: discriminators.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>Q: Where can I find more information?</strong>
+            </p>
+
+            <p>
+              A: Discord does not have a public Q&A. However,{' '}
+              <Link href="https://redd.it/142rsjw">this Reddit post by u/JedNotJedi</Link> is informative.{' '}
+              <Link href="https://support.discord.com/hc/user_images/Lni1dqqqpbt6_0JZ0bNytA.png">
+                u/Ephenia made a speculative diagram
+              </Link>{' '}
+              outlining the process.{' '}
+              <Link href="https://mastodon.social/@gerb@waytoomuch.info/110503071421329895">
+                @gerb@waytoomuch.info made a trendline chart
+              </Link>{' '}
+              based on self-reported data, matching the data collected by this website.
             </p>
           </div>
 
