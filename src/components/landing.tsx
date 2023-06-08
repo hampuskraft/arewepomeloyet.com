@@ -36,7 +36,7 @@ export default function Landing({
 
       <div className="flex flex-col gap-4 lg:gap-6">
         <div className="flex flex-col gap-2">
-          <div className="flex flex-col lg:flex-row justify-between gap-2 items-center">
+          <div className="flex flex-col lg:flex-row justify-between gap-2">
             <div className="flex flex-row gap-2 items-center">
               <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
               <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
