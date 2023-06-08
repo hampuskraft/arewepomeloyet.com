@@ -20,25 +20,25 @@ export default function PomeloStatsChart({data}: {data: PomeloStats[]}) {
     labels: data.map((item) => item.date),
     datasets: [
       {
-        label: 'Total Count',
+        label: 'Total',
         data: data.map((item) => item.totalCount),
         borderColor: 'rgba(75,192,192,1)',
         fill: false,
       },
       {
-        label: 'Nitro Count',
+        label: 'Nitro',
         data: data.map((item) => item.nitroCount),
         borderColor: 'rgba(255,99,132,1)',
         fill: false,
       },
       {
-        label: 'Early Supporter Count',
+        label: 'Early Supporters',
         data: data.map((item) => item.earlySupporterCount),
         borderColor: 'rgba(255,205,86,1)',
         fill: false,
       },
       {
-        label: 'Non-Nitro Count',
+        label: 'Non-Nitro',
         data: data.map((item) => item.nonNitroCount),
         borderColor: 'rgba(54,162,235,1)',
         fill: false,
@@ -58,12 +58,12 @@ export default function PomeloStatsChart({data}: {data: PomeloStats[]}) {
             },
             title: {
               display: true,
-              text: 'Pomelo Stats Over Time',
+              text: 'Pomelos By Registration Date',
             },
           },
           scales: {
-            x: {title: {display: true, text: 'Date'}},
-            y: {title: {display: true, text: 'Count'}},
+            x: {title: {display: true, text: 'Registration Date'}},
+            y: {title: {display: true, text: 'Pomelos'}},
           },
         }}
       />
