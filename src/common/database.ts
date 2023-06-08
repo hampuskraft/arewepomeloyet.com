@@ -61,7 +61,7 @@ export async function getPomeloStats({oauth2}: {oauth2?: boolean} = {}): Promise
   return {
     stats,
     total: pomelos.length,
-    lastPomeloAt: pomelos[0]?.timestamp.getTime() ?? 0,
+    lastPomeloAt: pomelos.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())[0].timestamp.getTime(),
     lastUpdatedAt: Date.now(),
   };
 }
