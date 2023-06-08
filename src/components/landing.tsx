@@ -1,5 +1,5 @@
 import {GITHUB_REPO_URL} from '@/common/config';
-import {PomeloStatsResponse} from '@/common/database';
+import {BotStatsResponse, PomeloStatsResponse} from '@/common/database';
 import Footer from '@/components/footer';
 import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
@@ -8,12 +8,12 @@ import PomeloButton from '@/components/pomelo-button';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
-const numberFormatter = new Intl.NumberFormat('en-US');
-
 export default function Landing({
+  botStats,
   pomeloStats,
   isOAuth2 = false,
 }: {
+  botStats: BotStatsResponse;
   pomeloStats: PomeloStatsResponse;
   isOAuth2?: boolean;
 }) {
@@ -41,12 +41,12 @@ export default function Landing({
       </a>
 
       <div className="flex flex-col gap-4 lg:gap-6">
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-col lg:flex-row justify-between gap-2">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col lg:flex-row justify-between gap-4">
             <div className="flex flex-row gap-2 items-center">
               <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
               <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
-                {numberFormatter.format(total)} records
+                {total.toLocaleString()} records
               </span>
             </div>
 
@@ -85,23 +85,24 @@ export default function Landing({
                     {month} {year}
                   </time>
                   <h3 className="font-display text-2xl font-semibold lg:text-4xl">
-                    {numberFormatter.format(stats.totalCount)}
+                    {stats.totalCount.toLocaleString()}
                   </h3>
                   <div className="flex flex-col gap-1">
                     {stats.nitroCount > 0 && (
                       <p className="font-body text-md font-light">
-                        {stats.nitroCount} Nitro user{stats.nitroCount > 1 ? 's' : ''}
+                        {stats.nitroCount.toLocaleString()} Nitro user{stats.nitroCount > 1 ? 's' : ''}
                         {isOAuth2 ? '' : ' (inaccurate)'}
                       </p>
                     )}
                     {stats.earlySupporterCount > 0 && (
                       <p className="font-body text-md font-light">
-                        {stats.earlySupporterCount} Early Supporter{stats.earlySupporterCount > 1 ? 's' : ''}
+                        {stats.earlySupporterCount.toLocaleString()} Early Supporter
+                        {stats.earlySupporterCount > 1 ? 's' : ''}
                       </p>
                     )}
                     {stats.nonNitroCount > 0 && (
                       <p className="font-body text-md font-light">
-                        {stats.nonNitroCount} non-Nitro user{stats.nonNitroCount > 1 ? 's' : ''}
+                        {stats.nonNitroCount.toLocaleString()} non-Nitro user{stats.nonNitroCount > 1 ? 's' : ''}
                         {isOAuth2 ? '' : ' (inaccurate)'}
                       </p>
                     )}
@@ -158,7 +159,7 @@ export default function Landing({
             <strong>NOTE</strong>: We&apos;re not affiliated with Discord or any of its employees.
           </p>
 
-          <InviteButton />
+          <InviteButton botStats={botStats} />
 
           <p>
             Collect pomelos from your members in real-time by inviting our bot. No permissions required. All collected

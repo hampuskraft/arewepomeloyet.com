@@ -6,6 +6,11 @@ export const DISCORD_CLIENT_ID = '1115606938441502732';
 export const DISCORD_REDIRECT_URI =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3000/callback' : 'https://arewepomeloyet.com/callback';
 
+export const BOT_HTTP_ENDPOINT =
+  process.env.NODE_ENV === 'development'
+    ? 'https://arewepomeloyet-bot.fly.dev'
+    : 'http://arewepomeloyet-bot.internal:8080';
+
 export const DISCORD_API_HOST = 'https://discord.com/api/v10';
 export const DISCORD_AUTHORIZE_URL = [
   'https://discord.com',

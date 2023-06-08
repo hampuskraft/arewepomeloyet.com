@@ -20,4 +20,5 @@ RUN npm run generate
 FROM node:18-bullseye-slim
 WORKDIR /app
 COPY --from=builder /app ./
+EXPOSE 8080
 CMD ["npm", "run", "start"]

@@ -1,3 +1,4 @@
+import {BOT_HTTP_ENDPOINT} from '@/common/config';
 import prisma from '@/common/prisma';
 import {Pomelo} from '@prisma/client';
 import {revalidatePath} from 'next/cache';
@@ -90,4 +91,19 @@ export async function createPomelo({
   revalidatePath('/api/v1/pomelos');
   revalidatePath('/oauth2');
   return pomelo;
+}
+
+export type BotStatsResponse = {
+  guilds: number;
+  members: number;
+  uptime: number;
+};
+
+export async function getBotStats(): Promise<BotStatsResponse> {
+  const res = await fetch(BOT_HTTP_ENDPOINT, {cache: 'no-cache'});
+  if (!res.ok) {
+    return {guilds: 0, members: 0, uptime: 0};
+  }
+
+  return res.json();
 }

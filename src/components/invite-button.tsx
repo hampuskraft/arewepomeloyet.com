@@ -1,8 +1,17 @@
 import {DISCORD_BOT_AUTHORIZE_URL} from '@/common/config';
+import {BotStatsResponse} from '@/common/database';
 
-export default function InviteButton() {
+export default function InviteButton({botStats}: {botStats: BotStatsResponse}) {
   return (
     <div className="my-4 flex flex-col gap-4">
+      <div className="flex flex-row gap-2 items-center">
+        <div className="bg-green-500 rounded-full w-4 h-4" />
+        <p className="font-display tracking-tight font-medium text-xl text-gray-700 dark:text-gray-300">
+          Currently in <strong>{botStats.guilds.toLocaleString()} servers</strong> with{' '}
+          <strong>{botStats.members.toLocaleString()} members</strong>
+        </p>
+      </div>
+
       <a
         className="max-w-max rounded-xl bg-blue-500 px-4 py-2 font-display font-bold text-white transition-colors duration-200 ease-in-out hover:bg-blue-600"
         href={DISCORD_BOT_AUTHORIZE_URL}

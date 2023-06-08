@@ -1,6 +1,7 @@
 import Prisma from '@prisma/client';
 import {Client, Events, IntentsBitField, UserFlags} from 'discord.js';
 import crypto from 'node:crypto';
+import http from 'node:http';
 import {TextEncoder} from 'node:util';
 
 const {PrismaClient} = Prisma;
@@ -107,3 +108,18 @@ client.on(Events.GuildMemberUpdate, async (_oldMember, newMember) => {
 });
 
 client.login();
+
+http
+  .createServer((req, res) => {
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(
+      JSON.stringify({
+        guilds: client.guilds.cache.size,
+        members: client.users.cache.size,
+        uptime: client.uptime,
+      }),
+    );
+  })
+  .listen(8080);
+
+console.log('Listening on port 8080');
