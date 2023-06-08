@@ -1,7 +1,6 @@
 'use client';
 
 import {PomeloStats} from '@/common/database';
-
 import {
   CategoryScale,
   Chart as ChartJS,
