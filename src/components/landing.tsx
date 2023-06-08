@@ -199,7 +199,8 @@ export default function Landing({
             <p>
               A: According to Discord&apos;s <Link href="https://discord.com/blog/usernames">official blog post</Link>:
               &quot;<strong>Current</strong> Nitro [non-Basic] subscribers [...] that registered for Nitro{' '}
-              <strong>on or before March 1, 2023</strong> will also be given early access.&quot; Early Supporters also{' '}
+              <strong>on or before March 1, 2023</strong> will also be given early access.&quot; 2015 Early Supporters
+              also{' '}
               <Link href="https://twitter.com/DiscordPreviews/status/1665788875594186754">
                 appear to get early access
               </Link>
