@@ -101,7 +101,7 @@ export type BotStatsResponse = {
 
 export async function getBotStats(): Promise<BotStatsResponse> {
   try {
-    const res = await fetch(BOT_HTTP_ENDPOINT, {cache: 'no-cache'});
+    const res = await fetch(BOT_HTTP_ENDPOINT, {next: {revalidate: 60}});
     if (!res.ok) {
       return {guilds: 0, members: 0, uptime: 0};
     }
