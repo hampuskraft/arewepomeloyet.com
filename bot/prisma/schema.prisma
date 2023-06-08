@@ -16,9 +16,6 @@ model Pomelo {
   timestamp      DateTime @default(now())
 
   @@index([date])
-  @@index([nitro])
-  @@index([earlySupporter])
   @@index([oauth2])
-  @@index([timestamp])
   @@map("pomelos")
 }

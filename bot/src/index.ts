@@ -142,7 +142,7 @@ await manager.connect();
 http
   .createServer((_req, res) => {
     res.writeHead(200, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify({guilds: guilds, members: members, uptime: process.uptime()}));
+    res.end(JSON.stringify({guilds, members, uptime: process.uptime()}));
   })
   .listen(8080);
 
