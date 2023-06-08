@@ -176,7 +176,8 @@ export default function Landing({
                 Server Subscriptions (US only)
               </Link>
               . Moderator Programs Alumni, HypeSquad Events, and Discord Admins{' '}
-              <strong>did NOT get early access</strong>—that was simply false information.
+              <strong>did NOT get early access</strong>. Some Moderator Programs Alumnis received early access by
+              mistake when Discord tried to fix bugs with the rollout.
             </p>
           </div>
 
@@ -203,12 +204,11 @@ export default function Landing({
             <p>
               A: According to Discord&apos;s <Link href="https://discord.com/blog/usernames">official blog post</Link>:
               &quot;<strong>Current</strong> Nitro [non-Basic] subscribers [...] that registered for Nitro{' '}
-              <strong>on or before March 1, 2023</strong> will also be given early access.&quot; 2015 Early Supporters
-              also{' '}
+              <strong>on or before March 1, 2023</strong> will also be given early access.&quot; Moreover,{' '}
               <Link href="https://twitter.com/DiscordPreviews/status/1665788875594186754">
-                appear to get early access
-              </Link>
-              .
+                some Early Supporters registered in 2015
+              </Link>{' '}
+              appear to have gotten early access.
             </p>
           </div>
 
@@ -239,10 +239,10 @@ export default function Landing({
               Discord mentions problems with the old system (that could&apos;ve been fixed without Pomelo), such as:
             </p>
 
-            <ul className="list-disc list-inside space-y-2">
-              <li className="ml-4 font-semibold">Usernames are case-sensitive.</li>
-              <li className="ml-4 font-semibold">Usernames sometimes contain special characters.</li>
-              <li className="ml-4">
+            <ul className="ml-8 list-disc list-outside space-y-2">
+              <li className="font-semibold">Usernames are case-sensitive.</li>
+              <li className="font-semibold">Usernames sometimes contain special characters.</li>
+              <li>
                 <span className="font-semibold">&quot;Only&quot; 10,000 users are allowed per name.</span> (Now
                 it&apos;s only 1 per name instead.)
               </li>
