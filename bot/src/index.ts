@@ -113,6 +113,9 @@ manager.on(WebSocketShardEvents.Dispatch, async (data) => {
       const pomelo = await handleMember(data.data.d);
       await upsertPomelo(pomelo);
       console.log(`Added pomelo ${pomelo.hash} to the database.`);
+      const guild = guilds.get(data.data.d.guild_id);
+      if (guild == null) return;
+      guilds.set(data.data.d.guild_id, guild + 1);
       break;
     }
 
