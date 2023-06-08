@@ -19,7 +19,7 @@ async function handleGuildCreate(guild) {
   await guild.members.fetch();
   const pomelos = [];
   for (const member of guild.members.cache.values()) {
-    if (!isValidMember(member)) continue;
+    if (!isValidUser(member.user)) continue;
     const pomelo = await handleMember(member);
     pomelos.push(pomelo);
   }
@@ -46,14 +46,10 @@ async function hashId(id) {
 }
 
 /**
- * @param {import('discord.js').GuildMember} member
+ * @param {import('discord.js').User} user
  */
-function isValidMember(member) {
-  return (
-    member.user.discriminator === '0' &&
-    !member.user.flags.has(UserFlags.Staff) &&
-    !member.user.flags.has(UserFlags.Partner)
-  );
+function isValidUser(user) {
+  return user.discriminator === '0' && !user.flags.has(UserFlags.Staff) && !user.flags.has(UserFlags.Partner);
 }
 
 /**
@@ -79,14 +75,14 @@ async function handleMember(member) {
 client.on(Events.GuildCreate, handleGuildCreate);
 
 client.on(Events.GuildMemberAdd, async (member) => {
-  if (!isValidMember(member)) return;
+  if (!isValidUser(member.user)) return;
   const pomelo = await handleMember(member);
   await prisma.pomelo.create({data: pomelo});
   console.log(`Added ${pomelo.hash} to the database.`);
 });
 
 client.on(Events.GuildMemberUpdate, async (_oldMember, newMember) => {
-  if (!isValidMember(newMember)) return;
+  if (!isValidUser(newMember.user)) return;
   const pomelo = await handleMember(newMember);
   await prisma.pomelo.upsert({
     where: {hash: pomelo.hash},
@@ -97,6 +93,7 @@ client.on(Events.GuildMemberUpdate, async (_oldMember, newMember) => {
 });
 
 client.on(Events.UserUpdate, async (_, user) => {
+  if (!isValidUser(user)) return;
   const date = new Date(user.createdTimestamp);
   const possiblyNitro =
     user.accentColor != null || user.avatar?.startsWith('a_') || user.avatarDecoration != null || user.banner != null;
