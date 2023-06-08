@@ -333,13 +333,6 @@ export default function Landing({
             </p>
           </div>
 
-          <Image
-            src="/jessie.png"
-            width={512}
-            height={512}
-            alt="We've chosen the name Jessie. Sorry, that name is taken. Jessie95836 is available."
-          />
-
           <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
             <p>
               <strong>Q: Is there an API for this site?</strong>
@@ -351,6 +344,13 @@ export default function Landing({
               pomelos, specify the <Link href="/api/v1/pomelos?oauth2=true">?oauth2=boolean</Link> query param.
             </p>
           </div>
+
+          <Image
+            src="/jessie.png"
+            width={512}
+            height={512}
+            alt="We've chosen the name Jessie. Sorry, that name is taken. Jessie95836 is available."
+          />
         </div>
       </div>
 
