@@ -183,7 +183,8 @@ export default function Landing({
             <p>
               A: Staff members (and their personal accounts),{' '}
               <Link href="https://discord.com/partners">Partnered Server Owners</Link>,{' '}
-              <Link href="https://discord.com/verification">Verified Server Owners</Link>, and owners of servers with{' '}
+              <Link href="https://discord.com/verification">Verified Server Owners</Link>, and some owners of servers
+              with{' '}
               <Link href="https://creator-support.discord.com/hc/en-us/articles/10423011974551">
                 Server Subscriptions (US only)
               </Link>
