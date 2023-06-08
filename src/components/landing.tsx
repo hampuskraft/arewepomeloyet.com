@@ -348,7 +348,8 @@ export default function Landing({
             <p>
               A: Yes! You can access our aggregated stats using this endpoint: <Link href="/api/v1/pomelos">GET /api/v1/pomelos</Link><br />
               The endpoint will provide stats for both OAuth2 added and bot added statistics. If you would like to view only OAuth2 data you 
-              can add <code>?oauth2=true</code> to the end of the URL. You can alternatively add <code>?oauth2=false</code> to the end of the URL to show just the bot added statistics
+              can add <Link href="/api/v1/pomelos?oauth2=true">?oauth2=true</Link> to the end of the URL. You can alternatively add 
+              <Link href="/api/v1/pomelos?oauth2=false">?oauth2=false</Link> to the end of the URL to show just the bot added statistics.
             </p>
           </div>
         </div>
