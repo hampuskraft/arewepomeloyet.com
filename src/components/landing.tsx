@@ -18,6 +18,7 @@ export default function Landing({
   isOAuth2?: boolean;
 }) {
   const {stats, total, lastUpdatedAt, lastPomeloAt} = pomeloStats;
+
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-32 md:gap-16">
       <div className="flex flex-col gap-8">
@@ -32,7 +33,12 @@ export default function Landing({
         </p>
       </div>
 
-      <InviteButton />
+      <a
+        className="max-w-max rounded-xl bg-blue-500 px-4 py-2 font-display font-bold text-white transition-colors duration-200 ease-in-out hover:bg-blue-600"
+        href="#contributing"
+      >
+        How does this site work, and how can I help?
+      </a>
 
       <div className="flex flex-col gap-4 lg:gap-6">
         <div className="flex flex-col gap-2">
@@ -132,7 +138,7 @@ export default function Landing({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4 lg:gap-6">
+      <div className="flex flex-col gap-4 lg:gap-6" id="contributing">
         <h2 className="font-display text-2xl font-semibold lg:text-4xl">How does this site work?</h2>
 
         <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
