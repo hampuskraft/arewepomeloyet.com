@@ -3,10 +3,10 @@ import {BotStatsResponse, PomeloStatsResponse} from '@/common/database';
 import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
-import NoSSR from '@/components/no-ssr';
 import PomeloButton from '@/components/pomelo-button';
 import PomeloStatsChart from '@/components/pomelo-stats-chart';
 import ThemeSwitch from '@/components/theme-switch';
+import Timestamp from '@/components/timestamp';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
@@ -74,11 +74,7 @@ export default function Landing({
             </p>
 
             <p>
-              Last pomelo registered on{' '}
-              <NoSSR>
-                <strong>{new Date(lastPomeloAt).toLocaleString()}</strong>
-              </NoSSR>
-              .
+              Last pomelo registered on <Timestamp value={lastPomeloAt} />.
             </p>
           </div>
         </div>
@@ -356,11 +352,7 @@ export default function Landing({
 
       <div className="flex flex-col gap-4 text-md font-display font-light text-gray-700 dark:text-gray-400">
         <p>
-          Last updated on{' '}
-          <NoSSR>
-            <strong>{new Date(lastUpdatedAt).toLocaleString()}</strong>
-          </NoSSR>
-          .
+          Last updated on <Timestamp value={lastUpdatedAt} />.
         </p>
         <ThemeSwitch />
       </div>
