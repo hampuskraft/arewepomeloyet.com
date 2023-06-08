@@ -32,6 +32,8 @@ export default function Landing({
         </p>
       </div>
 
+      <InviteButton />
+
       <div className="flex flex-col gap-4 lg:gap-6">
         <div className="flex flex-col gap-2">
           <div className="flex flex-col lg:flex-row justify-between gap-2 items-center">
