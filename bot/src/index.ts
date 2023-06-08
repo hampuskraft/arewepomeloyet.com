@@ -11,7 +11,7 @@ if (!token) {
   throw new Error('No token provided');
 }
 
-const guilds: Map<string, number> = new Map();
+const guilds = new Map<string, number>();
 const prisma = new PrismaClient();
 const rest = new REST().setToken(token);
 const manager = new WebSocketManager({
