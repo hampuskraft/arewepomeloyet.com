@@ -5,6 +5,7 @@ import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
 import PomeloButton from '@/components/pomelo-button';
+import PomeloStatsChart from '@/components/pomelo-stats-chart';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
@@ -39,6 +40,8 @@ export default function Landing({
       >
         How does this site work, and how can I help?
       </a>
+
+      <PomeloStatsChart data={stats} />
 
       <div className="flex flex-col gap-4 lg:gap-6">
         <div className="flex flex-col gap-4">
