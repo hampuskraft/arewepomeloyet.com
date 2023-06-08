@@ -1,5 +1,7 @@
+import {GITHUB_REPO_URL} from '@/common/config';
 import {PomeloStatsResponse} from '@/common/database';
 import Footer from '@/components/footer';
+import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
 import PomeloButton from '@/components/pomelo-button';
@@ -19,9 +21,12 @@ export default function Landing({
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-32 md:gap-16">
       <div className="flex flex-col gap-8">
-        <h1 className="font-body text-4xl tracking-tighter font-light text-gray-700 dark:text-gray-400 lg:text-6xl">
-          Are we Pomelo yet?
-        </h1>
+        <div className="flex flex-row items-center gap-4 text-gray-700 dark:text-gray-400">
+          <h1 className="font-body text-4xl tracking-tighter font-light lg:text-6xl">Are we Pomelo yet?</h1>
+          <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer">
+            <GitHubIcon size={48} />
+          </a>
+        </div>
         <p className="font-display text-6xl tracking-tighter font-bold text-black dark:text-white lg:text-8xl">
           Yes, but actually no.
         </p>
@@ -47,13 +52,13 @@ export default function Landing({
 
           <div className="flex flex-col gap-1">
             <p className="font-body text-lg font-light text-gray-700 dark:text-gray-400">
-              Nitro counts are inaccurate. Discord doesn&apos;t provide Nitro statuses to bots. We also don&apos;t know
-              how long a user has had Nitro.
+              Discord doesn&apos;t provide Nitro statuses to bots; premium usage is inferred from features like animated
+              avatars and banners.
             </p>
 
             <p className="font-body text-lg font-light text-gray-700 dark:text-gray-400">
-              Switch to the OAuth2-only view if you want guaranteed Nitro status (but we can&apos;t ensure they are
-              eligible).
+              For guaranteed Nitro status, switch to the OAuth2-only view, but eligibility isn&apos;t guaranteed as
+              &apos;premium_since&apos; is missing.
             </p>
           </div>
         </div>
@@ -136,7 +141,7 @@ export default function Landing({
 
           <p>
             We rely on Pomelo&apos;d users authenticating below. <strong>You are anonymous</strong>—
-            <Link href="https://github.com/hampuskraft/arewepomeloyet.com">feel free to audit the code</Link>.
+            <Link href={GITHUB_REPO_URL}>feel free to audit the code</Link>.
           </p>
 
           <PomeloButton />
@@ -149,8 +154,7 @@ export default function Landing({
 
           <p>
             Collect pomelos from your members in real-time by inviting our bot. No permissions required. All collected
-            data remains anonymous; you can find the source code{' '}
-            <Link href="https://github.com/hampuskraft/arewepomeloyet.com">here</Link>.
+            data remains anonymous; you can find the source code <Link href={GITHUB_REPO_URL}>here</Link>.
           </p>
         </div>
       </div>

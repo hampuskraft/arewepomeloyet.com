@@ -23,3 +23,5 @@ export const DISCORD_BOT_AUTHORIZE_URL = [
   '&permissions=0',
   '&scope=bot',
 ].join('');
+
+export const GITHUB_REPO_URL = 'https://github.com/hampuskraft/arewepomeloyet.com';
