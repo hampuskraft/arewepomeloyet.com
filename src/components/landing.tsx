@@ -339,6 +339,18 @@ export default function Landing({
             height={512}
             alt="We've chosen the name Jessie. Sorry, that name is taken. Jessie95836 is available."
           />
+
+          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+            <p>
+              <strong>Q: Is there an API for this site?</strong>
+            </p>
+
+            <p>
+              A: Yes! You can access our aggregated stats using this endpoint: <Link href="/api/v1/pomelos">GET /api/v1/pomelos</Link><br />
+              The endpoint will provide stats for both OAuth2 added and bot added statistics. If you would like to view only OAuth2 data you 
+              can add <code>?oauth2=true</code> to the end of the URL. You can alternatively add <code>?oauth2=false</code> to the end of the URL to show just the bot added statistics
+            </p>
+          </div>
         </div>
       </div>
 
@@ -350,11 +362,6 @@ export default function Landing({
           </NoSSR>
           .
         </p>
-
-        <p>
-          Protip: There&apos;s a <Link href="/api/v1/pomelos">GET /api/v1/pomelos</Link> endpoint for aggregated stats.
-        </p>
-
         <ThemeSwitch />
       </div>
     </main>
