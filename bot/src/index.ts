@@ -76,6 +76,18 @@ async function handleUser(user: APIUser): Promise<PomeloCreate> {
   };
 }
 
+async function upsertPomelo(pomelo: PomeloCreate) {
+  try {
+    await prisma.pomelo.upsert({
+      where: {hash: pomelo.hash},
+      create: pomelo,
+      update: {},
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 manager.on(WebSocketShardEvents.Dispatch, async (data) => {
   switch (data.data.t) {
     case GatewayDispatchEvents.Ready: {
@@ -102,11 +114,7 @@ manager.on(WebSocketShardEvents.Dispatch, async (data) => {
     case GatewayDispatchEvents.GuildMemberAdd: {
       if (!isValidUser(data.data.d.user!)) return;
       const pomelo = await handleMember(data.data.d);
-      await prisma.pomelo.upsert({
-        where: {hash: pomelo.hash},
-        create: pomelo,
-        update: {},
-      });
+      await upsertPomelo(pomelo);
       console.log(`Added pomelo ${pomelo.hash} to the database.`);
       break;
     }
@@ -114,11 +122,7 @@ manager.on(WebSocketShardEvents.Dispatch, async (data) => {
     case GatewayDispatchEvents.GuildMemberUpdate: {
       if (!isValidUser(data.data.d.user)) return;
       const pomelo = await handleMember(data.data.d as APIGuildMember);
-      await prisma.pomelo.upsert({
-        where: {hash: pomelo.hash},
-        create: pomelo,
-        update: {},
-      });
+      await upsertPomelo(pomelo);
       console.log(`Updated pomelo ${pomelo.hash} in the database.`);
       break;
     }
@@ -126,11 +130,7 @@ manager.on(WebSocketShardEvents.Dispatch, async (data) => {
     case GatewayDispatchEvents.UserUpdate: {
       if (!isValidUser(data.data.d)) return;
       const pomelo = await handleUser(data.data.d);
-      await prisma.pomelo.upsert({
-        where: {hash: pomelo.hash},
-        create: pomelo,
-        update: {},
-      });
+      await upsertPomelo(pomelo);
       console.log(`Updated pomelo ${pomelo.hash} in the database.`);
       break;
     }
