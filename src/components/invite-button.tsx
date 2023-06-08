@@ -12,7 +12,7 @@ export default function InviteButton() {
         Invite Discord Bot
       </a>
 
-      <div className="flex flex-col gap-2 font-body text-md font-light text-gray-700 dark:text-gray-400">
+      <div className="flex flex-col gap-2 font-body text-base font-light text-gray-700 dark:text-gray-400">
         <p>
           By inviting the bot, you agree to the anonymous collection of the same data as the &quot;I got
           Pomelo&apos;d!&quot; button above.

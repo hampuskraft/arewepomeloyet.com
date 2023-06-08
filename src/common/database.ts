@@ -30,6 +30,7 @@ export type PomeloStats = {
 
 export type PomeloStatsResponse = {
   stats: PomeloStats[];
+  total: number;
   lastPomeloAt: number;
   lastUpdatedAt: number;
 };
@@ -58,6 +59,7 @@ export async function getPomeloStats({oauth2}: {oauth2?: boolean} = {}): Promise
 
   return {
     stats,
+    total: pomelos.length,
     lastPomeloAt: pomelos.at(-1)?.timestamp.getTime() ?? 0,
     lastUpdatedAt: Date.now(),
   };

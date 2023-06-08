@@ -15,7 +15,7 @@ export default function Landing({
   pomeloStats: PomeloStatsResponse;
   isOAuth2?: boolean;
 }) {
-  const {stats, lastUpdatedAt, lastPomeloAt} = pomeloStats;
+  const {stats, total, lastUpdatedAt, lastPomeloAt} = pomeloStats;
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-32 md:gap-16">
       <div className="flex flex-col gap-8">
@@ -29,8 +29,14 @@ export default function Landing({
 
       <div className="flex flex-col gap-4 lg:gap-6">
         <div className="flex flex-col gap-2">
-          <div className="flex flex-col lg:flex-row justify-between items-center">
-            <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
+          <div className="flex flex-col lg:flex-row justify-between gap-2 items-center">
+            <div className="flex flex-row gap-2 items-center">
+              <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
+              <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
+                {numberFormatter.format(total)} records
+              </span>
+            </div>
+
             <NextLink
               className="font-display text-md font-semibold text-blue-500 dark:text-blue-400 hover:underline"
               href={isOAuth2 ? '/' : '/oauth2'}
@@ -39,15 +45,17 @@ export default function Landing({
             </NextLink>
           </div>
 
-          <p className="font-body text-md font-light text-gray-700 dark:text-gray-400">
-            Nitro counts are inaccurate. Discord doesn&apos;t provide Nitro status to bots. We also don&apos;t know how
-            long a user has had Nitro.
-          </p>
+          <div className="flex flex-col gap-1">
+            <p className="font-body text-lg font-light text-gray-700 dark:text-gray-400">
+              Nitro counts are inaccurate. Discord doesn&apos;t provide Nitro statuses to bots. We also don&apos;t know
+              how long a user has had Nitro.
+            </p>
 
-          <p className="font-body text-md font-light text-gray-700 dark:text-gray-400">
-            Switch to the OAuth2-only view if you want guaranteed Nitro status (but we can&apos;t ensure they are
-            eligible).
-          </p>
+            <p className="font-body text-lg font-light text-gray-700 dark:text-gray-400">
+              Switch to the OAuth2-only view if you want guaranteed Nitro status (but we can&apos;t ensure they are
+              eligible).
+            </p>
+          </div>
         </div>
 
         {stats.length === 0 ? (
