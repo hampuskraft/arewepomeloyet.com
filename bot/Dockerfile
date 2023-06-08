@@ -2,7 +2,6 @@
 FROM node:18-bullseye-slim AS base
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
-COPY patches ./patches
 
 # Dependencies
 FROM base AS deps
@@ -14,7 +13,7 @@ RUN apt-get update && apt-get install -y ca-certificates && \
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run generate
+RUN npm run generate && npm run build
 
 # Runner
 FROM node:18-bullseye-slim

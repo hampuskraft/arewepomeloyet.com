@@ -1,6 +1,7 @@
 **/.DS_Store
 **/.env
 **/.next
+**/dist
 **/next-env.d.ts
 **/node_modules
 **/pnpm-lock.yaml
