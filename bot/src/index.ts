@@ -6,15 +6,13 @@ import crypto from 'node:crypto';
 import http from 'node:http';
 import {TextEncoder} from 'node:util';
 
-let guilds = 0;
-let members = 0;
-
-const prisma = new PrismaClient();
 const token = process.env['DISCORD_TOKEN'];
 if (!token) {
   throw new Error('No token provided');
 }
 
+const guilds: Map<string, number> = new Map();
+const prisma = new PrismaClient();
 const rest = new REST().setToken(token);
 const manager = new WebSocketManager({
   token,
@@ -106,8 +104,7 @@ manager.on(WebSocketShardEvents.Dispatch, async (data) => {
         await prisma.pomelo.createMany({data: pomelos, skipDuplicates: true});
         console.log(`Added ${pomelos.length} pomelos to the database.`);
       }
-      guilds++;
-      members += data.data.d.member_count;
+      guilds.set(data.data.d.id, data.data.d.member_count!);
       break;
     }
 
@@ -134,6 +131,20 @@ manager.on(WebSocketShardEvents.Dispatch, async (data) => {
       console.log(`Updated pomelo ${pomelo.hash} in the database.`);
       break;
     }
+
+    case GatewayDispatchEvents.GuildMemberRemove: {
+      const guild = guilds.get(data.data.d.guild_id);
+      if (guild == null) return;
+      guilds.set(data.data.d.guild_id, guild - 1);
+      break;
+    }
+
+    case GatewayDispatchEvents.GuildDelete: {
+      const guild = guilds.get(data.data.d.id);
+      if (guild == null) return;
+      guilds.delete(data.data.d.id);
+      break;
+    }
   }
 });
 
@@ -142,7 +153,13 @@ await manager.connect();
 http
   .createServer((_req, res) => {
     res.writeHead(200, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify({guilds, members, uptime: process.uptime()}));
+    res.end(
+      JSON.stringify({
+        guilds: guilds.size,
+        members: [...guilds.values()].reduce((a, b) => a + b, 0),
+        uptime: process.uptime(),
+      }),
+    );
   })
   .listen(8080);
 
