@@ -77,7 +77,11 @@ client.on(Events.GuildCreate, handleGuildCreate);
 client.on(Events.GuildMemberAdd, async (member) => {
   if (!isValidUser(member.user)) return;
   const pomelo = await handleMember(member);
-  await prisma.pomelo.create({data: pomelo});
+  await prisma.pomelo.upsert({
+    where: {hash: pomelo.hash},
+    create: pomelo,
+    update: {},
+  });
   console.log(`Added ${pomelo.hash} to the database.`);
 });
 
