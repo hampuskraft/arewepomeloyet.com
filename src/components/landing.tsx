@@ -1,11 +1,12 @@
 import {GITHUB_REPO_URL} from '@/common/config';
 import {BotStatsResponse, PomeloStatsResponse} from '@/common/database';
-import Footer from '@/components/footer';
 import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
+import NoSSR from '@/components/no-ssr';
 import PomeloButton from '@/components/pomelo-button';
 import PomeloStatsChart from '@/components/pomelo-stats-chart';
+import ThemeSwitch from '@/components/theme-switch';
 import Image from 'next/image';
 import NextLink from 'next/link';
 
@@ -61,15 +62,23 @@ export default function Landing({
             </NextLink>
           </div>
 
-          <div className="flex flex-col gap-1">
-            <p className="font-body text-lg font-light text-gray-700 dark:text-gray-400">
+          <div className="flex flex-col gap-1 font-body text-lg font-light text-gray-700 dark:text-gray-400">
+            <p>
               Discord doesn&apos;t provide Nitro statuses to bots; premium usage is inferred from features like animated
               avatars and banners.
             </p>
 
-            <p className="font-body text-lg font-light text-gray-700 dark:text-gray-400">
+            <p>
               For guaranteed Nitro status, switch to the OAuth2-only view, but eligibility isn&apos;t guaranteed as
               &apos;premium_since&apos; is missing.
+            </p>
+
+            <p>
+              Last pomelo registered on{' '}
+              <NoSSR>
+                <strong>{new Date(lastPomeloAt).toLocaleString()}</strong>
+              </NoSSR>
+              .
             </p>
           </div>
         </div>
@@ -333,7 +342,21 @@ export default function Landing({
         </div>
       </div>
 
-      <Footer lastUpdatedAt={lastUpdatedAt} lastPomeloAt={lastPomeloAt} />
+      <div className="flex flex-col gap-4 text-md font-display font-light text-gray-700 dark:text-gray-400">
+        <p>
+          Last updated on{' '}
+          <NoSSR>
+            <strong>{new Date(lastUpdatedAt).toLocaleString()}</strong>
+          </NoSSR>
+          .
+        </p>
+
+        <p>
+          Protip: There&apos;s a <Link href="/api/v1/pomelos">GET /api/v1/pomelos</Link> endpoint for aggregated stats.
+        </p>
+
+        <ThemeSwitch />
+      </div>
     </main>
   );
 }
