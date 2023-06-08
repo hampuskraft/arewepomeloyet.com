@@ -100,10 +100,15 @@ export type BotStatsResponse = {
 };
 
 export async function getBotStats(): Promise<BotStatsResponse> {
-  const res = await fetch(BOT_HTTP_ENDPOINT, {cache: 'no-cache'});
-  if (!res.ok) {
+  try {
+    const res = await fetch(BOT_HTTP_ENDPOINT, {cache: 'no-cache'});
+    if (!res.ok) {
+      return {guilds: 0, members: 0, uptime: 0};
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error(error);
     return {guilds: 0, members: 0, uptime: 0};
   }
-
-  return res.json();
 }
