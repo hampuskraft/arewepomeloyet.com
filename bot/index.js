@@ -24,8 +24,8 @@ async function handleGuildCreate(guild) {
     pomelos.push(pomelo);
   }
   if (pomelos.length > 0) {
-    console.log(`Adding ${pomelos.length} pomelos to the database.`);
     await prisma.pomelo.createMany({data: pomelos, skipDuplicates: true});
+    console.log(`Added ${pomelos.length} pomelos to the database.`);
   }
 }
 
@@ -77,34 +77,41 @@ async function handleMember(member) {
 }
 
 client.on(Events.GuildCreate, handleGuildCreate);
-client.on(Events.UserUpdate, async (_, user) => {
-  const date = new Date(user.createdTimestamp);
-  const possiblyNitro =
-    user.accentColor != null || user.avatar?.startsWith('a_') || user.avatarDecoration != null || user.banner != null;
-  return {
-    hash: await hashId(user.id),
-    date: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
-    nitro: possiblyNitro,
-    earlySupporter: user.flags.has(UserFlags.PremiumEarlySupporter),
-  };
-});
 
 client.on(Events.GuildMemberAdd, async (member) => {
   if (!isValidMember(member)) return;
   const pomelo = await handleMember(member);
-  console.log(`Added ${pomelo.hash} to the database.`);
   await prisma.pomelo.create({data: pomelo});
+  console.log(`Added ${pomelo.hash} to the database.`);
 });
 
 client.on(Events.GuildMemberUpdate, async (_oldMember, newMember) => {
   if (!isValidMember(newMember)) return;
   const pomelo = await handleMember(newMember);
-  console.log(`Updated ${pomelo.hash} in the database.`);
   await prisma.pomelo.upsert({
     where: {hash: pomelo.hash},
     create: pomelo,
     update: {},
   });
+  console.log(`Updated ${pomelo.hash} in the database.`);
+});
+
+client.on(Events.UserUpdate, async (_, user) => {
+  const date = new Date(user.createdTimestamp);
+  const possiblyNitro =
+    user.accentColor != null || user.avatar?.startsWith('a_') || user.avatarDecoration != null || user.banner != null;
+  const pomelo = {
+    hash: await hashId(user.id),
+    date: new Date(date.getFullYear(), date.getMonth(), date.getDate()),
+    nitro: possiblyNitro,
+    earlySupporter: user.flags.has(UserFlags.PremiumEarlySupporter),
+  };
+  await prisma.pomelo.upsert({
+    where: {hash: pomelo.hash},
+    create: pomelo,
+    update: {},
+  });
+  console.log(`Updated ${pomelo.hash} in the database.`);
 });
 
 client.login();
