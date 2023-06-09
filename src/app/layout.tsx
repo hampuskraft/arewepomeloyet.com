@@ -6,7 +6,8 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Are We Pomelo Yet?',
-  description: 'Yes, but actually no.',
+  description:
+    '"Are we Pomelo yet?" is a crowdsourcing project to collect anonymized data about Discord\'s Pomelo rollout.',
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {

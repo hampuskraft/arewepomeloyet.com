@@ -1,7 +1,14 @@
 import {GITHUB_REPO_URL} from '@/common/config';
 import GitHubIcon from '@/components/github-icon';
 import Link from '@/components/link';
+import {Metadata} from 'next';
 import NextLink from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service & Privacy Policy',
+  description:
+    '"Are we Pomelo yet?" is a crowdsourcing project to collect anonymized data about Discord\'s Pomelo rollout.',
+};
 
 export default function Legal() {
   return (
