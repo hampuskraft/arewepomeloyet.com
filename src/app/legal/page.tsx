@@ -42,10 +42,13 @@ export default function Legal() {
           </p>
 
           <p>
+            <strong>NOTE</strong>: We&apos;re not affiliated with Discord or any of its employees.
+          </p>
+
+          <p>
             You can use this service in two ways: adding the bot to your server or using the OAuth2 button on the
             landing page to add yourself to the website.
           </p>
-
           <p>
             By using this service, you agree to the following terms of service. If you disagree with these terms, do not
             use this service.
