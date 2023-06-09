@@ -331,6 +331,11 @@ export default function Landing({
               </Link>{' '}
               based on self-reported data, matching the data collected by this website.
             </p>
+
+            <p>
+              I also suggest checking out{' '}
+              <Link href="https://nekos.sh/discordrollout">TheCodingGuy&apos;s Discord Username Rollout Tracker</Link>.
+            </p>
           </div>
 
           <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
