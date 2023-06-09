@@ -47,11 +47,12 @@ export default function PomeloStatsChart({data}: {data: PomeloStats[]}) {
   };
 
   return (
-    <div>
+    <div className="relative flex items-center justify-center h-[40vh] w-[80vh] max-w-full">
       <Line
         data={chartData}
         options={{
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
             legend: {
               position: 'top' as const,
