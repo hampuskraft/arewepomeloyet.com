@@ -90,7 +90,7 @@ export default function Legal() {
           </p>
 
           <p>
-            We do NOT have any logs containing personally identifiable information, nor store anything else but the data
+            We do NOT have any logs containing uniquely identifiable information, nor store anything else but the data
             model described earlier. This can be independently verified by looking at the source code.
           </p>
         </div>
