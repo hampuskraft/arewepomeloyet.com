@@ -28,6 +28,7 @@ export default function ThemeSwitch() {
         <Fragment key={item.value}>
           <span
             className={`cursor-pointer font-semibold hover:underline ${theme === item.value ? 'text-blue-500' : ''}`}
+            role="button"
             onClick={() => setTheme(item.value)}
           >
             {item.name}

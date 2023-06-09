@@ -1,5 +1,6 @@
 import {GITHUB_REPO_URL} from '@/common/config';
 import {BotStatsResponse, PomeloStatsResponse} from '@/common/database';
+import ContributingButton from '@/components/contributing-button';
 import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
@@ -35,13 +36,7 @@ export default function Landing({
         </p>
       </div>
 
-      <a
-        className="max-w-max rounded-xl bg-blue-500 px-4 py-2 font-display font-bold text-white transition-colors duration-200 ease-in-out hover:bg-blue-600"
-        href="#contributing"
-      >
-        How does this site work, and how can I help?
-      </a>
-
+      <ContributingButton />
       <PomeloStatsChart data={stats} />
 
       <div className="flex flex-col gap-4 lg:gap-6">
@@ -171,7 +166,7 @@ export default function Landing({
 
           <p>
             Collect pomelos from your members in real-time by inviting our bot. No permissions required. All collected
-            data remains anonymous; you can find the source code <Link href={GITHUB_REPO_URL}>here</Link>.
+            data remains anonymous; you can audit <Link href={GITHUB_REPO_URL}>the source code</Link>.
           </p>
 
           <p>
