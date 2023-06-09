@@ -83,7 +83,7 @@ export default function Legal() {
           </ul>
 
           <p className="text-base text-gray-500">
-            * We also use these events to display how many servers & members the bot is in on the landing page.
+            * These events are also used to synchronize the total guilds and members counters on the landing page.
           </p>
 
           <p>
