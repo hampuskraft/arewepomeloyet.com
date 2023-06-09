@@ -173,6 +173,14 @@ export default function Landing({
             Collect pomelos from your members in real-time by inviting our bot. No permissions required. All collected
             data remains anonymous; you can find the source code <Link href={GITHUB_REPO_URL}>here</Link>.
           </p>
+
+          <p>
+            Please see our{' '}
+            <Link href="/legal" isExternal>
+              Terms of Service & Privacy Policy
+            </Link>{' '}
+            for more information.
+          </p>
         </div>
       </div>
 
@@ -353,6 +361,10 @@ export default function Landing({
       <div className="flex flex-col gap-4 text-md font-display font-light text-gray-700 dark:text-gray-400">
         <p>
           Last updated on <Timestamp value={lastUpdatedAt} />.
+        </p>
+        <p>
+          Read our <Link href="/legal">Terms of Service & Privacy Policy</Link> (TL;DR: We don&apos;t collect uniquely
+          identifiable information.)
         </p>
         <ThemeSwitch />
       </div>

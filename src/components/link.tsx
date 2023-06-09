@@ -1,7 +1,22 @@
-export default function Link({href, children}: {href: string; children: React.ReactNode}) {
+import NextLink from 'next/link';
+
+export default function Link({
+  href,
+  children,
+  isExternal = false,
+}: {
+  href: string;
+  children: React.ReactNode;
+  isExternal?: boolean;
+}) {
   return (
-    <a className="text-blue-500 font-semibold hover:underline" href={href} target="_blank" rel="noopener noreferrer">
+    <NextLink
+      className="text-blue-500 font-semibold hover:underline"
+      href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+    >
       {children}
-    </a>
+    </NextLink>
   );
 }
