@@ -67,7 +67,7 @@ export default function Legal() {
             <li>Discord registration date (YYYY-MM)</li>
             <li>Possibly Nitro (yes/no)</li>
             <li>Early Supporter (yes/no)</li>
-            <li>Added through OAuth2? (yes/no)</li>
+            <li>Added through OAuth2 (yes/no)</li>
             <li>When the record was created (timestamp)</li>
           </ul>
 
