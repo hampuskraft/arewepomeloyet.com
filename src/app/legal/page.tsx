@@ -65,9 +65,9 @@ export default function Legal() {
           <ul className="ml-8 list-disc list-outside space-y-1">
             <li>Discord user ID hash (SHA-256)</li>
             <li>Discord registration date (YYYY-MM)</li>
-            <li>Possible Nitro status (boolean)</li>
-            <li>Early Supporter status (boolean)</li>
-            <li>Added through OAuth2 or bot? (boolean)</li>
+            <li>Possibly Nitro (yes/no)</li>
+            <li>Early Supporter (yes/no)</li>
+            <li>Added through OAuth2? (yes/no)</li>
             <li>When the record was created (timestamp)</li>
           </ul>
 
