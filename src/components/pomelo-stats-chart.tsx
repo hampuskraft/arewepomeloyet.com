@@ -47,7 +47,7 @@ export default function PomeloStatsChart({data}: {data: PomeloStats[]}) {
   };
 
   return (
-    <div className="relative flex items-center justify-center h-[40vh] w-[80vw] max-w-full">
+    <div className="relative h-[60vh]">
       <Line
         data={chartData}
         options={{
