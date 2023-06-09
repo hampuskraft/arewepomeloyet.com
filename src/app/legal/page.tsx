@@ -117,11 +117,8 @@ export default function Legal() {
           <h3 className="font-semibold">3. Data Storage</h3>
 
           <p>
-            Our services are hosted using{' '}
-            <Link href="https://fly.io/docs/about/healthcare/" isExternal>
-              Fly.io
-            </Link>{' '}
-            in the State of California in the United States of America:
+            Our services are hosted using <Link href="https://fly.io/docs/about/healthcare/">Fly.io</Link> in the State
+            of California in the United States of America:
           </p>
 
           <ul className="ml-8 list-disc list-outside space-y-4">
@@ -202,29 +199,22 @@ export default function Legal() {
 
         <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
           <p>
-            The data controller is{' '}
-            <Link href="https://hampuskraft.com" isExternal>
-              Hampus Kraft
-            </Link>
-            , and the data processor is <Link href="https://fly.io">Fly.io</Link>. The data is stored in the United
-            States of America and is encrypted at rest using AES-XTS.
+            The data controller is <Link href="https://hampuskraft.com">Hampus Kraft</Link>, and the data processor is{' '}
+            <Link href="https://fly.io">Fly.io</Link>. The data is stored in the United States of America and is
+            encrypted at rest using AES-XTS.
           </p>
 
           <p>
             If you have any questions or concerns regarding this terms of service or privacy policy, please contact us
             through email at{' '}
-            <Link href="mailto:arewepomeloyet@hampuskraft.com" isExternal>
+            <Link href="mailto:arewepomeloyet@hampuskraft.com" isExternal={false}>
               arewepomeloyet@hampuskraft.com
             </Link>
             .
           </p>
 
           <p>
-            Our source code is publicly auditable on{' '}
-            <Link href={GITHUB_REPO_URL} isExternal>
-              GitHub
-            </Link>
-            .
+            Our source code is publicly auditable on <Link href={GITHUB_REPO_URL}>GitHub</Link>.
           </p>
         </div>
       </div>

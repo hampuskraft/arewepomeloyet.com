@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 export default function Link({
   href,
   children,
-  isExternal = false,
+  isExternal = true,
 }: {
   href: string;
   children: React.ReactNode;

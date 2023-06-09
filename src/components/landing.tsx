@@ -175,11 +175,7 @@ export default function Landing({
           </p>
 
           <p>
-            Please see our{' '}
-            <Link href="/legal" isExternal>
-              Terms of Service & Privacy Policy
-            </Link>{' '}
-            for more information.
+            Please see our <Link href="/legal">Terms of Service & Privacy Policy</Link> for more information.
           </p>
         </div>
       </div>
