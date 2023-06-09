@@ -363,7 +363,7 @@ export default function Landing({
           Last updated on <Timestamp value={lastUpdatedAt} />.
         </p>
         <p>
-          Read our <Link href="/legal">Terms of Service & Privacy Policy</Link> (TL;DR: We don&apos;t collect uniquely
+          Read our <Link href="/legal">Terms of Service & Privacy Policy</Link> (TL;DR: We don&apos;t collect personally
           identifiable information.)
         </p>
         <ThemeSwitch />
