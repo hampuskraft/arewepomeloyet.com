@@ -17,43 +17,55 @@ function smoothScrollTo(selector: string) {
   }
 }
 
+const STORAGE_KEY = 'isCTAHidden';
+
 export default function ContributingCTA({isOAuth2, lastPomeloAt}: {isOAuth2: boolean; lastPomeloAt: number}) {
+  const [isMounted, setIsMounted] = useState(false);
   const [isCTAHidden, setIsCTAHidden] = useState(false);
+
   useEffect(() => {
-    if (localStorage.getItem('isCTAHidden') === 'true') {
-      setIsCTAHidden(true);
-    }
+    setIsMounted(true);
+    setIsCTAHidden(window.localStorage.getItem(STORAGE_KEY) === 'true');
   }, []);
 
+  if (!isMounted) {
+    return null;
+  }
+
+  const buttonProps = {
+    role: 'button',
+    'aria-label': `${isCTAHidden ? 'Show' : 'Hide'} CTA`,
+    onClick() {
+      setIsCTAHidden((prev) => {
+        window.localStorage.setItem(STORAGE_KEY, String(!prev));
+        return !prev;
+      });
+    },
+  };
+
   return (
-    <div className="flex bg-blue-500 text-white rounded-xl p-4 lg:p-6 flex-col gap-4">
-      <div className="flex flex-row gap-4 items-center justify-between">
+    <div
+      className="flex bg-blue-500 text-white rounded-xl p-4 lg:p-6 flex-col gap-4 select-none"
+      {...(isCTAHidden ? buttonProps : {})}
+    >
+      <div className="flex flex-row gap-4 items-center justify-between" {...(!isCTAHidden ? buttonProps : {})}>
         <h2 className="font-display text-xl lg:text-2xl font-semibold">
           Here&apos;s looking at you, kid. And you&apos;re looking at the {isOAuth2 ? 'OAuth2-Only' : 'Default'} View.
         </h2>
 
-        <button
-          className="flex items-center justify-center"
-          aria-label={`${isCTAHidden ? 'Show' : 'Hide'} CTA`}
-          onClick={() => {
-            setIsCTAHidden(!isCTAHidden);
-            localStorage.setItem('isCTAHidden', String(!isCTAHidden));
+        <ChevronDownIcon
+          style={{
+            height: 24,
+            transform: isCTAHidden ? 'rotate3d(0, 0, -1, 180deg)' : 'rotate3d(0, 0, -1, 0deg)',
+            transition: 'transform .2s ease',
+            width: 24,
           }}
-        >
-          <ChevronDownIcon
-            style={{
-              height: 24,
-              transform: isCTAHidden ? 'rotate3d(0, 0, -1, 180deg)' : 'rotate3d(0, 0, -1, 0deg)',
-              transition: 'transform .2s ease',
-              width: 24,
-            }}
-          />
-        </button>
+        />
       </div>
 
       {!isCTAHidden && (
         <>
-          <div className="flex flex-col gap-4 font-body text-md lg:text-xl font-light">
+          <div className="flex flex-col gap-4 font-body text-md lg:text-xl font-light select-all">
             <p>
               Due to limitations with the Discord API, the Nitro status of users collected from the bot may be
               inaccurate. Premium usage can be inferred from features such as animated avatars, avatar decorations,

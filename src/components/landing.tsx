@@ -6,6 +6,7 @@ import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
 import PomeloButton from '@/components/pomelo-button';
 import PomeloStatsChart from '@/components/pomelo-stats-chart';
+import PomeloTimeline from '@/components/pomelo-timeline';
 import ThemeSwitch from '@/components/theme-switch';
 import Timestamp from '@/components/timestamp';
 import Image from 'next/image';
@@ -19,7 +20,7 @@ export default function Landing({
   pomeloStats: PomeloStatsResponse;
   isOAuth2?: boolean;
 }) {
-  const {stats, total, lastUpdatedAt, lastPomeloAt} = pomeloStats;
+  const {stats, lastUpdatedAt, lastPomeloAt} = pomeloStats;
 
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-32 md:gap-16">
@@ -37,59 +38,7 @@ export default function Landing({
 
       <ContributingCTA isOAuth2={isOAuth2} lastPomeloAt={lastPomeloAt} />
       <PomeloStatsChart data={stats} />
-
-      <div className="flex flex-col gap-4 lg:gap-6">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col lg:flex-row justify-between gap-4 items-center">
-            <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
-            <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
-              {total.toLocaleString()} records
-            </span>
-          </div>
-        </div>
-
-        {stats.length === 0 ? (
-          <p className="font-body text-xl lg:text-2xl">No Pomelos registered yet. Be the first!</p>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((stats) => {
-              const date = new Date(stats.date);
-              const month = date.toLocaleString('default', {month: 'long'});
-              const year = date.getFullYear();
-              return (
-                <div key={stats.date} className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
-                  <time className="font-body text-xl font-light">
-                    {month} {year}
-                  </time>
-                  <h3 className="font-display text-2xl font-semibold lg:text-4xl">
-                    {stats.totalCount.toLocaleString()}
-                  </h3>
-                  <div className="flex flex-col gap-1">
-                    {stats.nitroCount > 0 && (
-                      <p className="font-body text-md font-light">
-                        {stats.nitroCount.toLocaleString()} Nitro user{stats.nitroCount > 1 ? 's' : ''}
-                        {isOAuth2 ? '' : ' (inaccurate)'}
-                      </p>
-                    )}
-                    {stats.earlySupporterCount > 0 && (
-                      <p className="font-body text-md font-light">
-                        {stats.earlySupporterCount.toLocaleString()} Early Supporter
-                        {stats.earlySupporterCount > 1 ? 's' : ''}
-                      </p>
-                    )}
-                    {stats.nonNitroCount > 0 && (
-                      <p className="font-body text-md font-light">
-                        {stats.nonNitroCount.toLocaleString()} non-Nitro user{stats.nonNitroCount > 1 ? 's' : ''}
-                        {isOAuth2 ? '' : ' (inaccurate)'}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+      <PomeloTimeline pomeloStats={pomeloStats} isOAuth2={isOAuth2} />
 
       <div className="flex flex-col gap-4 lg:gap-6">
         <h2 className="font-display text-2xl font-semibold lg:text-4xl">What is Pomelo, anyway?</h2>
