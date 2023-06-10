@@ -1,9 +1,9 @@
-app = "arewepomeloyet"
+app = "arewepomeloyet-stg"
 primary_region = "lax"
 
 [http_service]
 internal_port = 3000
-force_https = true
+force_https = false
 auto_stop_machines = false
 auto_start_machines = true
 min_machines_running = 1

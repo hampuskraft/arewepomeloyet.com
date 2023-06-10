@@ -1,5 +1,6 @@
 # Base Node
 FROM node:18-bullseye-slim AS base
+RUN echo 1
 WORKDIR /app
 ENV NODE_ENV=production \
   NEXT_TELEMETRY_DISABLED=1 \

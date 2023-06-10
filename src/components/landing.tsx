@@ -36,41 +36,52 @@ export default function Landing({
         </p>
       </div>
 
-      <ContributingButton />
+      <div className="flex bg-blue-500 text-white rounded-xl p-4 lg:p-6">
+        <div className="flex flex-col gap-4">
+          <h2 className="font-display text-xl lg:text-2xl font-semibold">
+            Here&apos;s looking at you, kid. And you&apos;re looking at the {isOAuth2 ? 'OAuth2-Only' : 'Default'} View.
+          </h2>
+
+          <div className="flex flex-col gap-4 font-body text-md lg:text-xl font-light">
+            <p>
+              Due to limitations with the Discord API, the Nitro status of users collected from the bot may be
+              inaccurate. Premium usage can be inferred from features such as animated avatars, avatar decorations,
+              banners, and server profiles.
+            </p>
+            <p>
+              To guarantee Nitro status, switch to the OAuth2-only view. However, eligibility is not guaranteed as
+              Discord doesn&apos;t provide information on how long a user has been subscribed to OAuth2 applications.
+            </p>
+            <p>
+              Partners and staff members are automatically excluded. Entries with few Pomelos in the default view likely
+              come from staff members with hidden badges, staff alternate accounts, verified server owners, or owners of
+              highly monetized servers.
+            </p>
+            <p>
+              Last Pomelo registered on <Timestamp value={lastPomeloAt} />.
+            </p>
+          </div>
+
+          <ContributingButton />
+
+          <NextLink
+            className="max-w-max rounded-xl bg-white px-4 py-2 font-display font-bold text-blue-500 transition-colors duration-200 ease-in-out hover:bg-opacity-80"
+            href={isOAuth2 ? '/' : '/oauth2'}
+          >
+            Switch to the {isOAuth2 ? 'Default' : 'OAuth2-Only'} View
+          </NextLink>
+        </div>
+      </div>
+
       <PomeloStatsChart data={stats} />
 
       <div className="flex flex-col gap-4 lg:gap-6">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col lg:flex-row justify-between gap-4 items-center">
-            <div className="flex flex-row gap-2 items-center">
-              <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
-              <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
-                {total.toLocaleString()} records
-              </span>
-            </div>
-
-            <NextLink
-              className="font-display text-md font-semibold text-blue-500 dark:text-blue-400 hover:underline"
-              href={isOAuth2 ? '/' : '/oauth2'}
-            >
-              Switch to {isOAuth2 ? 'Default' : 'OAuth2-Only'} View
-            </NextLink>
-          </div>
-
-          <div className="flex flex-col gap-1 font-body text-lg font-light text-gray-700 dark:text-gray-400">
-            <p>
-              Discord doesn&apos;t provide Nitro statuses to bots; premium usage is inferred from features like animated
-              avatars and banners.
-            </p>
-
-            <p>
-              For guaranteed Nitro status, switch to the OAuth2-only view, but eligibility isn&apos;t guaranteed as
-              &apos;premium_since&apos; is missing.
-            </p>
-
-            <p>
-              Last pomelo registered on <Timestamp value={lastPomeloAt} />.
-            </p>
+            <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
+            <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
+              {total.toLocaleString()} records
+            </span>
           </div>
         </div>
 
@@ -359,8 +370,8 @@ export default function Landing({
           Last updated on <Timestamp value={lastUpdatedAt} />.
         </p>
         <p>
-          Read our <Link href="/legal">Terms of Service & Privacy Policy</Link> (TL;DR: We don&apos;t collect uniquely
-          identifiable information.)
+          Read our <Link href="/legal">Terms of Service & Privacy Policy</Link> (we don&apos;t collect uniquely
+          identifiable information).
         </p>
         <ThemeSwitch />
       </div>
