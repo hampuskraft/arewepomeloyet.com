@@ -22,7 +22,7 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
 
   return (
     <div className="flex flex-col gap-4 lg:gap-6">
-      <div className="flex flex-row justify-between gap-2 items-center">
+      <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
         <div className="flex flex-row gap-3 items-center">
           <h2 className="font-display text-2xl font-semibold lg:text-4xl">Timeline</h2>
           <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
@@ -41,11 +41,10 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
         >
           <span>{isTimelineHidden ? 'Show' : 'Hide'} Timeline</span>
           <ChevronDownIcon
+            className="w-6 h-6 flex-shrink-0"
             style={{
-              height: 24,
               transform: isTimelineHidden ? 'rotate3d(0, 0, -1, 180deg)' : 'rotate3d(0, 0, -1, 0deg)',
               transition: 'transform .2s ease',
-              width: 24,
             }}
           />
         </button>

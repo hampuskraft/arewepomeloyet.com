@@ -54,11 +54,10 @@ export default function ContributingCTA({isOAuth2, lastPomeloAt}: {isOAuth2: boo
         </h2>
 
         <ChevronDownIcon
+          className="w-6 h-6 flex-shrink-0"
           style={{
-            height: 24,
             transform: isCTAHidden ? 'rotate3d(0, 0, -1, 180deg)' : 'rotate3d(0, 0, -1, 0deg)',
             transition: 'transform .2s ease',
-            width: 24,
           }}
         />
       </div>
