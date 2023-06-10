@@ -149,6 +149,10 @@ export class DiscordBot {
         }
 
         console.log(`Added ${count} pomelos to the database (guild ${guildId}).`);
+        if (chunk_index + 1 === chunk_count) {
+          this.nonces.delete(nonce ?? '');
+          console.log(`Finished handling guild ${guildId}.`);
+        }
         break;
       }
 
