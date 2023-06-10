@@ -24,6 +24,7 @@ export class DiscordBot {
   private token: string;
   private randomBytes = util.promisify(crypto.randomBytes);
   private guilds: Map<string, number> = new Map();
+  private processedGuilds: Set<string> = new Set();
   private nonces: Map<string, string> = new Map();
   private prisma: PrismaClient = new PrismaClient();
   private rest: REST;
@@ -113,12 +114,15 @@ export class DiscordBot {
       case GatewayDispatchEvents.GuildCreate: {
         console.log(`Guild ${data.data.d.id} has ${data.data.d.member_count} members.`);
         this.guilds.set(data.data.d.id, data.data.d.member_count!);
-        const nonce = await this.randomBytes(16).then((b) => b.toString('hex'));
-        this.nonces.set(nonce, data.data.d.id);
-        await this.manager.send(data.shardId, {
-          op: GatewayOpcodes.RequestGuildMembers,
-          d: {guild_id: data.data.d.id, query: '', limit: 0, nonce},
-        });
+
+        if (!this.processedGuilds.has(data.data.d.id)) {
+          const nonce = await this.randomBytes(16).then((b) => b.toString('hex'));
+          this.nonces.set(nonce, data.data.d.id);
+          await this.manager.send(data.shardId, {
+            op: GatewayOpcodes.RequestGuildMembers,
+            d: {guild_id: data.data.d.id, query: '', limit: 0, nonce},
+          });
+        }
         break;
       }
 
@@ -150,7 +154,7 @@ export class DiscordBot {
 
         console.log(`Added ${count} pomelos to the database (guild ${guildId}).`);
         if (chunk_index + 1 === chunk_count) {
-          this.nonces.delete(nonce ?? '');
+          this.processedGuilds.add(guildId);
           console.log(`Finished handling guild ${guildId}.`);
         }
         break;
