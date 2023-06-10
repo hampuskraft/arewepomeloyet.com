@@ -10,6 +10,7 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
   const {stats, total} = pomeloStats;
   const [isMounted, setIsMounted] = useState(false);
   const [isTimelineHidden, setIsTimelineHidden] = useState(false);
+  const [showDetails, setShowDetails] = useState(true);
 
   useEffect(() => {
     setIsMounted(true);
@@ -50,44 +51,67 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
         </button>
       </div>
 
-      {isTimelineHidden ? null : stats.length === 0 ? (
-        <p className="font-body text-xl lg:text-2xl">No Pomelos registered yet. Be the first!</p>
-      ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((stats) => {
-            const date = new Date(stats.date);
-            const month = date.toLocaleString('default', {month: 'long'});
-            const year = date.getFullYear();
-            return (
-              <div key={stats.date} className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
-                <time className="font-body text-xl font-light">
-                  {month} {year}
-                </time>
-                <h3 className="font-display text-2xl font-semibold lg:text-4xl">{stats.totalCount.toLocaleString()}</h3>
-                <div className="flex flex-col gap-1">
-                  {stats.nitroCount > 0 && (
-                    <p className="font-body text-md font-light">
-                      {stats.nitroCount.toLocaleString()} Nitro user{stats.nitroCount > 1 ? 's' : ''}
-                      {isOAuth2 ? '' : ' (inaccurate)'}
-                    </p>
-                  )}
-                  {stats.earlySupporterCount > 0 && (
-                    <p className="font-body text-md font-light">
-                      {stats.earlySupporterCount.toLocaleString()} Early Supporter
-                      {stats.earlySupporterCount > 1 ? 's' : ''}
-                    </p>
-                  )}
-                  {stats.nonNitroCount > 0 && (
-                    <p className="font-body text-md font-light">
-                      {stats.nonNitroCount.toLocaleString()} non-Nitro user{stats.nonNitroCount > 1 ? 's' : ''}
-                      {isOAuth2 ? '' : ' (inaccurate)'}
-                    </p>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      {!isTimelineHidden && (
+        <>
+          <p className="font-body text-xl lg:text-2xl">
+            You&apos;re in the {isOAuth2 ? 'OAuth2-Only' : 'Default'} View.
+            {isOAuth2 ? '' : ' Nitro counts are inaccurate, see above.'}{' '}
+            <span
+              className="text-blue-500 font-semibold hover:underline"
+              role="button"
+              onClick={() => setShowDetails((prev) => !prev)}
+            >
+              Want to {showDetails ? 'hide' : 'show'} details?
+            </span>
+          </p>
+
+          {stats.length === 0 ? (
+            <p className="font-body text-xl lg:text-2xl">No Pomelos registered yet. Be the first!</p>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {stats.map((stats) => {
+                const date = new Date(stats.date);
+                const month = date.toLocaleString('default', {month: 'long'});
+                const year = date.getFullYear();
+                return (
+                  <div key={stats.date} className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
+                    <time className="font-body text-xl font-light">
+                      {month} {year}
+                    </time>
+
+                    <div className="flex flex-row gap-2 items-center">
+                      <h3 className="font-display text-2xl font-semibold lg:text-4xl">
+                        {stats.totalCount.toLocaleString()}
+                      </h3>
+                      <p className="font-body text-xl font-light">({((stats.totalCount / total) * 100).toFixed(1)}%)</p>
+                    </div>
+
+                    {showDetails && (
+                      <div className="flex flex-col gap-1 font-body text-md font-light">
+                        {stats.nitroCount > 0 && (
+                          <p>
+                            {stats.nitroCount.toLocaleString()} Nitro user{stats.nitroCount > 1 ? 's' : ''}*
+                          </p>
+                        )}
+                        {stats.earlySupporterCount > 0 && (
+                          <p>
+                            {stats.earlySupporterCount.toLocaleString()} Early Supporter user
+                            {stats.earlySupporterCount > 1 ? 's' : ''}
+                          </p>
+                        )}
+                        {stats.nonNitroCount > 0 && (
+                          <p>
+                            {stats.nonNitroCount.toLocaleString()} Non-Nitro user{stats.nonNitroCount > 1 ? 's' : ''}*
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
