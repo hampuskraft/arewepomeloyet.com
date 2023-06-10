@@ -11,6 +11,9 @@ dependencies:
   '@fontsource-variable/space-grotesk':
     specifier: 5.0.2
     version: 5.0.2
+  '@heroicons/react':
+    specifier: 2.0.18
+    version: 2.0.18(react@18.2.0)
   '@prisma/client':
     specifier: 4.15.0
     version: 4.15.0(prisma@4.15.0)
@@ -135,6 +138,14 @@ packages:
 
   /@fontsource-variable/space-grotesk@5.0.2:
     resolution: {integrity: sha512-atdKbqi7nYjTbvMtCb8jzeG27TmkUJVqurVEiWQLo93cJygD51cbNI63djkzx6SZmuqj9IBEc0XlLskTVUXvUw==}
+    dev: false
+
+  /@heroicons/react@2.0.18(react@18.2.0):
+    resolution: {integrity: sha512-7TyMjRrZZMBPa+/5Y8lN0iyvUU/01PeMGX2+RE7cQWpEUIcb4QotzUObFkJDejj/HUH4qjP/eQ0gzzKs2f+6Yw==}
+    peerDependencies:
+      react: '>= 16'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@humanwhocodes/config-array@0.11.10:

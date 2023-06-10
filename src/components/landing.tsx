@@ -1,6 +1,6 @@
 import {GITHUB_REPO_URL} from '@/common/config';
 import {BotStatsResponse, PomeloStatsResponse} from '@/common/database';
-import ContributingButton from '@/components/contributing-button';
+import ContributingCTA from '@/components/contributing-cta';
 import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
@@ -9,7 +9,6 @@ import PomeloStatsChart from '@/components/pomelo-stats-chart';
 import ThemeSwitch from '@/components/theme-switch';
 import Timestamp from '@/components/timestamp';
 import Image from 'next/image';
-import NextLink from 'next/link';
 
 export default function Landing({
   botStats,
@@ -36,43 +35,7 @@ export default function Landing({
         </p>
       </div>
 
-      <div className="flex bg-blue-500 text-white rounded-xl p-4 lg:p-6">
-        <div className="flex flex-col gap-4">
-          <h2 className="font-display text-xl lg:text-2xl font-semibold">
-            Here&apos;s looking at you, kid. And you&apos;re looking at the {isOAuth2 ? 'OAuth2-Only' : 'Default'} View.
-          </h2>
-
-          <div className="flex flex-col gap-4 font-body text-md lg:text-xl font-light">
-            <p>
-              Due to limitations with the Discord API, the Nitro status of users collected from the bot may be
-              inaccurate. Premium usage can be inferred from features such as animated avatars, avatar decorations,
-              banners, and server profiles.
-            </p>
-            <p>
-              To guarantee Nitro status, switch to the OAuth2-only view. However, eligibility is not guaranteed as
-              Discord doesn&apos;t provide information on how long a user has been subscribed to OAuth2 applications.
-            </p>
-            <p>
-              Partners and staff members are automatically excluded. Entries with few Pomelos in the default view likely
-              come from staff members with hidden badges, staff alternate accounts, verified server owners, or owners of
-              highly monetized servers.
-            </p>
-            <p>
-              Last Pomelo registered on <Timestamp value={lastPomeloAt} />.
-            </p>
-          </div>
-
-          <ContributingButton />
-
-          <NextLink
-            className="max-w-max rounded-xl bg-white px-4 py-2 font-display font-bold text-blue-500 transition-colors duration-200 ease-in-out hover:bg-opacity-80"
-            href={isOAuth2 ? '/' : '/oauth2'}
-          >
-            Switch to the {isOAuth2 ? 'Default' : 'OAuth2-Only'} View
-          </NextLink>
-        </div>
-      </div>
-
+      <ContributingCTA isOAuth2={isOAuth2} lastPomeloAt={lastPomeloAt} />
       <PomeloStatsChart data={stats} />
 
       <div className="flex flex-col gap-4 lg:gap-6">
