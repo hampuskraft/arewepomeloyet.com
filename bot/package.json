@@ -12,8 +12,10 @@
     "@discordjs/rest": "1.7.1",
     "@discordjs/ws": "0.8.3",
     "@prisma/client": "4.15.0",
+    "async-mutex": "0.4.0",
     "discord-api-types": "0.37.43",
     "discord.js": "14.11.0",
+    "p-queue": "7.3.4",
     "prisma": "4.15.0",
     "typescript": "5.1.3"
   }
