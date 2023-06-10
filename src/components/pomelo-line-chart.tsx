@@ -57,7 +57,9 @@ export default function PomeloLineChart({
 
   return (
     <div className="flex flex-col gap-4 lg:gap-6">
-      <h2 className="font-display text-2xl font-semibold lg:text-4xl">{isOAuth2 ? 'OAuth2-Only ' : ''}Pomelo Stats</h2>
+      <h2 className="font-display text-2xl font-semibold lg:text-4xl">
+        Pomelo Stats{isOAuth2 ? ' (OAuth2-Only)' : ''}
+      </h2>
       <p className="font-body text-xl lg:text-2xl">Protip: You can toggle indvidual lines by clicking on the legend.</p>
       <div className="relative h-[500px] md:h-[600px]">
         <Line

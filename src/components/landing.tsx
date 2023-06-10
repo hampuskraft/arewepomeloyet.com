@@ -20,7 +20,7 @@ export default function Landing({
   pomeloStats: PomeloStatsResponse;
   isOAuth2?: boolean;
 }) {
-  const {stats, lastUpdatedAt, lastPomeloAt} = pomeloStats;
+  const {lastUpdatedAt, lastPomeloAt} = pomeloStats;
 
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-32 md:gap-16">
