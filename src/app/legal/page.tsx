@@ -191,6 +191,16 @@ export default function Legal() {
             cease collecting real-time data. We will export the aggregated statistics to a flat JSON file hosted on
             GitHub.
           </p>
+
+          <p>
+            If you wish to delete your anonymized data before the Pomelo rollout is over, please contact us through
+            email at{' '}
+            <Link href="mailto:arewepomeloyet@hampuskraft.com" isExternal={false}>
+              arewepomeloyet@hampuskraft.com
+            </Link>
+            , and we&apos;ll delete your record(s) from the database. Please note that this will affect the accuracy of
+            the aggregated statistics.
+          </p>
         </div>
       </div>
 

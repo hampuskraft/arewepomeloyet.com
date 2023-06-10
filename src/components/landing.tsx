@@ -5,7 +5,7 @@ import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
 import Link from '@/components/link';
 import PomeloButton from '@/components/pomelo-button';
-import PomeloLineChart from '@/components/pomelo-line-chart';
+import PomeloChart from '@/components/pomelo-chart';
 import PomeloTimeline from '@/components/pomelo-timeline';
 import ThemeSwitch from '@/components/theme-switch';
 import Timestamp from '@/components/timestamp';
@@ -37,7 +37,7 @@ export default function Landing({
       </div>
 
       <ContributingCTA isOAuth2={isOAuth2} lastPomeloAt={lastPomeloAt} />
-      <PomeloLineChart pomeloStats={pomeloStats} isOAuth2={isOAuth2} />
+      <PomeloChart pomeloStats={pomeloStats} isOAuth2={isOAuth2} botStats={botStats} />
       <PomeloTimeline pomeloStats={pomeloStats} isOAuth2={isOAuth2} />
 
       <div className="flex flex-col gap-4 lg:gap-6">
