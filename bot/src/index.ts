@@ -29,6 +29,7 @@ export class DiscordBot {
   private rest: REST;
   private manager: WebSocketManager;
   private pomeloUpsertQueue: PQueue = new PQueue({concurrency: 100});
+  private createManyQueue: PQueue = new PQueue({concurrency: 1});
   private chunkMutex: Mutex = new Mutex();
 
   constructor(token: string) {
@@ -140,7 +141,9 @@ export class DiscordBot {
 
           const pomelos: PomeloCreate[] = await Promise.all(memberPromises);
           if (pomelos.length > 0) {
-            await this.prisma.pomelo.createMany({data: pomelos, skipDuplicates: true});
+            await this.createManyQueue.add(async () => {
+              await this.prisma.pomelo.createMany({data: pomelos, skipDuplicates: true});
+            });
             count += pomelos.length;
           }
         }
