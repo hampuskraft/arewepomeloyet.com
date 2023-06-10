@@ -1,6 +1,6 @@
 'use client';
 
-import {PomeloStatsResponse} from '@/common/database';
+import {PomeloStats, PomeloStatsResponse} from '@/common/database';
 import {ChevronDownIcon} from '@heroicons/react/24/solid';
 import {useEffect, useState} from 'react';
 
@@ -20,6 +20,16 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
   if (!isMounted) {
     return null;
   }
+
+  const statsByYear = stats.reduce((acc, stats) => {
+    const date = new Date(stats.date);
+    const year = date.getFullYear();
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(stats);
+    return acc;
+  }, {} as Record<number, PomeloStats[]>);
 
   return (
     <div className="flex flex-col gap-4 lg:gap-6">
@@ -68,50 +78,64 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
           {stats.length === 0 ? (
             <p className="font-body text-xl lg:text-2xl">No Pomelos registered yet. Be the first!</p>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {stats.map((stats) => {
-                const date = new Date(stats.date);
-                const month = date.toLocaleString('default', {month: 'long'});
-                const year = date.getFullYear();
-                return (
-                  <div key={stats.date} className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
-                    <time className="font-body text-xl font-light">
-                      {month} {year}
-                    </time>
+            Object.entries(statsByYear).map(([year, stats]) => (
+              <div key={year} className="flex flex-col gap-4">
+                <div className="flex flex-row gap-2 items-center">
+                  <h3 className="font-display text-2xl font-semibold lg:text-4xl">{year}</h3>
+                  <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
+                    {stats.reduce((acc, stats) => acc + stats.totalCount, 0).toLocaleString()} records
+                  </span>
+                </div>
 
-                    <div className="flex flex-row gap-2 items-center">
-                      <h3 className="font-display text-2xl font-semibold lg:text-4xl">
-                        {stats.totalCount.toLocaleString()}
-                      </h3>
-                      <p className="font-body text-xl font-light">({((stats.totalCount / total) * 100).toFixed(1)}%)</p>
-                    </div>
-
-                    {showDetails && (
-                      <div className="flex flex-col gap-1 font-body text-md font-light">
-                        {stats.nitroCount > 0 && (
-                          <p>
-                            {stats.nitroCount.toLocaleString()} Nitro user{stats.nitroCount > 1 ? 's' : ''}*
-                          </p>
-                        )}
-                        {stats.earlySupporterCount > 0 && (
-                          <p>
-                            {stats.earlySupporterCount.toLocaleString()} Early Supporter user
-                            {stats.earlySupporterCount > 1 ? 's' : ''}
-                          </p>
-                        )}
-                        {stats.nonNitroCount > 0 && (
-                          <p>
-                            {stats.nonNitroCount.toLocaleString()} Non-Nitro user{stats.nonNitroCount > 1 ? 's' : ''}*
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {stats.map((stats) => (
+                    <PomeloStatsEntry key={stats.date} stats={stats} total={total} showDetails={showDetails} />
+                  ))}
+                </div>
+              </div>
+            ))
           )}
         </>
+      )}
+    </div>
+  );
+}
+
+function PomeloStatsEntry({stats, total, showDetails}: {stats: PomeloStats; total: number; showDetails: boolean}) {
+  const date = new Date(stats.date);
+  const month = date.toLocaleString('default', {month: 'long'});
+  const year = date.getFullYear();
+
+  return (
+    <div className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
+      <time className="font-body text-xl font-light">
+        {month} {year}
+      </time>
+
+      <div className="flex flex-row gap-2 items-center">
+        <h3 className="font-display text-2xl font-semibold lg:text-4xl">{stats.totalCount.toLocaleString()}</h3>
+        <p className="font-body text-xl font-light">({((stats.totalCount / total) * 100).toFixed(1)}%)</p>
+      </div>
+
+      {showDetails && (
+        <div className="flex flex-col gap-1 font-body text-md font-light">
+          {stats.nitroCount > 0 && (
+            <p>
+              {stats.nitroCount.toLocaleString()} Nitro user{stats.nitroCount > 1 ? 's' : ''}*
+            </p>
+          )}
+          {stats.earlySupporterCount > 0 && (
+            <p>
+              {stats.earlySupporterCount.toLocaleString()} Early Supporter user
+              {stats.earlySupporterCount > 1 ? 's' : ''}
+            </p>
+          )}
+          {stats.nonNitroCount > 0 && (
+            <p>
+              {stats.nonNitroCount.toLocaleString()} Non-Nitro user{stats.nonNitroCount > 1 ? 's' : ''}*
+            </p>
+          )}
+        </div>
       )}
     </div>
   );
