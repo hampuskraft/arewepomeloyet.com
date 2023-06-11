@@ -22,7 +22,7 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
   }
 
   const statsByYear = stats.reduce((acc, stats) => {
-    const date = new Date(stats.date);
+    const date = new Date(stats.date + 'T00:00:00.000Z');
     const year = date.getFullYear();
     if (!acc[year]) {
       acc[year] = [];
@@ -102,7 +102,7 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
 }
 
 function PomeloStatsEntry({stats, total, showDetails}: {stats: PomeloStats; total: number; showDetails: boolean}) {
-  const date = new Date(stats.date);
+  const date = new Date(stats.date + 'T00:00:00.000Z');
   const month = date.toLocaleString('default', {month: 'long'});
   const year = date.getFullYear();
 
