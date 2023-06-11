@@ -14,6 +14,9 @@ dependencies:
   '@heroicons/react':
     specifier: 2.0.18
     version: 2.0.18(react@18.2.0)
+  '@js-temporal/polyfill':
+    specifier: 0.4.4
+    version: 0.4.4
   '@prisma/client':
     specifier: 4.15.0
     version: 4.15.0(prisma@4.15.0)
@@ -200,6 +203,14 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: false
+
+  /@js-temporal/polyfill@0.4.4:
+    resolution: {integrity: sha512-2X6bvghJ/JAoZO52lbgyAPFj8uCflhTo2g7nkFzEQdXd/D8rEeD4HtmTEpmtGCva260fcd66YNXBOYdnmHqSOg==}
+    engines: {node: '>=12'}
+    dependencies:
+      jsbi: 4.3.0
+      tslib: 2.5.3
     dev: false
 
   /@kurkle/color@0.3.2:
@@ -1903,6 +1914,10 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
+    dev: false
+
+  /jsbi@4.3.0:
+    resolution: {integrity: sha512-SnZNcinB4RIcnEyZqFPdGPVgrg2AcnykiBy0sHVJQKHYeaLUvi3Exj+iaPpLnFVkDPZIV4U0yvgC9/R4uEAZ9g==}
     dev: false
 
   /json-schema-traverse@0.4.1:

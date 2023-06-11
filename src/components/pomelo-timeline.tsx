@@ -2,6 +2,7 @@
 
 import {PomeloStats, PomeloStatsResponse} from '@/common/database';
 import {ChevronDownIcon} from '@heroicons/react/24/solid';
+import {Temporal} from '@js-temporal/polyfill';
 import {useEffect, useState} from 'react';
 
 const STORAGE_KEY = 'isTimelineHidden';
@@ -22,12 +23,11 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
   }
 
   const statsByYear = stats.reduce((acc, stats) => {
-    const date = new Date(stats.date + 'T00:00:00.000Z');
-    const year = date.getFullYear();
-    if (!acc[year]) {
-      acc[year] = [];
+    const date = Temporal.PlainYearMonth.from(stats.date);
+    if (!acc[date.year]) {
+      acc[date.year] = [];
     }
-    acc[year].push(stats);
+    acc[date.year].push(stats);
     return acc;
   }, {} as Record<number, PomeloStats[]>);
 
@@ -102,14 +102,12 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
 }
 
 function PomeloStatsEntry({stats, total, showDetails}: {stats: PomeloStats; total: number; showDetails: boolean}) {
-  const date = new Date(stats.date + 'T00:00:00.000Z');
-  const month = date.toLocaleString('default', {month: 'long'});
-  const year = date.getFullYear();
+  const date = Temporal.PlainYearMonth.from(stats.date);
 
   return (
     <div className="p-4 rounded-xl bg-blue-500 text-white flex flex-col gap-2">
       <time className="font-body text-xl font-light">
-        {month} {year}
+        {date.toLocaleString('default', {month: 'long', calendar: 'iso8601'})} {date.year}
       </time>
 
       <div className="flex flex-row gap-2 items-center">

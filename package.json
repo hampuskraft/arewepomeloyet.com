@@ -15,6 +15,7 @@
     "@fontsource-variable/source-sans-3": "5.0.4",
     "@fontsource-variable/space-grotesk": "5.0.3",
     "@heroicons/react": "2.0.18",
+    "@js-temporal/polyfill": "0.4.4",
     "@prisma/client": "4.15.0",
     "@types/node": "20.3.0",
     "@types/react": "18.2.11",
