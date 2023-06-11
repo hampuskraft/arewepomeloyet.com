@@ -29,9 +29,21 @@ export class DiscordBot {
   private prisma: PrismaClient = new PrismaClient();
   private rest: REST;
   private manager: WebSocketManager;
-  private pomeloUpsertQueue: PQueue = new PQueue({concurrency: 100});
-  private guildCreateQueue: PQueue = new PQueue({concurrency: 1});
-  private createManyQueue: PQueue = new PQueue({concurrency: 1});
+  private pomeloUpsertQueue: PQueue = new PQueue({
+    concurrency: 100,
+    interval: 1000,
+    intervalCap: 100,
+  });
+  private guildCreateQueue: PQueue = new PQueue({
+    concurrency: 1,
+    interval: 1000,
+    intervalCap: 1,
+  });
+  private createManyQueue: PQueue = new PQueue({
+    concurrency: 1,
+    interval: 1000,
+    intervalCap: 1,
+  });
   private chunkMutex: Mutex = new Mutex();
 
   constructor(token: string) {
