@@ -138,6 +138,7 @@ export default function PomeloChart({
           <span
             className="text-blue-500 font-semibold hover:underline"
             role="button"
+            tabIndex={0}
             onClick={() => setChartType(chartType === 'line' ? 'bar' : 'line')}
           >
             Want a {chartType === 'line' ? 'bar' : 'line'} chart instead?

@@ -69,6 +69,7 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
             <span
               className="text-blue-500 font-semibold hover:underline"
               role="button"
+              tabIndex={0}
               onClick={() => setShowDetails((prev) => !prev)}
             >
               Want to {showDetails ? 'hide' : 'show'} details?
