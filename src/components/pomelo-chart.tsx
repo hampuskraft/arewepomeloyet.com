@@ -106,6 +106,10 @@ export default function PomeloChart({
   const totalPercentage = (pomeloStats.total / botStats.members) * 100;
   const ChartComponent = chartType === 'line' ? Line : Bar;
 
+  function toggleChartType() {
+    setChartType(chartType === 'line' ? 'bar' : 'line');
+  }
+
   return (
     <div className="flex flex-col gap-4 lg:gap-6">
       <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
@@ -139,7 +143,10 @@ export default function PomeloChart({
             className="text-blue-500 font-semibold hover:underline"
             role="button"
             tabIndex={0}
-            onClick={() => setChartType(chartType === 'line' ? 'bar' : 'line')}
+            onClick={() => toggleChartType()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') toggleChartType();
+            }}
           >
             Want a {chartType === 'line' ? 'bar' : 'line'} chart instead?
           </span>

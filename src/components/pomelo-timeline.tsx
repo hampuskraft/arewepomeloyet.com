@@ -71,6 +71,9 @@ export default function PomeloTimeline({pomeloStats, isOAuth2}: {pomeloStats: Po
               role="button"
               tabIndex={0}
               onClick={() => setShowDetails((prev) => !prev)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') setShowDetails((prev) => !prev);
+              }}
             >
               Want to {showDetails ? 'hide' : 'show'} details?
             </span>
