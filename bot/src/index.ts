@@ -30,6 +30,7 @@ export class DiscordBot {
   private rest: REST;
   private manager: WebSocketManager;
   private pomeloUpsertQueue: PQueue = new PQueue({concurrency: 100});
+  private guildCreateQueue: PQueue = new PQueue({concurrency: 1});
   private createManyQueue: PQueue = new PQueue({concurrency: 1});
   private chunkMutex: Mutex = new Mutex();
 
@@ -104,30 +105,42 @@ export class DiscordBot {
     });
   }
 
-  private async handleDispatchData(data: {data: GatewayDispatchPayload} & {shardId: number}) {
-    switch (data.data.t) {
+  private async handleDispatchData(data: GatewayDispatchPayload, shardId: number) {
+    switch (data.t) {
       case GatewayDispatchEvents.Ready: {
-        console.log(`Shard ${data.shardId} is ready.`);
+        console.log(`Shard ${shardId} is ready.`);
         break;
       }
 
       case GatewayDispatchEvents.GuildCreate: {
-        console.log(`Guild ${data.data.d.id} has ${data.data.d.member_count} members.`);
-        this.guilds.set(data.data.d.id, data.data.d.member_count!);
+        console.log(`Guild ${data.d.id} has ${data.d.member_count} members.`);
+        this.guilds.set(data.d.id, data.d.member_count!);
 
-        if (!this.processedGuilds.has(data.data.d.id)) {
-          const nonce = await this.randomBytes(16).then((b) => b.toString('hex'));
-          this.nonces.set(nonce, data.data.d.id);
-          await this.manager.send(data.shardId, {
-            op: GatewayOpcodes.RequestGuildMembers,
-            d: {guild_id: data.data.d.id, query: '', limit: 0, nonce},
+        if (!this.processedGuilds.has(data.d.id)) {
+          await this.guildCreateQueue.add(async () => {
+            const nonce = await this.randomBytes(16).then((b) => b.toString('hex'));
+            this.nonces.set(nonce, data.d.id);
+
+            await this.manager.send(shardId, {
+              op: GatewayOpcodes.RequestGuildMembers,
+              d: {guild_id: data.d.id, query: '', limit: 0, nonce},
+            });
+
+            await new Promise((resolve) => {
+              const interval = setInterval(() => {
+                if (this.processedGuilds.has(data.d.id)) {
+                  clearInterval(interval);
+                  resolve(undefined);
+                }
+              }, 100);
+            });
           });
         }
         break;
       }
 
       case GatewayDispatchEvents.GuildMembersChunk: {
-        const {chunk_index, chunk_count, guild_id, nonce, members} = data.data.d;
+        const {chunk_index, chunk_count, guild_id, nonce, members} = data.d;
         console.log(`Handling chunk index ${chunk_index} of ${chunk_count} for guild ${guild_id}`);
 
         const guildId = this.nonces.get(nonce ?? '');
@@ -161,57 +174,57 @@ export class DiscordBot {
       }
 
       case GatewayDispatchEvents.GuildMemberAdd: {
-        if (!this.isValidUser(data.data.d.user!)) return;
-        const pomelo = await this.handleMember(data.data.d);
+        if (!this.isValidUser(data.d.user!)) return;
+        const pomelo = await this.handleMember(data.d);
         await this.upsertPomelo(pomelo);
         console.log(`Added pomelo ${pomelo.hash} to the database.`);
-        const guild = this.guilds.get(data.data.d.guild_id);
+        const guild = this.guilds.get(data.d.guild_id);
         if (guild == null) return;
-        this.guilds.set(data.data.d.guild_id, guild + 1);
+        this.guilds.set(data.d.guild_id, guild + 1);
         break;
       }
 
       case GatewayDispatchEvents.GuildMemberUpdate: {
-        if (!this.isValidUser(data.data.d.user)) return;
-        const pomelo = await this.handleMember(data.data.d as APIGuildMember);
+        if (!this.isValidUser(data.d.user)) return;
+        const pomelo = await this.handleMember(data.d as APIGuildMember);
         await this.upsertPomelo(pomelo);
         console.log(`Updated pomelo ${pomelo.hash} in the database.`);
         break;
       }
 
       case GatewayDispatchEvents.UserUpdate: {
-        if (!this.isValidUser(data.data.d)) return;
-        const pomelo = await this.handleUser(data.data.d);
+        if (!this.isValidUser(data.d)) return;
+        const pomelo = await this.handleUser(data.d);
         await this.upsertPomelo(pomelo);
         console.log(`Updated pomelo ${pomelo.hash} in the database.`);
         break;
       }
 
       case GatewayDispatchEvents.GuildMemberRemove: {
-        const guild = this.guilds.get(data.data.d.guild_id);
+        const guild = this.guilds.get(data.d.guild_id);
         if (guild == null) return;
-        this.guilds.set(data.data.d.guild_id, guild - 1);
+        this.guilds.set(data.d.guild_id, guild - 1);
         break;
       }
 
       case GatewayDispatchEvents.GuildDelete: {
-        const guild = this.guilds.get(data.data.d.id);
+        const guild = this.guilds.get(data.d.id);
         if (guild == null) return;
-        this.guilds.delete(data.data.d.id);
+        this.guilds.delete(data.d.id);
         break;
       }
     }
   }
 
   private setupManagerEvents() {
-    this.manager.on(WebSocketShardEvents.Dispatch, async (data) => {
-      if (data.data.t === GatewayDispatchEvents.GuildMembersChunk) {
-        console.log(`Received chunk for guild ${data.data.d.guild_id}`);
+    this.manager.on(WebSocketShardEvents.Dispatch, async ({data, shardId}) => {
+      if (data.t === GatewayDispatchEvents.GuildMembersChunk) {
+        console.log(`Received chunk for guild ${data.d.guild_id}`);
         await this.chunkMutex.runExclusive(async () => {
-          await this.handleDispatchData(data);
+          await this.handleDispatchData(data, shardId);
         });
       } else {
-        await this.handleDispatchData(data);
+        await this.handleDispatchData(data, shardId);
       }
     });
   }
