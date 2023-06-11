@@ -1,5 +1,6 @@
 **/.DS_Store
 **/.env
+**/.git
 **/.next
-**/node_modules
 **/bot
+**/node_modules
