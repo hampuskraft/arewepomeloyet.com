@@ -37,7 +37,7 @@ export default function Landing({
       </div>
 
       <ContributingCTA isOAuth2={isOAuth2} lastPomeloAt={lastPomeloAt} />
-      <PomeloChart pomeloStats={pomeloStats} isOAuth2={isOAuth2} botStats={botStats} />
+      <PomeloChart pomeloStats={pomeloStats} isOAuth2={isOAuth2} />
       <PomeloTimeline pomeloStats={pomeloStats} isOAuth2={isOAuth2} />
 
       <div className="flex flex-col gap-4 lg:gap-6">
