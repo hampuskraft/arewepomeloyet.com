@@ -1,11 +1,12 @@
 'use client';
 
-import {BotStatsResponse, PomeloStatsResponse} from '@/common/database';
+import {PomeloStatsResponse} from '@/common/database';
 import {ArrowsRightLeftIcon} from '@heroicons/react/24/solid';
 import {
   BarElement,
   CategoryScale,
   Chart as ChartJS,
+  Filler,
   Legend,
   LineElement,
   LinearScale,
@@ -16,19 +17,11 @@ import {
 import {useState} from 'react';
 import {Bar, Line} from 'react-chartjs-2';
 
-ChartJS.register(BarElement, CategoryScale, Legend, LinearScale, LineElement, PointElement, Title, Tooltip);
+ChartJS.register(BarElement, CategoryScale, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip);
 
-export default function PomeloChart({
-  pomeloStats,
-  botStats,
-  isOAuth2,
-}: {
-  pomeloStats: PomeloStatsResponse;
-  botStats: BotStatsResponse;
-  isOAuth2: boolean;
-}) {
+export default function PomeloChart({pomeloStats, isOAuth2}: {pomeloStats: PomeloStatsResponse; isOAuth2: boolean}) {
   const [chartType, setChartType] = useState<'line' | 'bar'>('line');
-  const [isBotChart, setIsBotChart] = useState<boolean>(false);
+  const [isTimestampChart, setIsTimestampChart] = useState(false);
 
   const chartData = {
     labels: pomeloStats.stats.map((item) => item.date),
@@ -66,44 +59,19 @@ export default function PomeloChart({
     ],
   };
 
-  const botChartData = {
-    labels: pomeloStats.stats.map((item) => item.date),
+  const timestampData = {
+    labels: Object.keys(pomeloStats.last24HourPomeloCounts),
     datasets: [
       {
-        label: 'Total (%)',
-        data: pomeloStats.stats.map((item) => item.totalCount / botStats.members),
+        label: 'New Pomelos',
+        data: Object.values(pomeloStats.last24HourPomeloCounts),
         borderColor: 'rgba(75,192,192,1)',
         backgroundColor: 'rgba(75,192,192,0.5)',
-        fill: true,
-      },
-      {
-        label: 'Early Supporters (%)',
-        data: pomeloStats.stats.map((item) => item.earlySupporterCount / botStats.members),
-        borderColor: 'rgba(255,205,86,1)',
-        backgroundColor: 'rgba(255,205,86,0.5)',
-        fill: true,
-        hidden: true,
-      },
-      {
-        label: 'Nitro (%)',
-        data: pomeloStats.stats.map((item) => item.nitroCount / botStats.members),
-        borderColor: 'rgba(255,99,132,1)',
-        backgroundColor: 'rgba(255,99,132,0.5)',
-        fill: true,
-        hidden: true,
-      },
-      {
-        label: 'Non-Nitro (%)',
-        data: pomeloStats.stats.map((item) => item.nonNitroCount / botStats.members),
-        borderColor: 'rgba(54,162,235,1)',
-        backgroundColor: 'rgba(54,162,235,0.5)',
-        fill: true,
-        hidden: true,
+        fill: chartType === 'line' ? false : true,
       },
     ],
   };
 
-  const totalPercentage = (pomeloStats.total / botStats.members) * 100;
   const ChartComponent = chartType === 'line' ? Line : Bar;
 
   function toggleChartType() {
@@ -116,21 +84,16 @@ export default function PomeloChart({
         <div className="flex flex-row gap-3 items-center">
           <h2 className="font-display text-2xl font-semibold lg:text-4xl">Pomelo Stats</h2>
           <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
-            {isBotChart ? 'Bot Member Chart' : isOAuth2 ? 'OAuth2-Only Chart' : 'Total Chart'}
+            {isTimestampChart ? 'New Pomelos (24h)' : isOAuth2 ? 'OAuth2-Only' : 'Total'} Chart
           </span>
         </div>
 
         {!isOAuth2 && (
           <button
             className="flex flex-row gap-2 items-center font-display text-xl font-semibold"
-            onClick={() => {
-              setIsBotChart((prev) => {
-                setChartType(prev ? 'line' : 'bar');
-                return !prev;
-              });
-            }}
+            onClick={() => setIsTimestampChart((prev) => !prev)}
           >
-            <span>Switch to {isBotChart ? 'Total Chart' : 'Bot Member Chart'}</span>
+            <span>Switch to {isTimestampChart ? 'Total' : 'New Pomelos'} Chart</span>
             <ArrowsRightLeftIcon className="w-6 h-6 flex-shrink-0" />
           </button>
         )}
@@ -138,49 +101,33 @@ export default function PomeloChart({
 
       <p className="font-body text-xl lg:text-2xl">
         Protip: You can toggle individual {chartType === 'line' ? 'lines' : 'bars'} by clicking on the legend.{' '}
-        {!isBotChart && (
-          <span
-            className="text-blue-500 font-semibold hover:underline"
-            role="button"
-            tabIndex={0}
-            onClick={() => toggleChartType()}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') toggleChartType();
-            }}
-          >
-            Want a {chartType === 'line' ? 'bar' : 'line'} chart instead?
-          </span>
-        )}
+        <span
+          className="text-blue-500 font-semibold hover:underline"
+          role="button"
+          tabIndex={0}
+          onClick={() => toggleChartType()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') toggleChartType();
+          }}
+        >
+          Want a {chartType === 'line' ? 'bar' : 'line'} chart instead?
+        </span>
       </p>
 
       <div className="relative h-[500px] md:h-[600px]">
         <ChartComponent
-          data={isBotChart ? botChartData : chartData}
+          data={isTimestampChart ? timestampData : chartData}
           options={{
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: 'top' as const,
-              },
-            },
+            plugins: {legend: {position: 'top' as const}},
             scales: {
-              x: {title: {display: true, text: 'Registration Date'}},
-              y: {
-                title: {display: true, text: isBotChart ? 'Percentage (%)' : 'Pomelos'},
-                ...(isBotChart ? {ticks: {format: {style: 'percent', maximumSignificantDigits: 2}}} : {}),
-              },
+              x: {title: {display: true, text: isTimestampChart ? 'Hour' : 'Registration Date'}},
+              y: {title: {display: true, text: 'Pomelos'}},
             },
           }}
         />
       </div>
-
-      {isBotChart && (
-        <p>
-          {totalPercentage.toFixed(1)}% of the bot&apos;s {botStats.members.toLocaleString()} members have registered a
-          Pomelo.
-        </p>
-      )}
     </div>
   );
 }

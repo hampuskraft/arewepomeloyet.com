@@ -34,6 +34,7 @@ export type PomeloStatsResponse = {
   total: number;
   lastPomeloAt: number;
   lastUpdatedAt: number;
+  last24HourPomeloCounts: Record<string, number>;
 };
 
 export async function getPomeloStats({oauth2}: {oauth2?: boolean} = {}): Promise<PomeloStatsResponse> {
@@ -58,11 +59,20 @@ export async function getPomeloStats({oauth2}: {oauth2?: boolean} = {}): Promise
     };
   });
 
+  const pomelosByTimestamp = pomelos.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
   return {
     stats,
     total: pomelos.length,
-    lastPomeloAt: pomelos.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())[0].timestamp.getTime(),
+    lastPomeloAt: pomelosByTimestamp.at(-1)?.timestamp.getTime() ?? 0,
     lastUpdatedAt: Date.now(),
+    last24HourPomeloCounts: pomelosByTimestamp
+      .filter((pomelo) => pomelo.timestamp.getTime() > Date.now() - 24 * 60 * 60 * 1000)
+      .reduce((counts, pomelo) => {
+        const date = pomelo.timestamp.toISOString().slice(0, 13);
+        counts[date] ??= 0;
+        counts[date]++;
+        return counts;
+      }, {} as Record<string, number>),
   };
 }
 
