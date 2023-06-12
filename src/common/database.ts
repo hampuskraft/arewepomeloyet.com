@@ -68,7 +68,7 @@ export async function getPomeloStats({oauth2}: {oauth2?: boolean} = {}): Promise
     last24HourPomeloCounts: pomelosByTimestamp
       .filter((pomelo) => pomelo.timestamp.getTime() > Date.now() - 24 * 60 * 60 * 1000)
       .reduce((counts, pomelo) => {
-        const date = pomelo.timestamp.toISOString().slice(0, 13);
+        const date = pomelo.timestamp.toISOString().slice(0, 13) + ':00';
         counts[date] ??= 0;
         counts[date]++;
         return counts;

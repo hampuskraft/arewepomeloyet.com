@@ -131,7 +131,7 @@ export default function Landing({
               <Link href="https://discord.com/channels/169256939211980800/889949624218042420/1115339637959970998">
                 Discord Town Hall
               </Link>{' '}
-              server on June 5, 2023 (GMT) that &quot;Starting today, users will become eligible to update their
+              server on June 5, 2023 (UTC) that &quot;Starting today, users will become eligible to update their
               usernames over the coming weeks on a rolling basis.&quot;
             </p>
           </div>

@@ -60,7 +60,12 @@ export default function PomeloChart({pomeloStats, isOAuth2}: {pomeloStats: Pomel
   };
 
   const timestampData = {
-    labels: Object.keys(pomeloStats.last24HourPomeloCounts),
+    labels: Object.keys(pomeloStats.last24HourPomeloCounts).map((value) => {
+      const month = new Date(value).getUTCMonth() + 1;
+      const day = new Date(value).getUTCDate();
+      const hour = new Date(value).getUTCHours();
+      return `${month}/${day} ${hour}:00`;
+    }),
     datasets: [
       {
         label: 'New Pomelos',
@@ -84,7 +89,7 @@ export default function PomeloChart({pomeloStats, isOAuth2}: {pomeloStats: Pomel
         <div className="flex flex-row gap-3 items-center">
           <h2 className="font-display text-2xl font-semibold lg:text-4xl">Pomelo Stats</h2>
           <span className="font-display text-sm font-semibold px-2 py-1 bg-blue-500 text-white rounded-2xl">
-            {isTimestampChart ? 'New Pomelos (24h)' : isOAuth2 ? 'OAuth2-Only' : 'Total'} Chart
+            {isTimestampChart ? 'New Pomelos Chart (24h · UTC)' : isOAuth2 ? 'OAuth2-Only Chart' : 'Total Chart'}
           </span>
         </div>
 
@@ -122,7 +127,7 @@ export default function PomeloChart({pomeloStats, isOAuth2}: {pomeloStats: Pomel
             maintainAspectRatio: false,
             plugins: {legend: {position: 'top' as const}},
             scales: {
-              x: {title: {display: true, text: isTimestampChart ? 'Hour' : 'Registration Date'}},
+              x: {title: {display: true, text: isTimestampChart ? 'Claimed At' : 'Registration Date'}},
               y: {title: {display: true, text: 'Pomelos'}},
             },
           }}
