@@ -61,9 +61,9 @@ export default function PomeloChart({pomeloStats, isOAuth2}: {pomeloStats: Pomel
 
   const timestampData = {
     labels: Object.keys(pomeloStats.last24HourPomeloCounts).map((value) => {
-      const month = new Date(value).getUTCMonth() + 1;
-      const day = new Date(value).getUTCDate();
-      const hour = new Date(value).getUTCHours();
+      const month = new Date(value).getMonth() + 1;
+      const day = new Date(value).getDate();
+      const hour = new Date(value).getHours();
       return `${month}/${day} ${hour}:00`;
     }),
     datasets: [
