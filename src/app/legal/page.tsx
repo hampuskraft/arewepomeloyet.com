@@ -195,8 +195,8 @@ export default function Legal() {
           <p>
             If you wish to delete your anonymized data before the Pomelo rollout is over, please contact us through
             email at{' '}
-            <Link href="mailto:arewepomeloyet@hampuskraft.com" isExternal={false}>
-              arewepomeloyet@hampuskraft.com
+            <Link href="mailto:legal@arewepomeloyet.com" isExternal={false}>
+              legal@arewepomeloyet.com
             </Link>
             , and we&apos;ll delete your record(s) from the database. Please note that this will affect the accuracy of
             the aggregated statistics.
@@ -217,8 +217,8 @@ export default function Legal() {
           <p>
             If you have any questions or concerns regarding this terms of service or privacy policy, please contact us
             through email at{' '}
-            <Link href="mailto:arewepomeloyet@hampuskraft.com" isExternal={false}>
-              arewepomeloyet@hampuskraft.com
+            <Link href="mailto:legal@arewepomeloyet.com" isExternal={false}>
+              legal@arewepomeloyet.com
             </Link>
             .
           </p>

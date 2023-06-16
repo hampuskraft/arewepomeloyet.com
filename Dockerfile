@@ -28,7 +28,7 @@ RUN addgroup --system nextjs && adduser --system --ingroup nextjs nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
+COPY --from=builder /app/start.sh ./
 
-USER nextjs
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["./start.sh"]
