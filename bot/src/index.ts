@@ -33,6 +33,7 @@ export class DiscordBot {
   private guildCreateQueue: PQueue = new PQueue({concurrency: 1});
   private createManyQueue: PQueue = new PQueue({concurrency: 1});
   private chunkMutex: Mutex = new Mutex();
+  private startupTimestamp: number = Date.now();
 
   constructor(token: string) {
     this.token = token;
@@ -120,6 +121,11 @@ export class DiscordBot {
         }
         console.log(`Guild ${data.d.id} has ${data.d.member_count} members.`);
         this.guilds.set(data.d.id, data.d.member_count!);
+
+        // ensure that at least 60 seconds has passed since startup before starting to process guilds
+        if (Date.now() - this.startupTimestamp < 60_000) {
+          break;
+        }
 
         if (!this.processedGuilds.has(data.d.id)) {
           await this.guildCreateQueue.add(async () => {
