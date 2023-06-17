@@ -224,6 +224,18 @@ export default function Legal() {
           </p>
 
           <p>
+            For general inquiries, send an email to{' '}
+            <Link href="mailto:support@arewepomeloyet.com" isExternal={false}>
+              support@arewepomeloyet.com
+            </Link>
+            . Vulnerability disclosure is appreciated and can be sent to{' '}
+            <Link href="mailto:security@arewepomeloyet.com" isExternal={false}>
+              security@arewepomeloyet.com
+            </Link>
+            .
+          </p>
+
+          <p>
             Our source code is publicly auditable on <Link href={GITHUB_REPO_URL}>GitHub</Link>.
           </p>
         </div>
