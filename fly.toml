@@ -1,9 +1,28 @@
 app = "arewepomeloyet-stg"
 primary_region = "lax"
 
-[http_service]
+[[services]]
 internal_port = 3000
-force_https = false
+protocol = "tcp"
 auto_stop_machines = false
 auto_start_machines = true
 min_machines_running = 1
+
+[[services.ports]]
+handlers = ["http"]
+port = 80
+force_https = true
+
+[[services.ports]]
+handlers = ["tls", "http"]
+port = "443"
+
+[[services.http_checks]]
+interval = 10000
+grace_period = "5s"
+method = "get"
+path = "/"
+protocol = "http"
+restart_limit = 1
+timeout = 2000
+tls_skip_verify = false
