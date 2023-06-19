@@ -53,9 +53,8 @@ export default function Landing({
           </p>
 
           <p>
-            Despite{' '}
-            <Link href="https://support.discord.com/hc/en-us/community/posts/14337329256983">community backlash</Link>,
-            this change, internally known as <strong>Pomelo</strong>, is still being implemented.
+            Despite <Link href="https://support.discord.com/hc/community/posts/14337329256983">community backlash</Link>
+            , this change, internally known as <strong>Pomelo</strong>, is still being implemented.
           </p>
 
           <p>
@@ -112,7 +111,7 @@ export default function Landing({
               <Link href="https://discord.com/partners">Partnered Server Owners</Link>,{' '}
               <Link href="https://discord.com/verification">Verified Server Owners</Link>, and some owners of servers
               with{' '}
-              <Link href="https://creator-support.discord.com/hc/en-us/articles/10423011974551">
+              <Link href="https://creator-support.discord.com/hc/articles/10423011974551">
                 Server Subscriptions (US only)
               </Link>
               . Moderator Programs Alumni, HypeSquad Events, and Discord Admins{' '}
@@ -197,7 +196,10 @@ export default function Landing({
 
             <p>
               Either way, this is definitely happening, and criticism{' '}
-              <Link href="https://redd.it/13mceaw">is often silenced</Link>.
+              <Link href="https://old.reddit.com/r/discordapp/comments/13mceaw/removed_by_reddit/">
+                is often silenced
+              </Link>
+              .
             </p>
           </div>
 
@@ -210,7 +212,7 @@ export default function Landing({
               A: Discord initially had @ symbols in front of usernames. However, after{' '}
               <Link href="https://www.youtube.com/watch?v=ynmnvT_h8BE">Linus Tech Tips</Link> made a video criticizing
               the @ symbol, Discord promptly removed it. Meanwhile, a community feedback post{' '}
-              <Link href="https://support.discord.com/hc/en-us/community/posts/14337329256983">
+              <Link href="https://support.discord.com/hc/community/posts/14337329256983">
                 with 50,000 upvotes criticizing the change as a whole
               </Link>{' '}
               was ignored.
@@ -224,7 +226,7 @@ export default function Landing({
 
             <p>
               A: As helpfully suggested by a{' '}
-              <Link href="https://www.reddit.com/r/discordapp/comments/136urpb/comment/jiqdm9d/?context=1000">
+              <Link href="https://old.reddit.com/r/discordapp/comments/136urpb/comment/jiqdm9d/?context=1000">
                 staff member at Discord
               </Link>
               , you &quot;could always add 4 numbers at the end of your username.&quot; Of course, we had a system for
@@ -238,20 +240,7 @@ export default function Landing({
             </p>
 
             <p>
-              A: Discord has little public information. However,{' '}
-              <Link href="https://redd.it/142rsjw">this Reddit post by u/JedNotJedi</Link> is informative.{' '}
-              <Link href="https://support.discord.com/hc/user_images/Lni1dqqqpbt6_0JZ0bNytA.png">
-                u/Ephenia made a speculative diagram
-              </Link>{' '}
-              outlining the process.{' '}
-              <Link href="https://mastodon.social/@gerb@waytoomuch.info/110503071421329895">
-                @gerb@waytoomuch.info made a trendline chart
-              </Link>{' '}
-              based on self-reported data, matching the data collected by this website.
-            </p>
-
-            <p>
-              I also suggest checking out{' '}
+              I suggest checking out{' '}
               <Link href="https://nekos.sh/discordrollout">TheCodingGuy&apos;s Discord Username Rollout Tracker</Link>.
             </p>
           </div>
