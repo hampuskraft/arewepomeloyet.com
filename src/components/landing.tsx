@@ -53,8 +53,9 @@ export default function Landing({
           </p>
 
           <p>
-            Despite <Link href="https://support.discord.com/hc/community/posts/14337329256983">community backlash</Link>
-            , this change, internally known as <strong>Pomelo</strong>, is still being implemented.
+            Despite{' '}
+            <Link href="https://support.discord.com/hc/en-us/community/posts/14337329256983">community backlash</Link>,
+            this change, internally known as <strong>Pomelo</strong>, is still being implemented.
           </p>
 
           <p>
@@ -212,7 +213,7 @@ export default function Landing({
               A: Discord initially had @ symbols in front of usernames. However, after{' '}
               <Link href="https://www.youtube.com/watch?v=ynmnvT_h8BE">Linus Tech Tips</Link> made a video criticizing
               the @ symbol, Discord promptly removed it. Meanwhile, a community feedback post{' '}
-              <Link href="https://support.discord.com/hc/community/posts/14337329256983">
+              <Link href="https://support.discord.com/hc/en-us/community/posts/14337329256983">
                 with 50,000 upvotes criticizing the change as a whole
               </Link>{' '}
               was ignored.
