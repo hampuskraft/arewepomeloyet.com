@@ -11,12 +11,12 @@
   "dependencies": {
     "@discordjs/rest": "1.7.1",
     "@discordjs/ws": "0.8.3",
-    "@prisma/client": "4.15.0",
+    "@prisma/client": "4.16.1",
     "async-mutex": "0.4.0",
-    "discord-api-types": "0.37.45",
+    "discord-api-types": "0.37.46",
     "discord.js": "14.11.0",
     "p-queue": "7.3.4",
-    "prisma": "4.15.0",
+    "prisma": "4.16.1",
     "typescript": "5.1.3"
   }
 }
