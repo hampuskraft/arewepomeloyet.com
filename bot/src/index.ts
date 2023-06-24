@@ -114,11 +114,6 @@ export class DiscordBot {
       }
 
       case GatewayDispatchEvents.GuildCreate: {
-        if (data.d.member_count < 20) {
-          console.log(`Guild ${data.d.id} has less than 20 members, leaving.`);
-          await this.rest.delete(`/users/@me/guilds/${data.d.id}`);
-          break;
-        }
         console.log(`Guild ${data.d.id} has ${data.d.member_count} members.`);
         this.guilds.set(data.d.id, data.d.member_count!);
 

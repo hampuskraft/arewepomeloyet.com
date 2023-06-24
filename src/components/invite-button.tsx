@@ -30,9 +30,6 @@ export default function InviteButton({botStats}: {botStats: BotStatsResponse}) {
           We&apos;ll make an educated guess if someone has Nitro since the Discord API doesn&apos;t provide this to
           bots.
         </p>
-        <p className="text-red-500 font-medium">
-          Given Discord&apos;s 250 server limit for unverified bots, we&apos;ll auto-leave servers under 20 members.
-        </p>
       </div>
     </div>
   );
