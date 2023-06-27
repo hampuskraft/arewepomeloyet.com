@@ -32,6 +32,19 @@ export default function Landing({isOAuth2 = false}: {isOAuth2?: boolean}) {
         </NextLink>
       </div>
 
+      <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
+        <p>
+          <strong>This site has been archived and is no longer being updated.</strong>
+        </p>
+
+        <p>
+          The Pomelo rollout is mostly complete. Follow{' '}
+          <Link href="https://nekos.sh/discordrollout">nekos.sh/discordrollout</Link> for future updates.
+        </p>
+
+        <p>This site will remain online. Thanks for your contributions!</p>
+      </div>
+
       <ContributingCTA isOAuth2={isOAuth2} lastPomeloAt={lastPomeloAt} />
       <PomeloChart pomeloStats={pomeloStats} isOAuth2={isOAuth2} />
       <PomeloTimeline pomeloStats={pomeloStats} isOAuth2={isOAuth2} />
