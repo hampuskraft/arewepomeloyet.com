@@ -50,7 +50,10 @@ export default function Legal() {
           <h3 className="font-semibold">1. Data Collection</h3>
           <p>
             The following anonymized data was gathered (refer to{' '}
-            <Link href={`${GITHUB_REPO_URL}/blob/main/prisma/schema.prisma`}>source code</Link>):
+            <Link href={`${GITHUB_REPO_URL}/blob/436d134101b09de808b20044c3311dd17ae3c15d/prisma/schema.prisma`}>
+              source code
+            </Link>
+            ):
           </p>
 
           <ul className="ml-8 list-disc list-outside space-y-1">
@@ -64,7 +67,10 @@ export default function Legal() {
 
           <p>
             To collect this data, several Discord Gateway events were monitored (refer to{' '}
-            <Link href={`${GITHUB_REPO_URL}/blob/main/bot/src/index.ts`}>source code</Link>):
+            <Link href={`${GITHUB_REPO_URL}/blob/436d134101b09de808b20044c3311dd17ae3c15d/bot/src/index.ts`}>
+              source code
+            </Link>
+            ):
           </p>
 
           <ul className="ml-8 list-disc list-outside space-y-1">
