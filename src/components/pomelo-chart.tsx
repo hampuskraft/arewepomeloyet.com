@@ -1,6 +1,4 @@
-'use client';
-
-import {PomeloStatsResponse} from '@/common/database';
+import {PomeloStatsResponse} from '@/database';
 import {ArrowsRightLeftIcon} from '@heroicons/react/24/solid';
 import {
   BarElement,
@@ -60,7 +58,7 @@ export default function PomeloChart({pomeloStats, isOAuth2}: {pomeloStats: Pomel
   };
 
   const timestampData = {
-    labels: Object.keys(pomeloStats.last24HourPomeloCounts).map((value) => {
+    labels: Object.keys(pomeloStats.pomelosOverTime).map((value) => {
       const month = new Date(value).getMonth() + 1;
       const day = new Date(value).getDate();
       const hour = new Date(value).getHours();
@@ -69,7 +67,7 @@ export default function PomeloChart({pomeloStats, isOAuth2}: {pomeloStats: Pomel
     datasets: [
       {
         label: 'New Pomelos',
-        data: Object.values(pomeloStats.last24HourPomeloCounts),
+        data: Object.values(pomeloStats.pomelosOverTime),
         borderColor: 'rgba(75,192,192,1)',
         backgroundColor: 'rgba(75,192,192,0.5)',
         fill: chartType === 'line' ? false : true,
@@ -127,7 +125,7 @@ export default function PomeloChart({pomeloStats, isOAuth2}: {pomeloStats: Pomel
             maintainAspectRatio: false,
             plugins: {legend: {position: 'top' as const}},
             scales: {
-              x: {title: {display: true, text: isTimestampChart ? 'Claimed At' : 'Registration Date'}},
+              x: {title: {display: true, text: isTimestampChart ? 'Approx Registered At' : 'User Registration Date'}},
               y: {title: {display: true, text: 'Pomelos'}},
             },
           }}

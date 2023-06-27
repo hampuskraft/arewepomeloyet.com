@@ -1,5 +1,3 @@
-'use client';
-
 import Timestamp from '@/components/timestamp';
 import {ChevronDownIcon} from '@heroicons/react/24/solid';
 import NextLink from 'next/link';
@@ -66,41 +64,44 @@ export default function ContributingCTA({isOAuth2, lastPomeloAt}: {isOAuth2: boo
         <>
           <div className="flex flex-col gap-4 font-body text-md lg:text-xl font-light select-all">
             <p>
-              Due to limitations with the Discord API, the Nitro status of users collected from the bot may be
-              inaccurate. Premium usage can be inferred from features such as animated avatars, avatar decorations,
+              Due to limitations with the Discord API, the Nitro status of users collected from the bot might have been
+              inaccurate. Premium usage could be inferred from features such as animated avatars, avatar decorations,
               banners, and server profiles.
             </p>
             <p>
-              To guarantee Nitro status, switch to the OAuth2-only view. However, eligibility is not guaranteed as
-              Discord doesn&apos;t provide information on how long a user has been subscribed to OAuth2 applications.
+              To confirm Nitro status, users could switch to the OAuth2-only view. However, eligibility was not
+              guaranteed as Discord didn&apos;t provide information on the duration of a user&apos;s subscription to
+              OAuth2 applications.
             </p>
             <p>
-              Partners and staff members are automatically excluded. Entries with few Pomelos in the default view likely
-              come from staff members with hidden badges, staff alternate accounts, verified server owners, or owners of
-              highly monetized servers.
+              Partners and staff members were automatically excluded. Entries with few Pomelos in the default view
+              likely originated from staff members with hidden badges, staff alternate accounts, verified server owners,
+              or owners of highly monetized servers.
             </p>
             <p>
-              Last Pomelo registered on <Timestamp value={lastPomeloAt} />.
+              The last Pomelo was registered on <Timestamp value={lastPomeloAt} />.
             </p>
           </div>
 
-          <a
-            className="max-w-max rounded-xl bg-white px-4 py-2 font-display font-bold text-blue-500 transition-colors duration-200 ease-in-out hover:bg-opacity-80"
-            role="button"
-            onClick={() => {
-              smoothScrollTo('#contributing');
-              window.history.pushState({}, '', '#contributing');
-            }}
-          >
-            How does this work? (And how can I contribute?)
-          </a>
+          <div className="flex flex-col lg:flex-row gap-4">
+            <a
+              className="max-w-max rounded-xl bg-white px-4 py-2 font-display font-bold text-blue-500 transition-colors duration-200 ease-in-out hover:bg-opacity-80"
+              role="button"
+              onClick={() => {
+                smoothScrollTo('#contributing');
+                window.history.pushState({}, '', '#contributing');
+              }}
+            >
+              How did this work?
+            </a>
 
-          <NextLink
-            className="max-w-max rounded-xl bg-white px-4 py-2 font-display font-bold text-blue-500 transition-colors duration-200 ease-in-out hover:bg-opacity-80"
-            href={isOAuth2 ? '/' : '/oauth2'}
-          >
-            Switch to the {isOAuth2 ? 'Default' : 'OAuth2-Only'} View
-          </NextLink>
+            <NextLink
+              className="max-w-max rounded-xl bg-white px-4 py-2 font-display font-bold text-blue-500 transition-colors duration-200 ease-in-out hover:bg-opacity-80"
+              href={isOAuth2 ? '/' : '/oauth2'}
+            >
+              Switch to the {isOAuth2 ? 'Default' : 'OAuth2-Only'} View
+            </NextLink>
+          </div>
         </>
       )}
     </div>

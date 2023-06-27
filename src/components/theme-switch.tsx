@@ -1,5 +1,3 @@
-'use client';
-
 import {useTheme} from 'next-themes';
 import {Fragment, useEffect, useState} from 'react';
 

@@ -1,5 +1,3 @@
-import {GITHUB_REPO_URL} from '@/common/config';
-import {BotStatsResponse, PomeloStatsResponse} from '@/common/database';
 import ContributingCTA from '@/components/contributing-cta';
 import GitHubIcon from '@/components/github-icon';
 import InviteButton from '@/components/invite-button';
@@ -9,17 +7,13 @@ import PomeloChart from '@/components/pomelo-chart';
 import PomeloTimeline from '@/components/pomelo-timeline';
 import ThemeSwitch from '@/components/theme-switch';
 import Timestamp from '@/components/timestamp';
+import {GITHUB_REPO_URL} from '@/config';
+import {getPomeloStats} from '@/database';
 import Image from 'next/image';
+import NextLink from 'next/link';
 
-export default function Landing({
-  botStats,
-  pomeloStats,
-  isOAuth2 = false,
-}: {
-  botStats: BotStatsResponse;
-  pomeloStats: PomeloStatsResponse;
-  isOAuth2?: boolean;
-}) {
+export default function Landing({isOAuth2 = false}: {isOAuth2?: boolean}) {
+  const pomeloStats = getPomeloStats({oauth2: isOAuth2});
   const {lastUpdatedAt, lastPomeloAt} = pomeloStats;
 
   return (
@@ -31,9 +25,11 @@ export default function Landing({
             <GitHubIcon size={48} />
           </a>
         </div>
-        <p className="font-display text-6xl tracking-tighter font-bold text-black dark:text-white lg:text-8xl">
-          Yes, but actually no.
-        </p>
+        <NextLink href="https://youtu.be/TNBR2Js1dH0?t=12" target="_blank" rel="noopener noreferrer">
+          <p className="font-display text-6xl tracking-tighter font-bold text-blue-500 underline lg:text-8xl">
+            Yes. Yes, we are.
+          </p>
+        </NextLink>
       </div>
 
       <ContributingCTA isOAuth2={isOAuth2} lastPomeloAt={lastPomeloAt} />
@@ -41,11 +37,11 @@ export default function Landing({
       <PomeloTimeline pomeloStats={pomeloStats} isOAuth2={isOAuth2} />
 
       <div className="flex flex-col gap-4 lg:gap-6">
-        <h2 className="font-display text-2xl font-semibold lg:text-4xl">What is Pomelo, anyway?</h2>
+        <h2 className="font-display text-2xl font-semibold lg:text-4xl">What was Pomelo, anyway?</h2>
 
         <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
           <p>
-            Discord is forcing all its{' '}
+            Discord forced all its{' '}
             <Link href="https://www.statista.com/statistics/1367922/discord-registered-users-worldwide/">
               560M+ registered users
             </Link>{' '}
@@ -54,46 +50,46 @@ export default function Landing({
 
           <p>
             Despite{' '}
-            <Link href="https://support.discord.com/hc/en-us/community/posts/14337329256983">community backlash</Link>,
-            this change, internally known as <strong>Pomelo</strong>, is still being implemented.
+            <Link href="https://support.discord.com/hc/en-us/community/posts/14337329256983">
+              significant community backlash
+            </Link>
+            , this change, internally known as Pomelo, was still implemented.
           </p>
 
           <p>
-            Please refer to Discord&apos;s <Link href="https://discord.com/blog/usernames">official blog post</Link> for
-            more information.
+            Discord&apos;s <Link href="https://discord.com/blog/usernames">official blog post</Link> offered more
+            information.
           </p>
         </div>
       </div>
 
       <div className="flex flex-col gap-4 lg:gap-6" id="contributing">
-        <h2 className="font-display text-2xl font-semibold lg:text-4xl">How does this site work?</h2>
+        <h2 className="font-display text-2xl font-semibold lg:text-4xl">How did this site work?</h2>
 
         <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
           <p>
-            There has been much indirection and rapidly changing information from the Discord team, so we&apos;ve
-            decided to create this site to track the progress of the Pomelo rollout.
+            There had been much indirection and rapidly changing information from the Discord team, prompting the
+            creation of this site to track the progress of the Pomelo rollout.
           </p>
 
-          <p>
-            We rely on Pomelo&apos;d users authenticating below. <strong>You are anonymous</strong>—
-            <Link href={GITHUB_REPO_URL}>feel free to audit the code</Link>.
-          </p>
+          <p>The site relied on Pomelo&apos;d users authenticating below. Users remained anonymous.</p>
 
           <PomeloButton />
 
           <p>
-            <strong>NOTE</strong>: We&apos;re not affiliated with Discord or any of its employees.
+            <strong>NOTE</strong>: This project had no affiliation with Discord or its employees.
           </p>
 
-          <InviteButton botStats={botStats} />
+          <InviteButton />
 
           <p>
-            Collect pomelos from your members in real-time by inviting our bot. No permissions required. All collected
-            data remains anonymous; you can audit <Link href={GITHUB_REPO_URL}>the source code</Link>.
+            Pomelos from members were collected in real-time by inviting the bot. No permissions were required. All
+            collected data remained anonymous; <Link href={GITHUB_REPO_URL}>the source code</Link> was open for
+            auditing.
           </p>
 
           <p>
-            Please see our <Link href="/legal">Terms of Service & Privacy Policy</Link> for more information.
+            Refer to the <Link href="/legal">Terms of Service & Privacy Policy</Link> for more information.
           </p>
         </div>
       </div>
@@ -138,7 +134,7 @@ export default function Landing({
 
           <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
             <p>
-              <strong>Q: Do Nitro users get priority in the rollout?</strong>
+              <strong>Q: Did Nitro users get priority in the rollout?</strong>
             </p>
 
             <p>
@@ -148,57 +144,57 @@ export default function Landing({
               <Link href="https://twitter.com/DiscordPreviews/status/1665788875594186754">
                 some Early Supporters registered in 2015
               </Link>{' '}
-              appear to have gotten early access.
+              appeared to have gotten early access.
             </p>
           </div>
 
           <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
             <p>
-              <strong>Q: I&apos;m an eligible Nitro user. Why is my username not available?</strong>
+              <strong>Q: I was an eligible Nitro user. Why was my username not available?</strong>
             </p>
             <p>
-              A: Discord has reserved usernames for the first registered active user on the platform with that name,
-              regardless of their Nitro status or discriminator. This ensures that getting early access to Pomelo most
-              of the time only means that you get to pick a bad name before everyone else picks even worse names.
+              A: Discord reserved usernames for the first registered active user on the platform with that name,
+              regardless of their Nitro status or discriminator. This ensured that getting early access to Pomelo most
+              of the time only meant that users got to pick a bad name before everyone else picked even worse names.
             </p>
           </div>
 
           <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
             <p>
-              <strong>Q: What are discriminators? Why are they changing?</strong>
+              <strong>Q: What were discriminators, and why were they removed?</strong>
             </p>
 
             <p>
-              A: Discriminators are the four digits following a username, such as &quot;The Real Jason#0001.&quot; The
+              A: Discriminators were the four digits following a username, such as &quot;The Real Jason#0001.&quot; The
               term &quot;discriminator&quot; was not used in the app but was rather known as a &quot;tag.&quot; Discord
-              claims in their <Link href="https://discord.com/blog/usernames">blog post</Link> that &quot;nobody knows
+              claimed in their <Link href="https://discord.com/blog/usernames">blog post</Link> that &quot;nobody knows
               what a discriminator is&quot; and referenced a Reddit post as a source.
             </p>
 
             <p>
-              Discord mentions problems with the old system (that could&apos;ve been fixed without Pomelo), such as:
+              Discord mentioned problems with the old system (that could&apos;ve been fixed without Pomelo), such as:
             </p>
 
             <ul className="ml-8 list-disc list-outside space-y-2">
-              <li className="font-semibold">Usernames are case-sensitive.</li>
-              <li className="font-semibold">Usernames sometimes contain special characters.</li>
+              <li className="font-semibold">Usernames were case-sensitive.</li>
+              <li className="font-semibold">Usernames sometimes contained special characters.</li>
               <li>
-                <span className="font-semibold">&quot;Only&quot; 10,000 users are allowed per name.</span> (Now
-                it&apos;s only 1 per name instead.)
+                <span className="font-semibold">&quot;Only&quot; 10,000 users were allowed per name.</span> (Then it
+                became only 1 per name instead.)
               </li>
             </ul>
 
             <p>
-              Friend invites would make sense, right? Discord doesn&apos;t think so. They had those for about a month,
-              only on iOS, without marketing, claiming nobody used them. Instead, they decided to become &quot;one of
-              the boys&quot; in the social media landscape and adopt unique @usernames and all the problems that come
-              with them.
+              Friend invites would have made sense, right? Discord didn&apos;t think so. They had those for about a
+              month, only on iOS, without marketing, claiming nobody used them. Instead, they decided to become
+              &quot;one of the boys&quot; in the social media landscape and adopt unique @usernames and all the problems
+              that came with them.
             </p>
 
             <p>
-              Either way, this is definitely happening, and criticism{' '}
+              Either way, this definitely happened, and criticism{' '}
               <Link href="https://old.reddit.com/r/discordapp/comments/13mceaw/removed_by_reddit/">
-                is often silenced
+                was often silenced
               </Link>
               .
             </p>
@@ -230,31 +226,8 @@ export default function Landing({
               <Link href="https://old.reddit.com/r/discordapp/comments/136urpb/comment/jiqdm9d/?context=1000">
                 staff member at Discord
               </Link>
-              , you &quot;could always add 4 numbers at the end of your username.&quot; Of course, we had a system for
-              this already: discriminators.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-            <p>
-              <strong>Q: Where can I find more information?</strong>
-            </p>
-
-            <p>
-              I suggest checking out{' '}
-              <Link href="https://nekos.sh/discordrollout">TheCodingGuy&apos;s Discord Username Rollout Tracker</Link>.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-4 font-body text-xl lg:text-2xl">
-            <p>
-              <strong>Q: Is there an API for this site?</strong>
-            </p>
-
-            <p>
-              A: Yes! You can access our aggregated stats using the{' '}
-              <Link href="/api/v1/pomelos">GET /api/v1/pomelos</Link> endpoint. To only view OAuth2 or non-OAuth2
-              pomelos, specify the <Link href="/api/v1/pomelos?oauth2=true">?oauth2=boolean</Link> query param.
+              , you &quot;could always add 4 numbers at the end of your username.&quot; Of course, there was a system
+              for this already: discriminators.
             </p>
           </div>
 
@@ -269,11 +242,8 @@ export default function Landing({
 
       <div className="flex flex-col gap-4 text-md font-display font-light text-gray-700 dark:text-gray-400">
         <p>
-          Last updated on <Timestamp value={lastUpdatedAt} />.
-        </p>
-        <p>
-          Read our <Link href="/legal">Terms of Service & Privacy Policy</Link> (we don&apos;t collect uniquely
-          identifiable information).
+          This site was archived on <Timestamp value={lastUpdatedAt} />.{' '}
+          <Link href="/legal">Terms of Service & Privacy Policy</Link>.
         </p>
         <ThemeSwitch />
       </div>

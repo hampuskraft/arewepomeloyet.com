@@ -1,6 +1,4 @@
-'use client';
-
-import {PomeloStats, PomeloStatsResponse} from '@/common/database';
+import {PomeloStats, PomeloStatsResponse} from '@/database';
 import {ChevronDownIcon} from '@heroicons/react/24/solid';
 import {Temporal} from '@js-temporal/polyfill';
 import {useEffect, useState} from 'react';
