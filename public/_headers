@@ -1,0 +1,5 @@
+/pomelos/*
+  cache-control: public, max-age=31536000, immutable
+
+/legal
+  x-robots-tag: noindex, nofollow, noarchive, nocache, noimageindex, noodp

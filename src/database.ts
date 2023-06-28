@@ -1,5 +1,3 @@
-import pomelosJson from '@/pomelos.json';
-
 export type Pomelo = {
   date: string; // YYYY-MM-DD
   nitro: boolean;
@@ -7,22 +5,6 @@ export type Pomelo = {
   early_supporter: boolean;
   oauth2: boolean;
 };
-
-const pomelos = pomelosJson as Pomelo[];
-const pomelosAscending = pomelos.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-const pomelosAscendingOAuth2 = pomelosAscending.filter((p) => p.oauth2);
-
-export type PomelosResponse = {
-  pomelos: Pomelo[];
-  timestamp: number;
-};
-
-export function getPomelos(): PomelosResponse {
-  return {
-    pomelos: pomelosAscending,
-    timestamp: pomelosAscending.at(-1)?.timestamp || 0,
-  };
-}
 
 export type PomeloStats = {
   date: string;
@@ -40,8 +22,9 @@ export type PomeloStatsResponse = {
   pomelosOverTime: Record<string, number>;
 };
 
-export function getPomeloStats({oauth2}: {oauth2?: boolean} = {}): PomeloStatsResponse {
-  const pomelos = oauth2 ? pomelosAscendingOAuth2 : pomelosAscending;
+export function getPomeloStats(data: Pomelo[], isOAuth2 = false): PomeloStatsResponse {
+  data = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const pomelos = isOAuth2 ? data.filter((pomelo) => pomelo.oauth2) : data;
   const pomeloGroups = pomelos.reduce((groups, pomelo) => {
     const date = new Date(pomelo.date).toISOString().slice(0, 7);
     groups[date] ??= [];
