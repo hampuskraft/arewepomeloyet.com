@@ -8,36 +8,12 @@ import PomeloTimeline from '@/components/pomelo-timeline';
 import ThemeSwitch from '@/components/theme-switch';
 import Timestamp from '@/components/timestamp';
 import {GITHUB_REPO_URL} from '@/config';
-import {getPomeloStats} from '@/database';
+import {POMELOS, POMELOS_OAUTH2} from '@/database';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import useSWR from 'swr';
-
-async function fetcher(url: string) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error('An error occurred while fetching the data.');
-  }
-  return response.json();
-}
 
 export default function Landing({isOAuth2 = false}: {isOAuth2?: boolean}) {
-  const totalChunks = 6;
-  const {data, error} = useSWR(
-    Array.from({length: totalChunks}, (_, i) => `/pomelos/pomelos-${i + 1}.json`),
-    (urls) => Promise.all(urls.map(fetcher)),
-  );
-
-  if (error) return <div>Error: {error.message}</div>;
-  if (!data)
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <p className="text-2xl font-semibold">Loading...</p>
-      </div>
-    );
-
-  const flattenedData = data.flat();
-  const pomeloStats = getPomeloStats(flattenedData, isOAuth2);
+  const pomeloStats = isOAuth2 ? POMELOS_OAUTH2 : POMELOS;
   const {lastUpdatedAt, lastPomeloAt} = pomeloStats;
 
   return (
